@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@shd101wyy/mume": "^0.6.6",
+    "htmlparser2": "^5.0.1"
+  }
+}

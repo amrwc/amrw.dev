@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>OTP Generator</title>
+    </head>
+    <body>
+        <script src="jsOTP.js"></script>
+        <script>
+            const totp = new jsOTP.totp();
+
+            const DEBUG = false;
+
+            function generateOTP() {
+                const totpSecretEl = document.getElementById('totp-secret');
+                DEBUG && console.log('totpSecretEl:', totpSecretEl);
+                const totpSecret = totpSecretEl.value;
+                DEBUG && console.log('totpSecret:', totpSecret);
+
+                const otpBlockEl = document.getElementById('otp-block');
+                DEBUG && console.log('otpBlockEl:', otpBlockEl);
+                if (!totpSecret) {
+                    otpBlockEl.hidden = true;
+                    return;
+                }
+
+                const otp = totp.getOtp(totpSecret);
+                DEBUG && console.log('otp:', otp);
+                const otpEl = document.getElementById('otp');
+                DEBUG && console.log('otpEl:', otpEl);
+                otpEl.textContent = otp;
+
+                otpBlockEl.hidden = false;
+            }
+
+            async function copyOTP() {
+                const otpEl = document.getElementById('otp');
+                DEBUG && console.log('otpEl:', otpEl);
+                const otp = otpEl.textContent;
+                DEBUG && console.log('otp:', otp);
+
+                await navigator.clipboard.writeText(otp);
+            }
+        </script>
+        <div>
+            <input id="totp-secret" type="password" placeholder="TOTP secret" />
+            <button onclick="generateOTP()">Generate OTP</button>
+        </div>
+        <div id="otp-block" hidden="true">
+            <span id="otp"></span>
+            <button onclick="copyOTP()">Copy</button>
+        </div>
+    </body>
+</html>
