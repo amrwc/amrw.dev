@@ -1,0 +1,9 @@
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = nano
+[commit]
+	gpgSign = true
+[gpg]
+	program = gpg
+[credential]
+	helper = cache
