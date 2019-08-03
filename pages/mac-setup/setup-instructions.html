@@ -1,0 +1,645 @@
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="../styles/styles.css" />
+<link rel="stylesheet" href="../styles/github-markdown.css" />
+
+<article class="markdown-body">
+  <h1 id="mac-setup">Mac Setup</h1>
+  <h2 id="homebrew">Homebrew</h2>
+  <p>
+    Run the following to install Homebrew. It will also take care of the Xcode
+    Command Line Tools installation.
+  </p>
+  <div class="sourceCode" id="cb1">
+    <pre
+      class="sourceCode bash"
+    ><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">/usr/bin/ruby</span> -e <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="va">)</span><span class="st">&quot;</span></a></code></pre>
+  </div>
+  <p>Install all relevant programs:</p>
+  <div class="sourceCode" id="cb2">
+    <pre
+      class="sourceCode bash"
+    ><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="ex">brew</span> install autojump git gpg pandoc thefuck the_silver_searcher zsh</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="ex">brew</span> cask install iterm2</a></code></pre>
+  </div>
+  <h2 id="iterm2">iTerm2</h2>
+  <ul>
+    <li>
+      Amend the <code>Quit iTerm2</code> keyboard shortcut to prevent accidental
+      quits:
+      <ol type="1">
+        <li>Open <code>System Preferences -&gt; Keyboard</code>.</li>
+        <li>Go to <code>Shortcuts -&gt; App Shortcuts</code>.</li>
+        <li>
+          Press the <code>+</code> button to add a shortcut.
+          <ul>
+            <li><code>Application</code>: iTerm.app`,</li>
+            <li><code>Menu Title</code>: <code>Quit iTerm2</code>,</li>
+            <li><code>Keyboard Shortcut</code>: <code>cmd + alt + Q</code></li>
+          </ul>
+        </li>
+      </ol>
+    </li>
+    <li>
+      Import JSON profile:
+      <ol type="1">
+        <li>Open <code>Preferences…</code> (<code>cmd + ,</code>).</li>
+        <li>
+          In <code>Profiles</code> tab press <code>Other Actions…</code> at near
+          the bottom and choose <code>Import JSON Profiles…</code>.
+        </li>
+        <li>Navigate to the downloaded JSON profile and choose it.</li>
+      </ol>
+    </li>
+  </ul>
+  <h2 id="shell">Shell</h2>
+  <ul>
+    <li>
+      <p>Install <code>Oh My Zsh</code>:</p>
+      <div class="sourceCode" id="cb3">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">sh</span> -c <span class="st">&quot;</span><span class="va">$(</span><span class="ex">curl</span> -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh<span class="va">)</span><span class="st">&quot;</span></a></code></pre>
+      </div>
+    </li>
+    <li>
+      <p>
+        <a href="https://stackoverflow.com/a/26321141/10620237"
+          >Change default shell</a
+        >
+        from <code>Bash</code> to <code>Zsh</code>:
+      </p>
+      <div class="sourceCode" id="cb4">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">chsh</span> -s /bin/zsh</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co"># Alternatively:</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co"># chsh -s $(which zsh)</span></a></code></pre>
+      </div>
+    </li>
+    <li>
+      (optional) More useful tips:
+      <ul>
+        <li>https://sourabhbajaj.com/mac-setup/iTerm/zsh.html</li>
+      </ul>
+    </li>
+    <li>
+      <p>Import <code>.zshrc</code>:</p>
+      <div class="sourceCode" id="cb5">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">cp</span> .zshrc ~/</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="bu">source</span> ~/.zshrc</a></code></pre>
+      </div>
+    </li>
+  </ul>
+  <h2 id="git">Git</h2>
+  <ul>
+    <li>
+      <p>
+        <a href="https://stackoverflow.com/a/2596835/10620237"
+          >set commit editor</a
+        >
+        to <code>nano</code> (as opposed to the default <code>vim</code>)
+      </p>
+      <div class="sourceCode" id="cb6">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">git</span> config --global core.editor <span class="st">&quot;nano&quot;</span></a></code></pre>
+      </div>
+    </li>
+    <li>
+      <a
+        href="https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+        >create and add an SSH key to the account</a
+      >
+      – this enables to push to private repositories without providing
+      credentials every time,
+    </li>
+    <li>
+      <p>
+        set up GnuPG – it’s used for
+        <a
+          href="https://help.github.com/en/articles/managing-commit-signature-verification"
+          >verifying the identity of the commiter (signing commits)</a
+        >
+      </p>
+      <div class="sourceCode" id="cb7">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># Installs GnuPG</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="ex">brew</span> install gpg</a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co"># Starts an interactive setup</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="ex">gpg</span> --full-generate-key</a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co"># Lists the local gpg keys – copy the right ssb</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co"># (the part after &#39;rsa4096/&#39;)</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="ex">gpg</span> --list-secret-keys --keyid-format LONG</a>
+<a class="sourceLine" id="cb7-10" title="10"></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co"># Exports the GPG key – copy-paste it to GitHub/GitLab/whatever</span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="ex">gpg</span> --armor --export <span class="op">&lt;</span>the_ssb_from_above<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb7-13" title="13"></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co"># Arms Git with the signing key</span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="fu">git</span> config --global user.signingkey <span class="op">&lt;</span>the_ssb_from_above<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb7-16" title="16"></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="co"># These two are necessary for GitHub and others</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="co"># to properly recognise the signature</span></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="co"># The email looks like the following:</span></a>
+<a class="sourceLine" id="cb7-20" title="20"><span class="co"># 01231230+username@users.noreply.github.com</span></a>
+<a class="sourceLine" id="cb7-21" title="21"><span class="fu">git</span> config --global user.email <span class="st">&quot;your.github.or.gitlab@email.address&quot;</span></a>
+<a class="sourceLine" id="cb7-22" title="22"><span class="fu">git</span> config --global user.name <span class="st">&quot;Your Name&quot;</span></a>
+<a class="sourceLine" id="cb7-23" title="23"></a>
+<a class="sourceLine" id="cb7-24" title="24"><span class="co"># This tells Git to always sign the local commits</span></a>
+<a class="sourceLine" id="cb7-25" title="25"><span class="fu">git</span> config --global commit.gpgSign true</a></code></pre>
+      </div>
+    </li>
+    <li>
+      <p>Error: <code>gpg failed to sign the data</code></p>
+      <p>
+        To avoid
+        <a href="https://stackoverflow.com/q/41052538/10620237"
+          >certain issues with signing data</a
+        >, run the following:
+      </p>
+      <div class="sourceCode" id="cb8">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># Appends &#39;export GPG_TTY=$(tty)&#39;</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co"># to bash_profile and bash-profile</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="va">line=</span><span class="st">&quot;\nexport GPG_TTY=</span><span class="va">$(</span><span class="ex">tty</span><span class="va">)</span><span class="st">\n&quot;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="bu">printf</span> <span class="st">&quot;</span><span class="va">$line</span><span class="st">&quot;</span> <span class="op">&gt;&gt;</span> ~/.bash_profile</a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="bu">printf</span> <span class="st">&quot;</span><span class="va">$line</span><span class="st">&quot;</span> <span class="op">&gt;&gt;</span> ~/.bash-profile</a></code></pre>
+      </div>
+    </li>
+    <li>
+      <p>Cache the GPG passphrase</p>
+      <p>
+        To
+        <a href="https://superuser.com/q/624343"
+          >keep the signature’s passphrase cached</a
+        >
+        for a certain amout of time in order to skip the prompt on every commit,
+        run the following:
+      </p>
+      <div class="sourceCode" id="cb9">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># Appends &#39;cache-ttl&#39; values to</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co"># gpg-agent.conf to keep the GPG</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co"># passphrase cached for 400 days</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="bu">printf</span> <span class="st">&quot;\ndefault-cache-ttl 34560000</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">max-cache-ttl 34560000&quot;</span> <span class="op">&gt;&gt;</span> ~/.gnupg/gpg-agent.conf</a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co"># Restarts the gpg-agent</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="ex">gpg-connect-agent</span> reloadagent /bye</a></code></pre>
+      </div>
+    </li>
+    <li>
+      <p>
+        Error:
+        <code>could not read '~/.stCommitMsg': No such file or directory</code>
+      </p>
+      <p>
+        To solve
+        <a href="https://stackoverflow.com/q/41606853/10620237">this issue</a>,
+        remove <code>commit.template</code> item from <code>~/.gitconfig</code>.
+      </p>
+    </li>
+  </ul>
+  <h2 id="system-preferences">System Preferences</h2>
+  <ul>
+    <li>
+      Dock
+      <ul>
+        <li>disable <code>Show recent applications in Dock</code>,</li>
+        <li>Remove every icon from the Dock, keep Downloads and Documents.</li>
+        <li>enable <code>Automatically hide and show the Dock</code>.</li>
+      </ul>
+    </li>
+    <li>
+      Mission Control
+      <ul>
+        <li>
+          disable
+          <code>Automatically rearrange Spaces based on most recent use</code>,
+        </li>
+        <li>
+          disable
+          <code>When switching to an application, switch to a Space (…)</code>.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Language &amp; Region
+      <ul>
+        <li>Just make sure these settings won’t cause any confusion.</li>
+      </ul>
+    </li>
+    <li>
+      Security &amp; Privacy
+      <ul>
+        <li>
+          General
+          <ul>
+            <li>
+              set <code>Require password (…)</code> to <code>immediately</code>,
+            </li>
+          </ul>
+        </li>
+        <li>
+          FileVault
+          <ul>
+            <li>
+              It requires an iCloud account as a backup option, or else it will
+              return a recovery key that has to be saved somewhere.
+            </li>
+            <li>It’s actually a quick process when the disk isn’t full.</li>
+          </ul>
+        </li>
+        <li>
+          Firewall
+          <ul>
+            <li>Ask the employer for details.</li>
+          </ul>
+        </li>
+        <li>
+          Privacy
+          <ul>
+            <li>disable Location Services,</li>
+            <li>disable Analytics,</li>
+            <li>disable Advertising.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Displays
+      <ul>
+        <li>
+          Display
+          <ul>
+            <li>disable <code>Automatically adjust brightness</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Energy Saver
+      <ul>
+        <li>
+          Battery
+          <ul>
+            <li><code>Turn display off after</code>: 3min,</li>
+            <li>
+              disable
+              <code>Slightly dim the display while on battery power</code>.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Keyboard
+      <ul>
+        <li>
+          Text
+          <ul>
+            <li>disable <code>Correct spelling automatically</code>,</li>
+            <li>disable <code>Capitalise words automatically</code>,</li>
+            <li>disable <code>Add full stop with double-space</code>,</li>
+            <li>disable <code>Use smart quotes and dashes</code>.</li>
+          </ul>
+        </li>
+        <li>
+          Shortcuts
+          <ul>
+            <li><code>Full Keyboard Acces</code>: All controls,</li>
+            <li>
+              Input Sources
+              <ul>
+                <li>disable <code>Select the previous input source</code>,</li>
+              </ul>
+            </li>
+            <li>
+              App Shortcuts
+              <ul>
+                <li>
+                  Override <code>Quit &lt;app_name&gt;</code> with
+                  <code>cmd + Q</code> behaviour of the system by adding
+                  shortcuts here. <code>Menu Title</code> would be, for
+                  instance, ‘Quit Safari’. The spelling must be correct.
+                  <code>Keyboard Shortcut</code> is whatever combination of
+                  keys; use <code>cmd + option + Q</code>.
+                </li>
+                <li>
+                  Re-bind copy-paste
+                  <ol type="1">
+                    <li>Press <code>+</code> down below.</li>
+                    <li>Application: <code>All Applications</code>.</li>
+                    <li>Menu Title: <code>Copy</code>/<code>Paste</code>.</li>
+                    <li>
+                      Keyboard Shortcut: <code>cmd + ;</code>/<code
+                        >cmd + '</code
+                      >.
+                    </li>
+                  </ol>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          Input Sources
+          <ul>
+            <li>add <code>British</code>,</li>
+            <li>add <code>Polish - Pro</code>,</li>
+            <li>enable <code>Show Input menu in menu bar</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Trackpad
+      <ul>
+        <li>
+          <code>Look up &amp; data detectors</code>: Tap with three fingers,
+        </li>
+        <li>enable <code>Tap to click</code>,</li>
+        <li>enable every other gesture and keep defaults.</li>
+      </ul>
+    </li>
+    <li>
+      Sound
+      <ul>
+        <li>enable <code>Show volume in menu bar</code>.</li>
+      </ul>
+    </li>
+    <li>
+      iCloud
+      <ul>
+        <li>
+          Make a company-specific account using the company-issued email
+          address.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Software Update
+      <ul>
+        <li>
+          <code>Advanced…</code>
+          <ul>
+            <li>disable <code>Download new updates when available</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Bluetooth
+      <ul>
+        <li>Turn Bluetooth off, unless you use external devices.</li>
+      </ul>
+    </li>
+    <li>
+      Extensions
+      <ul>
+        <li>
+          Touch Bar
+          <ul>
+            <li>Only keep the ESC, brightness, volume and mute buttons.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Touch ID
+      <ul>
+        <li>add the fingerprints,</li>
+        <li><code>Use Touch ID for</code>: enable all.</li>
+      </ul>
+    </li>
+    <li>
+      Siri
+      <ul>
+        <li>disable <code>Ask Siri</code>,</li>
+        <li>disable <code>Show Siri in menu bar</code>.</li>
+      </ul>
+    </li>
+    <li>
+      Date &amp; Time
+      <ul>
+        <li>
+          Clock
+          <ul>
+            <li>enable <code>Show date and time in menu bar</code>,</li>
+            <li>disable <code>Use a 24-hour clock</code>,</li>
+            <li>enable <code>Show AM/PM</code>,</li>
+            <li>enable <code>Show the day of the week</code>,</li>
+            <li>enable <code>Show date</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <h2 id="finder">Finder</h2>
+  <ul>
+    <li>
+      Preferences (<code>cmd + ,</code>)
+      <ul>
+        <li>
+          General
+          <ul>
+            <li>New Finder windows show: <code>Documents</code>,</li>
+          </ul>
+        </li>
+        <li>
+          Tags
+          <ul>
+            <li>
+              Select all the tags (<code>cmd + a</code>) and remove them (the
+              <code>-</code> button below).
+            </li>
+          </ul>
+        </li>
+        <li>
+          Sidebar
+          <ul>
+            <li>disable <code>Recents</code>.</li>
+          </ul>
+        </li>
+        <li>
+          Advanced
+          <ul>
+            <li>enable <code>Show all filename extensions</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Show hidden files
+      <ol type="1">
+        <li>Open Terminal.</li>
+        <li>
+          <p>Run</p>
+          <div class="sourceCode" id="cb10">
+            <pre
+              class="sourceCode bash"
+            ><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="ex">defaults</span> write com.apple.finder AppleShowAllFiles YES</a></code></pre>
+          </div>
+        </li>
+        <li><p>Relaunch (Force Quit) Finder.</p></li>
+      </ol>
+    </li>
+  </ul>
+  <h2 id="safari">Safari</h2>
+  <ul>
+    <li>
+      View
+      <ul>
+        <li>
+          enable <code>Show Status Bar</code> – status bar is the bottom-left
+          link preview.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Extensions
+      <ul>
+        <li>Bitwarden (or any other relevant password manager),</li>
+        <li>uBlock Origin.</li>
+      </ul>
+    </li>
+    <li>
+      Preferences
+      <ul>
+        <li>
+          General
+          <ul>
+            <li><code>New windows open with</code>: Empty Page,</li>
+            <li><code>New tabs open with</code>: Empty Page,</li>
+            <li><code>Homepage</code>: <code>https://duckduckgo.com</code>,</li>
+            <li><code>Remove history items</code>: Manually,</li>
+            <li><code>Remove download list itmems</code>: Manually,</li>
+            <li>disable <code>Open "safe" files after downloading</code>.</li>
+          </ul>
+        </li>
+        <li>
+          Tabs
+          <ul>
+            <li>enable <code>Show website icons in tabs</code>.</li>
+          </ul>
+        </li>
+        <li>
+          AutoFill
+          <ul>
+            <li>disable all.</li>
+          </ul>
+        </li>
+        <li>
+          Search
+          <ul>
+            <li><code>Search engine</code>: DuckDuckGo.</li>
+          </ul>
+        </li>
+        <li>
+          Websites
+          <ul>
+            <li>
+              Notifications
+              <ul>
+                <li>
+                  (optional) disable
+                  <code
+                    >Allow websites to ask for permission to send push
+                    notifications</code
+                  >.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          Advanced
+          <ul>
+            <li>enable <code>Show full website address</code>,</li>
+            <li><code>Default encoding</code>: Unicode (UTF-8),</li>
+            <li>enable <code>Show Develop menu in menu bar</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Toolbar
+      <ul>
+        <li>
+          Control-click (two fingers) an empty space near the top of the window
+          and press <code>Customise Toolbar…</code>
+        </li>
+        <li>
+          Add the following:
+          <ul>
+            <li>Home,</li>
+            <li>Bookmarks,</li>
+            <li>Web Inspector.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      DuckDuckGo
+      <ol type="1">
+        <li>Open <a href="https://duckduckgo.com/settings">settings</a>.</li>
+        <li>Import the settings (the passphrase from the password manager).</li>
+      </ol>
+    </li>
+  </ul>
+  <h2 id="vs-code">VS Code</h2>
+  <ul>
+    <li>
+      <a href="https://stackoverflow.com/a/36882426"
+        >Install ‘code’ command in PATH</a
+      >,
+    </li>
+    <li>
+      settings.json – <code>cmd + ,</code> and copy-paste the contents into JSON
+      version of the settings,
+    </li>
+    <li>
+      <a href="https://code.visualstudio.com/docs/getstarted/keybindings"
+        >keybindings.json</a
+      >
+      (<code>cmd + K cmd + S</code>),
+    </li>
+    <li>
+      plug-ins:
+      <ul>
+        <li>Bracket Pair Colorizer,</li>
+        <li>GitLens – Git supercharged,</li>
+        <li>Markdown Preview Enhanced,</li>
+        <li>Prettier – Code formatter,</li>
+        <li>Quit Control for VSCode,</li>
+        <li>TODO Highlight,</li>
+        <li>Visual Studio IntelliCode.</li>
+      </ul>
+    </li>
+  </ul>
+  <h2 id="terminal-deprecated">Terminal (deprecated)</h2>
+  <ul>
+    <li>
+      <p>com.apple.Terminal.plist</p>
+      <div class="sourceCode" id="cb11">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" title="1"><span class="fu">cp</span> com.apple.Terminal.plist ~/Library/Preferences/</a></code></pre>
+      </div>
+    </li>
+    <li>
+      <p>.bash_profile, .bashrc, etc.</p>
+      <div class="sourceCode" id="cb12">
+        <pre
+          class="sourceCode bash"
+        ><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" title="1"><span class="fu">cp</span> .* ~/</a></code></pre>
+      </div>
+    </li>
+  </ul>
+</article>
