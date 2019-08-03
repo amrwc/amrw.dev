@@ -11,7 +11,7 @@ Run the following to install Homebrew. It will also take care of the Xcode Comma
 Install all relevant programs:
 
 ```bash
-brew install autojump git gpg thefuck the_silver_searcher zsh
+brew install autojump git gpg pandoc thefuck the_silver_searcher zsh
 brew cask install iterm2
 ```
 
