@@ -38,3 +38,18 @@ Wrap the body in any tag with the `.markdown-body` class and the `include github
   <p>Paragraph</p>
 </article>
 ```
+
+## GitHub's auto-rendering
+
+GitHub renders all Markdown documents to HTML, therefore an uploaded document at `/pages/doc.md` should be referred to as `/pages/doc.html` to display the rendered version.
+
+This behaviour can be leveraged in README to, for instance, compose a table of contents:
+
+```Markdown
+- [Page](./pages/page.md)
+  - [Subpage](./pages/subpages/subpage.md)
+```
+
+In the repository the above will link to Markdown files on GitHub, but if the page was accessed through the hosted site, the file extensions in the links would change to `html`.
+
+The caveat of auto-rendered Markdown files is that GitHub adds the pages name at the top and `This site is open source. Improve this page.` as the footer. To avoid this, the steps from the top of the page to manually generate HTML are necessary.
