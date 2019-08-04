@@ -1,6 +1,23 @@
-# Page setup
+# Page Rendering
 
-Get [GitHub Markdown CSS](https://github.com/sindresorhus/github-markdown-css) or [generate it](https://github.com/sindresorhus/generate-github-markdown-css):
+This document describes how to render HTML pages with GitHub Flavoured Markdown (gfm) styling, including syntax highlighting, from Markdown files.
+
+## [mume](https://github.com/shd101wyy/mume)
+
+Install `mume` and run the preconfigured `render.js` script.
+
+```bash
+npm i @shd101wyy/mume
+node render.js <file_path>
+```
+
+The rendered HTML will appear next to the source files.
+
+## [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+
+_Note that this method doesn't support syntax highlighting in code blocks. To achieve that, use the above `mume` method._
+
+Get [GitHub Markdown CSS](https://github.com/sindresorhus/github-markdown-css) or [generate it yourself](https://github.com/sindresorhus/generate-github-markdown-css):
 
 ```bash
 npm install --global generate-github-markdown-css

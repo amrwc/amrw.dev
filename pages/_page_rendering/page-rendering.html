@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>applications</title>
+      <title>page-rendering</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -262,54 +262,60 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <h1 class="mume-header" id="applications">Applications</h1>
+      <h1 class="mume-header" id="page-rendering">Page Rendering</h1>
 
-<p><em>(this document needs updating)</em></p>
-<p>Applications, tools, scripts installed.</p>
-<h2 class="mume-header" id="command-line-tools">Command-line tools</h2>
+<p>This document describes how to render HTML pages with GitHub Flavoured Markdown (gfm) styling, including syntax highlighting, from Markdown files.</p>
+<h2 class="mume-header" id="mumehttpsgithubcomshd101wyymume"><a href="https://github.com/shd101wyy/mume">mume</a></h2>
 
-<ul>
-<li><a href="https://github.com/wting/autojump">autojump</a><br>
-<code>brew install autojump</code></li>
-<li><a href="https://brew.sh">Homebrew</a></li>
-<li><a href="https://nodejs.org/en/">NodeJS</a></li>
-<li><a href="https://github.com/creationix/nvm">nvm -- Node Version Manager</a></li>
-<li><a href="https://github.com/nvbn/thefuck">thefuck</a></li>
-<li><a href="https://github.com/ggreer/the_silver_searcher">the_silver_searcher aka ag</a><br>
-<code>brew install the_silver_searcher</code></li>
-</ul>
-<h2 class="mume-header" id="dev-progs">Dev progs</h2>
+<p>Install <code>mume</code> and run the preconfigured <code>render.js</code> script.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">npm</span> i @shd101wyy/mume
+node render.js <span class="token operator">&lt;</span>file_path<span class="token operator">&gt;</span>
+</pre><h2 class="mume-header" id="github-markdown-csshttpsgithubcomsindresorhusgithub-markdown-css"><a href="https://github.com/sindresorhus/github-markdown-css">github-markdown-css</a></h2>
 
-<ul>
-<li><a href="https://gnupg.org/index.html">GnuPG</a><br>
-<code>brew install gpg</code></li>
-<li><a href="https://www.getpostman.com">Postman</a></li>
-<li><a href="https://sequelpro.com">Sequel Pro</a></li>
-<li><a href="https://slack.com">Slack</a></li>
-<li><a href="https://code.visualstudio.com">Visual Studio Code</a></li>
-</ul>
-<h2 class="mume-header" id="programs">Programs</h2>
+<p><em>Note that this method doesn&apos;t support syntax highlighting in code blocks. To achieve that, use the above <code>mume</code> method.</em></p>
+<p>Get <a href="https://github.com/sindresorhus/github-markdown-css">GitHub Markdown CSS</a> or <a href="https://github.com/sindresorhus/generate-github-markdown-css">generate it yourself</a>:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --global generate-github-markdown-css
+generate-github-markdown-css <span class="token operator">&gt;</span> ~/Downloads/github-markdown.css
+</pre><p>Convert Markdown files to HTML:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">pandoc <span class="token operator">&lt;</span>source_name<span class="token operator">&gt;</span>.md <span class="token operator">&gt;</span> <span class="token operator">&lt;</span>destination_name<span class="token operator">&gt;</span>.html
+</pre><p>Wrap the body in any tag with the <code>.markdown-body</code> class and the <code>include github-markdown.css</code> stylesheet.</p>
+<pre data-role="codeBlock" data-info="HTML" class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>viewport<span class="token punctuation">&quot;</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>width=device-width, initial-scale=1<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>stylesheet<span class="token punctuation">&quot;</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>github-markdown.css<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">&gt;</span></span><span class="token style language-css">
+  <span class="token selector"><span class="token class">.markdown-body</span></span> <span class="token punctuation">{</span>
+    <span class="token property">box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
+    <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token number">200</span><span class="token unit">px</span><span class="token punctuation">;</span>
+    <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token number">980</span><span class="token unit">px</span><span class="token punctuation">;</span>
+    <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span> auto<span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">45</span><span class="token unit">px</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-<ul>
-<li><a href="https://authy.com">Authy</a></li>
-<li><a href="https://bitwarden.com">Bitwarden</a></li>
-<li><a href="https://justgetflux.com">Flux</a></li>
-<li><a href="https://github.com/tekezo/Karabiner-Elements">Karabiner-elements</a></li>
-<li><a href="https://pdfsam.org">PDFSam</a></li>
-<li><a href="https://www.signal.org">Signal</a></li>
-<li><a href="https://www.spotify.com/">Spotify</a></li>
-<li><a href="https://www.thunderbird.net/en-GB/">Thunderbird</a></li>
-<li><a href="https://www.videolan.org/vlc/">VLC media player</a></li>
-<li><a href="https://www.wireshark.org">Wireshark</a></li>
-</ul>
+  <span class="token atrule"><span class="token rule">@media</span> <span class="token punctuation">(</span><span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token number">767</span><span class="token unit">px</span><span class="token punctuation">)</span></span> <span class="token punctuation">{</span>
+    <span class="token selector"><span class="token class">.markdown-body</span></span> <span class="token punctuation">{</span>
+      <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">15</span><span class="token unit">px</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>markdown-body<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Heading<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Paragraph<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">&gt;</span></span>
+</pre><h2 class="mume-header" id="githubs-auto-rendering">GitHub&apos;s auto-rendering</h2>
+
+<p>GitHub renders all Markdown documents to HTML, therefore an uploaded document at <code>/pages/doc.md</code> should be referred to as <code>/pages/doc.html</code> to display the rendered version.</p>
+<p>This behaviour can be leveraged in README to, for instance, compose a table of contents:</p>
+<pre data-role="codeBlock" data-info="Markdown" class="language-markdown"><span class="token list punctuation">-</span> <span class="token url">[Page](./pages/page.md)</span>
+  <span class="token list punctuation">-</span> <span class="token url">[Subpage](./pages/subpages/subpage.md)</span>
+</pre><p>In the repository the above will link to Markdown files on GitHub, but if the page was accessed through the hosted site, the file extensions in the links would change to <code>html</code>.</p>
+<p>The caveat of auto-rendered Markdown files is that GitHub adds the pages name at the top and <code>This site is open source. Improve this page.</code> as the footer. To avoid this, the steps from the top of the page to manually generate HTML are necessary.</p>
 
       </div>
       <div class="md-sidebar-toc"><ul>
-<li><a href="#applications">Applications</a>
+<li><a href="#page-rendering">Page Rendering</a>
 <ul>
-<li><a href="#command-line-tools">Command-line tools</a></li>
-<li><a href="#dev-progs">Dev progs</a></li>
-<li><a href="#programs">Programs</a></li>
+<li><a href="#mumehttpsgithubcomshd101wyymume">mume</a></li>
+<li><a href="#github-markdown-csshttpsgithubcomsindresorhusgithub-markdown-css">github-markdown-css</a></li>
+<li><a href="#githubs-auto-rendering">GitHub&apos;s auto-rendering</a></li>
 </ul>
 </li>
 </ul>
