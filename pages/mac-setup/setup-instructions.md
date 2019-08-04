@@ -45,9 +45,9 @@ brew cask install iterm2
 
 - (optional) More useful tips:
   - https://sourabhbajaj.com/mac-setup/iTerm/zsh.html
-- Import `.zshrc`:
+- Import dotfiles:
   ```bash
-  cp .zshrc ~/
+  bash <(curl -sL amrw.dev/scripts/import_dotfiles)
   source ~/.zshrc
   ```
 
