@@ -8,11 +8,11 @@ Run the following to install Homebrew. It will also take care of the Xcode Comma
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Install all relevant programs:
+Install relevant programs:
 
 ```bash
 brew install autojump git gpg pandoc thefuck the_silver_searcher zsh
-brew cask install iterm2
+brew cask install iterm2 slack visual-studio-code
 ```
 
 ## iTerm2
