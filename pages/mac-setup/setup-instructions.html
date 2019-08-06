@@ -266,11 +266,11 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <h2 class="mume-header" id="homebrew">Homebrew</h2>
 
-<p>Run the following to install Homebrew. It will also take care of the Xcode Command Line Tools installation.</p>
+<p>Run the following to install <code>brew</code>. It will also take care of the Xcode Command Line Tools installation.</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">/usr/bin/ruby -e <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="token variable">)</span></span>&quot;</span>
-</pre><p>Install all relevant programs:</p>
+</pre><p>Install relevant programs:</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">brew <span class="token function">install</span> autojump <span class="token function">git</span> gpg pandoc thefuck the_silver_searcher zsh
-brew cask <span class="token function">install</span> iterm2
+brew cask <span class="token function">install</span> iterm2 slack visual-studio-code
 </pre><h2 class="mume-header" id="iterm2">iTerm2</h2>
 
 <ul>
@@ -361,11 +361,10 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 <li>
 <p>Error: <code>gpg failed to sign the data</code></p>
 <p>To avoid <a href="https://stackoverflow.com/q/41052538/10620237">certain issues with signing data</a>, run the following:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Appends &apos;export GPG_TTY=$(tty)&apos;</span>
-<span class="token comment"># to bash_profile and bash-profile</span>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Appends &apos;export GPG_TTY=$(tty)&apos; to .zshrc</span>
 line<span class="token operator">=</span><span class="token string">&quot;\nexport GPG_TTY=<span class="token variable"><span class="token variable">$(</span><span class="token function">tty</span><span class="token variable">)</span></span>\n&quot;</span>
-<span class="token function">printf</span> <span class="token string">&quot;<span class="token variable">$line</span>&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.bash_profile
-<span class="token function">printf</span> <span class="token string">&quot;<span class="token variable">$line</span>&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.bash-profile
+<span class="token function">printf</span> <span class="token string">&quot;<span class="token variable">$line</span>&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.zshrc
+<span class="token function">source</span> ~/.zshrc
 </pre></li>
 <li>
 <p>Cache the GPG passphrase</p>
