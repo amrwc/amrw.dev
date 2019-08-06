@@ -2,7 +2,7 @@
 
 ## Homebrew
 
-Run the following to install Homebrew. It will also take care of the Xcode Command Line Tools installation.
+Run the following to install `brew`. It will also take care of the Xcode Command Line Tools installation.
 
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -95,11 +95,10 @@ brew cask install iterm2 slack visual-studio-code
   To avoid [certain issues with signing data](https://stackoverflow.com/q/41052538/10620237), run the following:
 
   ```bash
-  # Appends 'export GPG_TTY=$(tty)'
-  # to bash_profile and bash-profile
+  # Appends 'export GPG_TTY=$(tty)' to .zshrc
   line="\nexport GPG_TTY=$(tty)\n"
-  printf "$line" >> ~/.bash_profile
-  printf "$line" >> ~/.bash-profile
+  printf "$line" >> ~/.zshrc
+  source ~/.zshrc
   ```
 
 - Cache the GPG passphrase
