@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>README</title>
+      <title>git</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -262,33 +262,33 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <h1 class="mume-header" id="personal-homepage">Personal homepage</h1>
+      <h1 class="mume-header" id="git">Git</h1>
 
-<p>A personal site used as a storage for notes and configuration files.</p>
-<h2 class="mume-header" id="table-of-contents">Table of contents</h2>
+<h2 class="mume-header" id="gpg-sign-all-previous-commits">GPG sign all previous commits</h2>
+
+<p>In a case where the repository was cloned and commits were made without properly setting up automatic GPG signing, or the commits were simply unsigned, <a href="https://stackoverflow.com/a/41883164/10620237">there is a way to sign all previous commits</a>.</p>
+<p><em>WARNING: All the commit IDs will change, therefore you&apos;re rewriting the history. Proceed with care, especially if you collaborate with other developers.</em></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">git</span> filter-branch --commit-filter <span class="token string">&apos;git commit-tree -S &quot;<span class="token variable">$@</span>&quot;;&apos;</span> -- --all
+</pre><h3 class="mume-header" id="known-issues">Known issues</h3>
 
 <ul>
-<li>Mac setup
-<ul>
-<li><a href="./pages/mac-setup/applications.html">Applications</a> &#x2013; a list of applications installed</li>
-<li><a href="./pages/mac-setup/setup-instructions.html">Setup instructions</a></li>
-</ul>
-</li>
-<li>Notes
-<ul>
-<li><a href="./pages/notes/git.html">Git</a></li>
-<li><a href="./pages/notes/javascript.html">JavaScript</a></li>
-<li><a href="./pages/notes/latex.html">LaTeX</a></li>
-<li><a href="./pages/notes/random-technical-issues.html">Random technical issues</a></li>
-</ul>
-</li>
+<li>
+<p>When all commits were made from one machine (all <code>Unverified</code>), and the last commit was done through GitHub (adding LICENCE), the last commit changed from <code>Verified</code> to <code>Unverified</code>. Running the above snippet again didn&apos;t help. The solution was to hard-reset the last commit and re-add the licence.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">git</span> reset --hard HEAD^1
+<span class="token function">git</span> push -f
+<span class="token comment"># Then re-add the licence</span>
+</pre></li>
 </ul>
 
       </div>
       <div class="md-sidebar-toc"><ul>
-<li><a href="#personal-homepage">Personal homepage</a>
+<li><a href="#git">Git</a>
 <ul>
-<li><a href="#table-of-contents">Table of contents</a></li>
+<li><a href="#gpg-sign-all-previous-commits">GPG sign all previous commits</a>
+<ul>
+<li><a href="#known-issues">Known issues</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
