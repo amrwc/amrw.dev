@@ -2,18 +2,12 @@
 
 This document describes how to render HTML pages with GitHub Flavoured Markdown (gfm) styling, including syntax highlighting, from Markdown files.
 
-## Special treatment for `index.html`
+## `index.html`
 
-_This is important!_
-
-Whichever method from the ones below is used, when the `index.html` is re-rendered it requires additional steps.
-
-### Replace `.md` extensions with `.html`
-
-`index.html` is rendered from `README.md` which contains URLs to other parts of the repository and the website. For instance, the table of content inside of README points to other Markdown documents, but after it's rendered, the hyperlinks will be broken when `index.html` is deployed to GitHub Pages. Therefore, run the following one-liner that will fix the href's.
+`index.html` is rendered from `README.md` using `render-index.js` script.
 
 ```bash
-perl -i -pe "s/.md\">/.html\">/g" index.html
+node render-index.js
 ```
 
 ## [mume](https://github.com/shd101wyy/mume)
@@ -84,3 +78,17 @@ This behaviour can be leveraged in README to, for instance, compose a table of c
 In the repository the above will link to Markdown files on GitHub, but if the page was accessed through the hosted site, the file extensions in the links would change to `html`.
 
 The caveat of auto-rendered Markdown files is that GitHub adds the pages name at the top and `This site is open source. Improve this page.` as the footer. To avoid this, the steps from the top of the page to manually generate HTML are necessary.
+
+## Special treatment for `index.html`
+
+Whichever method is used, when the `index.html` is re-rendered it requires additional steps.
+
+### Replace `.md` extensions with `.html` (deprecated)
+
+_Please note: this case is deprecated, because the case has been covered in the `render-index.js` script._
+
+`index.html` is rendered from `README.md` which contains URLs to other parts of the repository and the website. For instance, the table of content inside of README points to other Markdown documents, but after it's rendered, the hyperlinks will be broken when `index.html` is deployed to GitHub Pages. Therefore, run the following one-liner that will fix the href's.
+
+```bash
+perl -i -pe "s/.md\">/.html\">/g" index.html
+```
