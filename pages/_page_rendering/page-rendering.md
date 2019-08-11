@@ -2,6 +2,20 @@
 
 This document describes how to render HTML pages with GitHub Flavoured Markdown (gfm) styling, including syntax highlighting, from Markdown files.
 
+## Special treatment for `index.html`
+
+_This is important!_
+
+Whichever method from the ones below is used, when the `index.html` is re-rendered it requires additional steps.
+
+### Replace `.md` extensions with `.html`
+
+`index.html` is rendered from `README.md` which contains URLs to other parts of the repository and the website. For instance, the table of content inside of README points to other Markdown documents, but after it's rendered, the hyperlinks will be broken when `index.html` is deployed to GitHub Pages. Therefore, run the following one-liner that will fix the href's.
+
+```bash
+perl -i -pe "s/.md\">/.html\">/g" index.html
+```
+
 ## [mume](https://github.com/shd101wyy/mume)
 
 Install `mume` and run the preconfigured `render.js` script.
