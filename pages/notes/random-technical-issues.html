@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>README</title>
+      <title>random-technical-issues</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -262,33 +262,39 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <h1 class="mume-header" id="personal-homepage">Personal homepage</h1>
+      <h1 class="mume-header" id="random-technical-issues">Random Technical Issues</h1>
 
-<p>A personal site used as a storage for notes and configuration files.</p>
-<h2 class="mume-header" id="table-of-contents">Table of contents</h2>
+<p>Uncategorised issues, such as &#x2018;mouse doesn&#x2019;t work in such and such scenario and here&#x2019;s how to fix it&#x2019;.</p>
+<h2 class="mume-header" id="netflix-full-screen-flicker-on-mac-safari">Netflix full screen flicker on Mac Safari</h2>
 
-<ul>
-<li>Mac setup
-<ul>
-<li><a href="./pages/mac-setup/applications.html">Applications</a> &#x2013; a list of applications installed</li>
-<li><a href="./pages/mac-setup/setup-instructions.html">Setup instructions</a></li>
-</ul>
-</li>
-<li>Notes
-<ul>
-<li><a href="./pages/notes/git.html">Git</a></li>
-<li><a href="./pages/notes/javascript.html">JavaScript</a></li>
-<li><a href="./pages/notes/latex.html">LaTeX</a></li>
-<li><a href="./pages/notes/random-technical-issues.html">Random technical issues</a></li>
-</ul>
-</li>
-</ul>
+<ol>
+<li>Go to System Preferences -&gt; Accessibility -&gt; Display.</li>
+<li>Change the cursor size. It can be put back to the original value, but the flicker will stop.</li>
+</ol>
+<h2 class="mume-header" id="autojumphttpsgithubcomwtingautojump-doesnt-work"><a href="https://github.com/wting/autojump">Autojump</a> doesn&apos;t work</h2>
 
+<p>Autojump (<code>j &lt;dir_name&gt;</code>) alias may not work after a Shell migration. Try reinstalling the program:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">brew reinstall autojump
+</pre><p>If the above didn&apos;t help, make sure you have the appropriate preset in your relevant <code>.*rc</code> file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token punctuation">[</span> -f /usr/local/etc/profile.d/autojump.sh <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">.</span> /usr/local/etc/profile.d/autojump.sh
+<span class="token comment"># Append to .zshrc, for instance:</span>
+<span class="token punctuation">[</span> -f /usr/local/etc/profile.d/autojump.sh <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">.</span> /usr/local/etc/profile.d/autojump.sh <span class="token operator">&gt;&gt;</span> ~/.zshrc
+<span class="token function">source</span> ~/.zshrc
+</pre><h2 class="mume-header" id="thefuckhttpsgithubcomnvbnthefuck-doesnt-work"><a href="https://github.com/nvbn/thefuck">thefuck</a> doesn&apos;t work</h2>
+
+<p>thefuck (<code>fuck -y</code>) alias may be missing from the relevant <code>.*rc</code> file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">eval</span> <span class="token variable"><span class="token variable">$(</span>thefuck --alias<span class="token variable">)</span></span>
+<span class="token comment"># Append to .zshrc, for instance:</span>
+<span class="token function">eval</span> <span class="token variable"><span class="token variable">$(</span>thefuck --alias<span class="token variable">)</span></span> <span class="token operator">&gt;&gt;</span> ~/.zshrc
+<span class="token function">source</span> ~/.zshrc
+</pre>
       </div>
       <div class="md-sidebar-toc"><ul>
-<li><a href="#personal-homepage">Personal homepage</a>
+<li><a href="#random-technical-issues">Random Technical Issues</a>
 <ul>
-<li><a href="#table-of-contents">Table of contents</a></li>
+<li><a href="#netflix-full-screen-flicker-on-mac-safari">Netflix full screen flicker on Mac Safari</a></li>
+<li><a href="#autojumphttpsgithubcomwtingautojump-doesnt-work">Autojump doesn&apos;t work</a></li>
+<li><a href="#thefuckhttpsgithubcomnvbnthefuck-doesnt-work">thefuck doesn&apos;t work</a></li>
 </ul>
 </li>
 </ul>
