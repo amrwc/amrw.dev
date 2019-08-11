@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head>
-      <title>README</title>
+      <title>random-scripting-snippets</title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
@@ -262,34 +262,27 @@ pre[data-line] .line-highlight[data-end]:after {
     </head>
     <body for="html-export">
       <div class="mume markdown-preview  ">
-      <h1 class="mume-header" id="personal-homepage">Personal homepage</h1>
+      <h1 class="mume-header" id="random-scripting-snippets">Random Scripting Snippets</h1>
 
-<p>A personal site used as a storage for notes and configuration files.</p>
-<h2 class="mume-header" id="table-of-contents">Table of contents</h2>
+<h2 class="mume-header" id="replace-file-contents-matched-with-regex">Replace file contents matched with regex</h2>
 
-<ul>
-<li>Mac setup
-<ul>
-<li><a href="./pages/mac-setup/applications.html">Applications</a> &#x2013; a list of applications installed</li>
-<li><a href="./pages/mac-setup/setup-instructions.html">Setup instructions</a></li>
-</ul>
-</li>
-<li>Notes
-<ul>
-<li><a href="./pages/notes/git.html">Git</a></li>
-<li><a href="./pages/notes/javascript.html">JavaScript</a></li>
-<li><a href="./pages/notes/latex.html">LaTeX</a></li>
-<li><a href="./pages/notes/random-scripting-snippets.html">Random scripting snippets</a></li>
-<li><a href="./pages/notes/random-technical-issues.html">Random technical issues</a></li>
-</ul>
-</li>
-</ul>
-
+<p>Replace in all files in the supplied directory:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Source: https://superuser.com/a/118386</span>
+<span class="token function">find</span> <span class="token operator">&lt;</span>dir/path<span class="token operator">&gt;</span> -type f -exec perl -i -pe <span class="token string">&quot;s/&lt;search_regex&gt;/&lt;replacement&gt;/g&quot;</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> \<span class="token punctuation">;</span>
+<span class="token comment"># The following example replaces all occurrences of `.md\&quot;` with `.html\&quot;`</span>
+<span class="token comment"># in files in the current directory while providing backup files.</span>
+<span class="token function">find</span> <span class="token keyword">.</span> -type f -exec perl -i.bak -pe <span class="token string">&quot;s/.md\&quot;&gt;/.html\&quot;&gt;/g&quot;</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> \<span class="token punctuation">;</span>
+</pre><p>Replace in a given file:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Source: https://stackoverflow.com/a/4247319/10620237</span>
+perl -i -pe <span class="token string">&quot;s/&lt;search_regex&gt;/&lt;replacement&gt;/g&quot;</span> <span class="token operator">&lt;</span>path<span class="token operator">&gt;</span>
+<span class="token comment"># Example:</span>
+perl -i -pe <span class="token string">&quot;s/.md\&quot;&gt;/.html\&quot;&gt;/g&quot;</span> index.html
+</pre>
       </div>
       <div class="md-sidebar-toc"><ul>
-<li><a href="#personal-homepage">Personal homepage</a>
+<li><a href="#random-scripting-snippets">Random Scripting Snippets</a>
 <ul>
-<li><a href="#table-of-contents">Table of contents</a></li>
+<li><a href="#replace-file-contents-matched-with-regex">Replace file contents matched with regex</a></li>
 </ul>
 </li>
 </ul>
