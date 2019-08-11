@@ -7,3 +7,8 @@ A personal site used as a storage for notes and configuration files.
 - Mac setup
   - [Applications](./pages/mac-setup/applications.md) – a list of applications installed
   - [Setup instructions](./pages/mac-setup/setup-instructions.md)
+- Notes
+  - [Git](./pages/notes/git.md)
+  - [JavaScript](./pages/notes/javascript.md)
+  - [LaTeX](./pages/notes/latex.md)
+  - [Random technical issues](./pages/notes/random-technical-issues.md)
