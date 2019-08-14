@@ -64,7 +64,7 @@ brew cask install iterm2 slack visual-studio-code
 
   ```bash
   # Installs GnuPG
-  brew install gpg
+  brew install gpg pinentry-mac
 
   # Starts an interactive setup
   gpg --full-generate-key
@@ -89,36 +89,6 @@ brew cask install iterm2 slack visual-studio-code
   # This tells Git to always sign the local commits
   git config --global commit.gpgSign true
   ```
-
-- Error: `gpg failed to sign the data`
-
-  To avoid [certain issues with signing data](https://stackoverflow.com/q/41052538/10620237), run the following:
-
-  ```bash
-  # Appends 'export GPG_TTY=$(tty)' to .zshrc
-  line="\nexport GPG_TTY=$(tty)\n"
-  printf "$line" >> ~/.zshrc
-  source ~/.zshrc
-  ```
-
-- Cache the GPG passphrase
-
-  To [keep the signature's passphrase cached](https://superuser.com/q/624343) for a certain amout of time in order to skip the prompt on every commit, run the following:
-
-  ```bash
-  # Appends 'cache-ttl' values to
-  # gpg-agent.conf to keep the GPG
-  # passphrase cached for 400 days
-  printf "\ndefault-cache-ttl 34560000
-  max-cache-ttl 34560000" >> ~/.gnupg/gpg-agent.conf
-
-  # Restarts the gpg-agent
-  gpg-connect-agent reloadagent /bye
-  ```
-
-- Error: `could not read '~/.stCommitMsg': No such file or directory`
-
-  To solve [this issue](https://stackoverflow.com/q/41606853/10620237), remove `commit.template` item from `~/.gitconfig`.
 
 ## System Preferences
 
