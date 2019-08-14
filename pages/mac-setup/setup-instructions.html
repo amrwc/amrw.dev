@@ -333,7 +333,7 @@ brew cask <span class="token function">install</span> iterm2 slack visual-studio
 <li>
 <p>set up GnuPG &#x2013; it&apos;s used for <a href="https://help.github.com/en/articles/managing-commit-signature-verification">verifying the identity of the commiter (signing commits)</a></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Installs GnuPG</span>
-brew <span class="token function">install</span> gpg
+brew <span class="token function">install</span> gpg pinentry-mac
 
 <span class="token comment"># Starts an interactive setup</span>
 gpg --full-generate-key
@@ -358,30 +358,6 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 <span class="token comment"># This tells Git to always sign the local commits</span>
 <span class="token function">git</span> config --global commit.gpgSign <span class="token boolean">true</span>
 </pre></li>
-<li>
-<p>Error: <code>gpg failed to sign the data</code></p>
-<p>To avoid <a href="https://stackoverflow.com/q/41052538/10620237">certain issues with signing data</a>, run the following:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Appends &apos;export GPG_TTY=$(tty)&apos; to .zshrc</span>
-line<span class="token operator">=</span><span class="token string">&quot;\nexport GPG_TTY=<span class="token variable"><span class="token variable">$(</span><span class="token function">tty</span><span class="token variable">)</span></span>\n&quot;</span>
-<span class="token function">printf</span> <span class="token string">&quot;<span class="token variable">$line</span>&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.zshrc
-<span class="token function">source</span> ~/.zshrc
-</pre></li>
-<li>
-<p>Cache the GPG passphrase</p>
-<p>To <a href="https://superuser.com/q/624343">keep the signature&apos;s passphrase cached</a> for a certain amout of time in order to skip the prompt on every commit, run the following:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Appends &apos;cache-ttl&apos; values to</span>
-<span class="token comment"># gpg-agent.conf to keep the GPG</span>
-<span class="token comment"># passphrase cached for 400 days</span>
-<span class="token function">printf</span> <span class="token string">&quot;\ndefault-cache-ttl 34560000
-max-cache-ttl 34560000&quot;</span> <span class="token operator">&gt;&gt;</span> ~/.gnupg/gpg-agent.conf
-
-<span class="token comment"># Restarts the gpg-agent</span>
-gpg-connect-agent reloadagent /bye
-</pre></li>
-<li>
-<p>Error: <code>could not read &apos;~/.stCommitMsg&apos;: No such file or directory</code></p>
-<p>To solve <a href="https://stackoverflow.com/q/41606853/10620237">this issue</a>, remove <code>commit.template</code> item from <code>~/.gitconfig</code>.</p>
-</li>
 </ul>
 <h2 class="mume-header" id="system-preferences">System Preferences</h2>
 
