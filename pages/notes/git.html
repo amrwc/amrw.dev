@@ -321,6 +321,21 @@ line<span class="token operator">=</span><span class="token string">&quot;\nexpo
 <p>If the above tips didn&apos;t help, try removing the gpg programs and go through <a href="https://stackoverflow.com/a/40066889/10620237">the comprehensive guide on SO</a>.</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">brew uninstall gpg pinentry-mac
 <span class="token function">rm</span> -rf ~/.gnupg <span class="token comment"># Careful! You will lose your GPG keys.</span>
+</pre><h2 class="mume-header" id="change-committers-name-andor-email-in-all-previous-commits">Change committer&apos;s name and/or email in all previous commits</h2>
+
+<p><em>WARNING: All the commit IDs will change, therefore you&apos;re rewriting the history. Proceed with care, especially if you collaborate with other developers.</em></p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Source: https://stackoverflow.com/a/870367/10620237</span>
+<span class="token function">git</span> filter-branch --commit-filter <span class="token string">&apos;
+    if [ &quot;<span class="token variable">$GIT_COMMITTER_NAME</span>&quot; = &quot;&lt;old_name&gt;&quot; ];
+    then
+        GIT_COMMITTER_NAME=&quot;&lt;new_name&gt;&quot;;
+        GIT_AUTHOR_NAME=&quot;&lt;new_name&gt;&quot;;
+        GIT_COMMITTER_EMAIL=&quot;&lt;new_email&gt;&quot;;
+        GIT_AUTHOR_EMAIL=&quot;&lt;new_email&gt;&quot;;
+        git commit-tree &quot;<span class="token variable">$@</span>&quot;;
+    else
+        git commit-tree &quot;<span class="token variable">$@</span>&quot;;
+    fi&apos;</span> HEAD
 </pre><h2 class="mume-header" id="gpg-sign-all-previous-commits">GPG sign all previous commits</h2>
 
 <p>In a case where the repository was cloned and commits were made without properly setting up automatic GPG signing, or the commits were simply unsigned, <a href="https://stackoverflow.com/a/41883164/10620237">there is a way to sign all previous commits</a>.</p>
@@ -350,6 +365,7 @@ line<span class="token operator">=</span><span class="token string">&quot;\nexpo
 <li><a href="#error-miscellaneous">Error: miscellaneous</a></li>
 </ul>
 </li>
+<li><a href="#change-committers-name-andor-email-in-all-previous-commits">Change committer&apos;s name and/or email in all previous commits</a></li>
 <li><a href="#gpg-sign-all-previous-commits">GPG sign all previous commits</a>
 <ul>
 <li><a href="#known-issues">Known issues</a></li>
