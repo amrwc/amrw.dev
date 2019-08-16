@@ -77,6 +77,25 @@ brew uninstall gpg pinentry-mac
 rm -rf ~/.gnupg # Careful! You will lose your GPG keys.
 ```
 
+## Change committer's name and/or email in all previous commits
+
+_WARNING: All the commit IDs will change, therefore you're rewriting the history. Proceed with care, especially if you collaborate with other developers._
+
+```bash
+# Source: https://stackoverflow.com/a/870367/10620237
+git filter-branch --commit-filter '
+    if [ "$GIT_COMMITTER_NAME" = "<old_name>" ];
+    then
+        GIT_COMMITTER_NAME="<new_name>";
+        GIT_AUTHOR_NAME="<new_name>";
+        GIT_COMMITTER_EMAIL="<new_email>";
+        GIT_AUTHOR_EMAIL="<new_email>";
+        git commit-tree "$@";
+    else
+        git commit-tree "$@";
+    fi' HEAD
+```
+
 ## GPG sign all previous commits
 
 In a case where the repository was cloned and commits were made without properly setting up automatic GPG signing, or the commits were simply unsigned, [there is a way to sign all previous commits](https://stackoverflow.com/a/41883164/10620237).
