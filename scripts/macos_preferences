@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+# NOTE: THIS SCRIPT HASN'T BEEN TESTED BY RUNNING THE ENTIRETY OF IT -- ONLY
+#       THE INDIVIDUAL INSTRUCTIONS HAVE BEEN RUN. BE ESPECIALLY MINDFUL OF THE
+#       LINES CHANGING THE .GlobalPreferences.plist file.
+# NOTE: THE COMMENTED OUT INSTRUCTIONS MANIPULATING THE AFOREMENTIONED FILE
+#       MUST BE TESTED ON A CLEAN SETUP TO ENSURE THE DESIRED EFFECTS.
+#
+# The script adjusts macOS's System Preferences to my liking. The idea to
+# write the script came from having to set up a MacBook from scratch a few
+# times in a span of a month. The first time, I documented each setting changed
+# inside of System Preferences app so that I could replicate them at a later.
+# The second time I started looking into automating the process. The obvious,
+# default solution would be to use Time Machine; it is, however, quite an
+# overkill to store the entire system's state, rather than just the
+# configuration. Also, using Time Machine requires to have the perfect vanilla
+# setup when the 'image' is taken, otherwise the backup will end up with
+# software that may be redundant on another computer the image is placed on.
+#
+# Resources:
+# - https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
+# - https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
+# - https://www.defaults-write.com/display-the-file-extensions-in-finder/
+# - https://stackoverflow.com/questions/37865439/terminal-command-to-change-security-and-privacy-advanced-setting
+# - https://discussions.apple.com/thread/2659655
+# - https://apple.stackexchange.com/questions/226900/how-can-i-have-spell-check-for-one-language-but-not-for-another-in-el-capitain
+
+# Backup configuration files
+## Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
+CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
+mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp ~/Library/Preferences/.GlobalPreferences.plist ${_}/GlobalPreferences_${CURRENT_DATE_TIME}.plist
+
+# Dock
+# TODO: Mojave: disable `Show recent applications in Dock`
+## enable `Automatically hide and show the Dock`
+defaults write com.apple.dock autohide -bool true
+
+# Mission Control
+## disable `Automatically rearrange Spaces based on most recent use`
+defaults write com.apple.dock mru-spaces -bool false
+## disable `When switching to an application, switch to a Space (…)`
+defaults write com.apple.Dock workspaces-auto-swoosh -bool false && killall Dock
+
+# Language & Region
+## Set system language(s)
+defaults write .GlobalPreferences AppleLocale -string en_GB
+defaults write .GlobalPreferences AppleLanguages '(en-GB, pl-GB)'
+defaults write .GlobalPreferences AppleICUForce12HourTime -bool true
+defaults write .GlobalPreferences AppleTemperatureUnit -string Celsius
+defaults write .GlobalPreferences AppleMeasurementUnits -string Centimeters
+defaults write .GlobalPreferences AppleMetricUnits -bool true
+
+# Security & Privacy
+## disable `Advanced…/Log out after N minutes of inactivity` (NOTE: isn't it default and doesn't have to be changed?)
+# sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.autologout.AutoLogOutDelay -int 0
+# sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.securitypref.logoutvalue -int 0
+
+# /Users/ladmin/Library/Preferences/.GlobalPreferences (to define admin's region, currency)
+
+# Keyboard
+defaults write .GlobalPreferences NSAutomaticCapitalizationEnabled -bool false
+defaults write .GlobalPreferences NSAutomaticDashSubstitutionEnabled -bool false
+defaults write .GlobalPreferences NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write .GlobalPreferences NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write .GlobalPreferences NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write .GlobalPreferences NSAutomaticTextCompletionEnabled -bool false
+defaults write .GlobalPreferences NSLinguisticDataAssetsRequested -array '(en_GB, pl_GB, nb_GB, de_GB)'
+defaults write .GlobalPreferences NSSpellCheckerAutomaticallyIdentifiesLanguages -bool true
+defaults write .GlobalPreferences WebAutomaticSpellingCorrectionEnabled -bool false
+
+# Finder
+## Show file extensions
+defaults write .GlobalPreferences AppleShowAllExtensions -bool true
+
+# Kill affected apps
+for app in "Dock" "Finder" "SystemUIServer"; do
+  killall "${app}" > /dev/null 2>&1
+done
+
+# Done
+echo "Done. Note that some of these changes require a logout/restart to take effect."
