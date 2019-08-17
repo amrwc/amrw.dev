@@ -17,6 +17,9 @@
 # setup when the 'image' is taken, otherwise the backup will end up with
 # software that may be redundant on another computer the image is placed on.
 #
+# Usage:
+# curl -sL amrw.dev/scripts/macos_preferences | bash -s
+#
 # Resources:
 # - https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
 # - https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
@@ -24,6 +27,7 @@
 # - https://stackoverflow.com/questions/37865439/terminal-command-to-change-security-and-privacy-advanced-setting
 # - https://discussions.apple.com/thread/2659655
 # - https://apple.stackexchange.com/questions/226900/how-can-i-have-spell-check-for-one-language-but-not-for-another-in-el-capitain
+# - https://github.com/joeyhoer/starter # This is a perfect example of what this script strives to be
 
 # Backup configuration files
 ## Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
@@ -55,22 +59,18 @@ defaults write .GlobalPreferences AppleMetricUnits -bool true
 # sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.autologout.AutoLogOutDelay -int 0
 # sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.securitypref.logoutvalue -int 0
 
-# /Users/ladmin/Library/Preferences/.GlobalPreferences (to define admin's region, currency)
-
 # Keyboard
-defaults write .GlobalPreferences NSAutomaticCapitalizationEnabled -bool false
-defaults write .GlobalPreferences NSAutomaticDashSubstitutionEnabled -bool false
-defaults write .GlobalPreferences NSAutomaticPeriodSubstitutionEnabled -bool false
-defaults write .GlobalPreferences NSAutomaticQuoteSubstitutionEnabled -bool false
-defaults write .GlobalPreferences NSAutomaticSpellingCorrectionEnabled -bool false
-defaults write .GlobalPreferences NSAutomaticTextCompletionEnabled -bool false
-defaults write .GlobalPreferences NSLinguisticDataAssetsRequested -array '(en_GB, pl_GB, nb_GB, de_GB)'
-defaults write .GlobalPreferences NSSpellCheckerAutomaticallyIdentifiesLanguages -bool true
-defaults write .GlobalPreferences WebAutomaticSpellingCorrectionEnabled -bool false
+# bash <(curl -sL https://amrw.dev/scripts/macos-preferences/keyboard) # Run from the server
+# ~/Downloads/__macos-preferences/keyboard # Run from a local directory
 
 # Finder
 ## Show file extensions
 defaults write .GlobalPreferences AppleShowAllExtensions -bool true
+
+# Misc
+defaults write .GlobalPreferences NSAutomaticTextCompletionEnabled -bool false
+defaults write .GlobalPreferences NSLinguisticDataAssetsRequested -array '(en_GB, pl_GB, nb_GB, de_GB)'
+defaults write .GlobalPreferences WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Kill affected apps
 for app in "Dock" "Finder" "SystemUIServer"; do
