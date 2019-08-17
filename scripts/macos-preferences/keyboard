@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Keyboard
+## Press and hold repeats a key rather than showing options
+defaults write .GlobalPreferences ApplePressAndHoldEnabled -bool false
+## `Key Repeat`
+defaults write .GlobalPreferences KeyRepeat -int 1
+## `Delay Until Repeat` (ms)
+defaults write .GlobalPreferences InitialKeyRepeat -int 10
+
+# Text
+## disable `Correct spelling automatically`
+defaults write .GlobalPreferences NSAutomaticSpellingCorrectionEnabled -bool false
+## disable `Capitalize words automatically`
+defaults write .GlobalPreferences NSAutomaticCapitalizationEnabled -bool false
+## disable `Add period with double-space`
+defaults write .GlobalPreferences NSAutomaticPeriodSubstitutionEnabled -bool false
+## `Spelling`: Automatic by Language
+defaults write .GlobalPreferences NSSpellCheckerAutomaticallyIdentifiesLanguages -bool true
+## disable `Use smart quotes and dashes`
+defaults write .GlobalPreferences NSAutomaticDashSubstitutionEnabled -bool false
+defaults write .GlobalPreferences NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Shortcuts
+## `Full Keyboard Access`: All controls
+defaults write .GlobalPreferences AppleKeyboardUIMode -int 3
+## `App Shortcuts`
+defaults delete .GlobalPreferences NSUserKeyEquivalents
+defaults write .GlobalPreferences NSUserKeyEquivalents -dict-add "Copy" -string "@;"
+defaults write .GlobalPreferences NSUserKeyEquivalents -dict-add "Paste" -string "@'"
