@@ -18,30 +18,7 @@
 # software that may be redundant on another computer the image is placed on.
 #
 # Usage:
-# curl -sL amrw.dev/scripts/macos_preferences | bash -s
-#
-# Resources:
-# - https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
-# - https://github.com/pawelgrzybek/dotfiles/blob/master/setup-macos.sh
-# - https://www.defaults-write.com/display-the-file-extensions-in-finder/
-# - https://stackoverflow.com/questions/37865439/terminal-command-to-change-security-and-privacy-advanced-setting
-# - https://discussions.apple.com/thread/2659655
-# - https://apple.stackexchange.com/questions/226900/how-can-i-have-spell-check-for-one-language-but-not-for-another-in-el-capitain
-# - https://github.com/joeyhoer/starter # This is a perfect example of what this script strives to be
-#
-# Figuring out what has been changed (read https://apple.stackexchange.com/a/79765):
-# mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/before_PREFERENCES
-# <change_a_setting_in_system_preferences>
-# mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/after_PREFERENCES
-# diff -ur ~/Downloads/__BACKUP_CONFIGS/before_PREFERENCES ~/Downloads/__BACKUP_CONFIGS/after_PREFERENCES
-# The above will tell which files have changed. The next step is to decompile
-# them to XML and compare:
-# plutil -convert xml1 -o /dev/stdout <file_path> > before
-# plutil -convert xml1 -o /dev/stdout <file_path> > after
-# code --diff before after
-#
-# These seem to be equivalent, if the `.GlobalPreferences` file exists:
-# kCFPreferencesAnyApplication, NSGlobalDomain, .GlobalPreferences
+# curl -sL amrw.dev/scripts/macos-preferences/__macos_preferences | bash -s
 
 # Quit System Preferences.app to prevent it from overriding the changes
 osascript -e 'tell application "System Preferences" to quit'
