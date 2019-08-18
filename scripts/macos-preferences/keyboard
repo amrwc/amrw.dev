@@ -1,30 +1,63 @@
 #!/usr/bin/env bash
 
 # Keyboard
+
 ## Press and hold repeats a key rather than showing options
-defaults write .GlobalPreferences ApplePressAndHoldEnabled -bool false
-## `Key Repeat`
-defaults write .GlobalPreferences KeyRepeat -int 1
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+## `Key Repeat` (rate)
+### minimum: 1, off: 300000, slow: 120, fast: 2
+defaults write NSGlobalDomain KeyRepeat -int 1
+
 ## `Delay Until Repeat` (ms)
-defaults write .GlobalPreferences InitialKeyRepeat -int 10
+### long: 120, short: 15
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 # Text
+
 ## disable `Correct spelling automatically`
-defaults write .GlobalPreferences NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
 ## disable `Capitalize words automatically`
-defaults write .GlobalPreferences NSAutomaticCapitalizationEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
 ## disable `Add period with double-space`
-defaults write .GlobalPreferences NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
 ## `Spelling`: Automatic by Language
-defaults write .GlobalPreferences NSSpellCheckerAutomaticallyIdentifiesLanguages -bool true
+defaults write NSGlobalDomain NSSpellCheckerAutomaticallyIdentifiesLanguages -bool true
+
 ## disable `Use smart quotes and dashes`
-defaults write .GlobalPreferences NSAutomaticDashSubstitutionEnabled -bool false
-defaults write .GlobalPreferences NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+## set Double Quites and Single Quotes
+defaults write NSGlobalDomain NSUserQuotesArray -array '"\""' '"\""' '"'\''"' '"'\''"'
 
 # Shortcuts
-## `Full Keyboard Access`: All controls
-defaults write .GlobalPreferences AppleKeyboardUIMode -int 3
+
+## Input Sources
+### disable `Select the previous input source`
+### TODO: Test it, since it doesn't seem to work.
+###       What to restart? Finder is not it.
+###       Try setting it in /Library/Preferences (the root Preferences)
+# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0; value = {parameters = (65535, 49, 1048576); type = 'standard';};}"
+# /usr/libexec/PlistBuddy -c 'Set :AppleSymbolicHotKeys:60:enabled 0' ~/Library/Preferences/com.apple.symbolichotkeys.plist
+
 ## `App Shortcuts`
-defaults delete .GlobalPreferences NSUserKeyEquivalents
-defaults write .GlobalPreferences NSUserKeyEquivalents -dict-add "Copy" -string "@;"
-defaults write .GlobalPreferences NSUserKeyEquivalents -dict-add "Paste" -string "@'"
+### Modifier key legend:
+### ^: ⌃  Control
+### ~: ⌥  Option
+### $: ⇧  Shift
+### @: ⌘  Command
+### \033: Nested Option Delimiter
+### nil:  no shortcut
+### TODO: This doesn't seem to take effect in the System Preferences
+defaults delete NSGlobalDomain NSUserKeyEquivalents
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Copy" -string "@;"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Paste" -string "@'"
+
+## `Full Keyboard Access`: All controls -- press Tab to move keyboard focus between:
+### Text boxes and lists only: 1
+### All controls: 3
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3

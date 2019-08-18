@@ -28,36 +28,48 @@
 # - https://discussions.apple.com/thread/2659655
 # - https://apple.stackexchange.com/questions/226900/how-can-i-have-spell-check-for-one-language-but-not-for-another-in-el-capitain
 # - https://github.com/joeyhoer/starter # This is a perfect example of what this script strives to be
+#
+# Figuring out what has been changed (read https://apple.stackexchange.com/a/79765):
+# mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/before_PREFERENCES
+# <change_a_setting_in_system_preferences>
+# mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/after_PREFERENCES
+# diff -ur ~/Downloads/__BACKUP_CONFIGS/before_PREFERENCES ~/Downloads/__BACKUP_CONFIGS/after_PREFERENCES
+# The above will tell which files have changed. The next step is to decompile
+# them to XML and compare:
+# plutil -convert xml1 -o /dev/stdout <file_path> > before
+# plutil -convert xml1 -o /dev/stdout <file_path> > after
+# code --diff before after
+#
+# These seem to be equivalent, if the `.GlobalPreferences` file exists:
+# kCFPreferencesAnyApplication, NSGlobalDomain, .GlobalPreferences
+
+# Quit System Preferences.app to prevent it from overriding the changes
+osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for the administrator password upfront
+sudo -v
 
 # Backup configuration files
 ## Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
-mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp ~/Library/Preferences/.GlobalPreferences.plist ${_}/GlobalPreferences_${CURRENT_DATE_TIME}.plist
-
-# Dock
-# TODO: Mojave: disable `Show recent applications in Dock`
-## enable `Automatically hide and show the Dock`
-defaults write com.apple.dock autohide -bool true
-
-# Mission Control
-## disable `Automatically rearrange Spaces based on most recent use`
-defaults write com.apple.dock mru-spaces -bool false
-## disable `When switching to an application, switch to a Space (…)`
-defaults write com.apple.Dock workspaces-auto-swoosh -bool false && killall Dock
-
-# Language & Region
-## Set system language(s)
-defaults write .GlobalPreferences AppleLocale -string en_GB
-defaults write .GlobalPreferences AppleLanguages '(en-GB, pl-GB)'
-defaults write .GlobalPreferences AppleICUForce12HourTime -bool true
-defaults write .GlobalPreferences AppleTemperatureUnit -string Celsius
-defaults write .GlobalPreferences AppleMeasurementUnits -string Centimeters
-defaults write .GlobalPreferences AppleMetricUnits -bool true
+mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/Preferences_${CURRENT_DATE_TIME}
 
 # Security & Privacy
 ## disable `Advanced…/Log out after N minutes of inactivity` (NOTE: isn't it default and doesn't have to be changed?)
 # sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.autologout.AutoLogOutDelay -int 0
 # sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.securitypref.logoutvalue -int 0
+
+# Dock
+# bash <(curl -sL https://amrw.dev/scripts/macos-preferences/dock) # Run from the server
+# ~/Downloads/__macos-preferences/dock # Run from a local directory
+
+# Mission Control
+# bash <(curl -sL https://amrw.dev/scripts/macos-preferences/mission_control) # Run from the server
+# ~/Downloads/__macos-preferences/mission_control # Run from a local directory
+
+# Language & Region
+# bash <(curl -sL https://amrw.dev/scripts/macos-preferences/language_and_region) # Run from the server
+# ~/Downloads/__macos-preferences/language_and_region # Run from a local directory
 
 # Keyboard
 # bash <(curl -sL https://amrw.dev/scripts/macos-preferences/keyboard) # Run from the server
@@ -73,7 +85,13 @@ defaults write .GlobalPreferences NSLinguisticDataAssetsRequested -array '(en_GB
 defaults write .GlobalPreferences WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Kill affected apps
-for app in "Dock" "Finder" "SystemUIServer"; do
+APPS=(
+  Dock
+  Finder
+  SystemUIServer
+)
+for app in "${APPS[@]}"
+do
   killall "${app}" > /dev/null 2>&1
 done
 
