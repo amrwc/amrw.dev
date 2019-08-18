@@ -54,12 +54,12 @@ mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/Prefe
 
 # Finder
 ## Show file extensions
-defaults write .GlobalPreferences AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Misc
-defaults write .GlobalPreferences NSAutomaticTextCompletionEnabled -bool false
-defaults write .GlobalPreferences NSLinguisticDataAssetsRequested -array '(en_GB, pl_GB, nb_GB, de_GB)'
-defaults write .GlobalPreferences WebAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool false
+defaults write NSGlobalDomain NSLinguisticDataAssetsRequested -array '(en_GB, pl_GB, nb_GB, de_GB)'
+defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Kill affected apps
 APPS=(
