@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Mission Control
+
+## disable `Automatically rearrange Spaces based on most recent use`
+defaults write com.apple.dock mru-spaces -bool false
+
+## disable `When switching to an application, switch to a Space (…)`
+defaults write com.apple.Dock workspaces-auto-swoosh -bool false && killall Dock
