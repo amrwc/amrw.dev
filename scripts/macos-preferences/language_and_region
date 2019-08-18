@@ -3,9 +3,9 @@
 # Language & Region
 
 ## Set system language(s)
-defaults write .GlobalPreferences AppleLocale -string en_GB
-defaults write .GlobalPreferences AppleLanguages '(en-GB, pl-GB)'
-defaults write .GlobalPreferences AppleICUForce12HourTime -bool true
-defaults write .GlobalPreferences AppleTemperatureUnit -string Celsius
-defaults write .GlobalPreferences AppleMeasurementUnits -string Centimeters
-defaults write .GlobalPreferences AppleMetricUnits -bool true
+defaults write NSGlobalDomain AppleLocale -string en_GB
+defaults write NSGlobalDomain AppleLanguages '(en-GB, pl-GB)'
+defaults write NSGlobalDomain AppleICUForce12HourTime -bool true
+defaults write NSGlobalDomain AppleTemperatureUnit -string Celsius
+defaults write NSGlobalDomain AppleMeasurementUnits -string Centimeters
+defaults write NSGlobalDomain AppleMetricUnits -bool true
