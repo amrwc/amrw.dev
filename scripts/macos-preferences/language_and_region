@@ -2,10 +2,22 @@
 
 # Language & Region
 
-## Set system language(s)
+## `Region`
 defaults write NSGlobalDomain AppleLocale -string en_GB
-defaults write NSGlobalDomain AppleLanguages '(en-GB, pl-GB)'
+
+## `Preferred languages`
+defaults write NSGlobalDomain AppleLanguages -array 'en-GB' 'pl-GB'
+
+## disable `Time format: 24-Hour Time`
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool true
+
+## `Temperature`
+### Celsius: Celsius, Fahrenheit: Fahrenheit
 defaults write NSGlobalDomain AppleTemperatureUnit -string Celsius
+
+## `Advanced > Measurement Units`
+### Metric: Centimeteres, Imperial: Inches
 defaults write NSGlobalDomain AppleMeasurementUnits -string Centimeters
+
+## ???
 defaults write NSGlobalDomain AppleMetricUnits -bool true
