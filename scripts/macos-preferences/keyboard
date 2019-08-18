@@ -42,7 +42,7 @@ defaults write NSGlobalDomain NSUserQuotesArray -array '"\""' '"\""' '"'\''"' '"
 ###       What to restart? Finder is not it.
 ###       Try setting it in /Library/Preferences (the root Preferences)
 # defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0; value = {parameters = (65535, 49, 1048576); type = 'standard';};}"
-# /usr/libexec/PlistBuddy -c 'Set :AppleSymbolicHotKeys:60:enabled 0' ~/Library/Preferences/com.apple.symbolichotkeys.plist
+/usr/libexec/PlistBuddy -c 'Set :AppleSymbolicHotKeys:60:enabled 0' ~/Library/Preferences/com.apple.symbolichotkeys.plist
 
 ## `App Shortcuts`
 ### Modifier key legend:
@@ -61,3 +61,32 @@ defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Paste" -string "@'
 ### Text boxes and lists only: 1
 ### All controls: 3
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+
+# Input Sources
+# TODO: This doesn't seem to take effect in the System Preferences
+
+##  Set `Polish - Pro` and `British - PC` as available Input Sources
+## NOTE: The dictionary below outputs 30788 as a string. A workaround is to use
+##       the PlistBuddy method beneath, despite its verbosity.
+# defaults write com.apple.HIToolbox AppleEnabledInputSources -array '{InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 30788; "KeyboardLayout Name" = "Polish Pro";}' '{InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 250; "KeyboardLayout Name" = "British-PC";}'
+/usr/libexec/PlistBuddy -c 'Delete :AppleEnabledInputSources' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources array' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:0 dict' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:0:InputSourceKind string "Keyboard Layout"' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:0:"KeyboardLayout ID" integer 30788' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:0:"KeyboardLayout Name" string "Polish Pro"' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:1 dict' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:1:InputSourceKind string "Keyboard Layout"' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:1:"KeyboardLayout ID" integer 250' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleEnabledInputSources:1:"KeyboardLayout Name" string "British-PC"' ~/Library/Preferences/com.apple.HIToolbox.plist
+
+## Select `Polish - Pro` to be active
+defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID -string "com.apple.keylayout.PolishPro"
+
+# defaults write com.apple.HIToolbox AppleSelectedInputSources -array '{InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 30788; "KeyboardLayout Name" = "Polish Pro";}'
+/usr/libexec/PlistBuddy -c 'Delete :AppleSelectedInputSources' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleSelectedInputSources array' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleSelectedInputSources:0 dict' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleSelectedInputSources:0:InputSourceKind string "Keyboard Layout"' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleSelectedInputSources:0:"KeyboardLayout ID" integer 30788' ~/Library/Preferences/com.apple.HIToolbox.plist
+/usr/libexec/PlistBuddy -c 'Add :AppleSelectedInputSources:0:"KeyboardLayout Name" string "Polish Pro"' ~/Library/Preferences/com.apple.HIToolbox.plist
