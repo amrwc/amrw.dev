@@ -1,5 +1,18 @@
 # macOS System Preferences Importing Instructions
 
+## Set preferences through command line
+
+```bash
+# Get a domain's current value
+defaults read <domain>
+# Get a domain's value type
+defaults read-type <domain>
+# Set a domain's value
+defaults write <domain> <value>
+# More details
+man defaults
+```
+
 ## Find out what is being changed by the System Preferences.app
 
 Source: https://apple.stackexchange.com/a/79765

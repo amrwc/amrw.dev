@@ -58,7 +58,7 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Misc
 defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool false
-defaults write NSGlobalDomain NSLinguisticDataAssetsRequested -array '(en_GB, pl_GB, nb_GB, de_GB)'
+defaults write NSGlobalDomain NSLinguisticDataAssetsRequested -array 'pl' 'pl_GB' 'en' 'en_GB' 'de' 'de_GB'
 defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Kill affected apps
