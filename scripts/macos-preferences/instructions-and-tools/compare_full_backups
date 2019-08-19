@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Compare preferences' before and after backups.
+
+source constants
+
+diff -ur ${PATH_BEFORE} ${PATH_AFTER} | grep differ --color
