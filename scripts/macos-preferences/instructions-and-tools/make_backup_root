@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Make a backup of preferences before and after changes are made.
+# Make a backup of root preferences before and after changes are made.
 #
 # Usage:
-# ./make_backup [before/after]
+# ./make_backup_root [before/after]
 
 source constants
 
@@ -13,12 +13,12 @@ else
 	before_or_after=${1}
 fi
 
-case ${before_or_after} in
+case ${before_or_after:0:1} in
 	b|B|before|Before|BEFORE )
-		destination=${PATH_BEFORE}
+		destination="${PATH_BEFORE}_ROOT"
 	;;
 	a|A|after|After|AFTER )
-		destination=${PATH_AFTER}
+		destination="${PATH_AFTER}_ROOT"
 	;;
 	* )
 		printf "${COLOUR_RED}No option was chosen, therefore no backups were made.${TEXT_RESET}\n"
@@ -26,4 +26,4 @@ case ${before_or_after} in
 	;;
 esac
 
-mkdir -p ${PATH_PREFERENCES_BACKUP} && cp -r ~/Library/Preferences/ ${destination}
+mkdir -p ${PATH_PREFERENCES_BACKUP} && sudo cp -r /Library/Preferences/ ${destination}

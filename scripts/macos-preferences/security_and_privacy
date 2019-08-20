@@ -1,5 +1,38 @@
 #!/usr/bin/env bash
 
-# Security and Privacy
+# General
 
+## `Require password immediately after sleep or screen saver begins`
+## 0: immediately
+defaults write com.apple.screensaver askForPassword -bool true
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
+## `Allow apps downloaded from:` App Store and identified developers
+sudo defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool true
+
+## Allow applications downloaded from anywhere
+sudo spctl --master-disable
+
+## disable `Advanced…/Log out after N minutes of inactivity` (NOTE: isn't it default and doesn't have to be changed?)
+# defaults write .GlobalPreferences com.apple.autologout.AutoLogOutDelay -int 0
+# defaults write .GlobalPreferences com.apple.securitypref.logoutvalue -int 0
+# sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.autologout.AutoLogOutDelay -int 0
+# sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.securitypref.logoutvalue -int 0
+
+# FileVault
+
+## `Turn On FileVault`
+### If FileVault is not set up, turn it on.
+### `whoami` prints out the current user's username
+if [[ $(sudo fdesetup status | head -1) == "FileVault is Off." ]]; then
+  sudo fdesetup enable -user `whoami`
+fi
+
+# Firewall
+
+## `Turn On Firewall`
+sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
+
+## enable `Firewall Options… > Enable stealth mode`
+### http://osxdaily.com/2015/11/18/enable-stealth-mode-mac-os-x-firewall/
+sudo defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Compare plist domains from before and after a change was made.
+#
+# Usage:
+# ./plist_compare [domain_name] [diff_tool]
+
 source constants
 
 before="${PATH_PREFERENCES_BACKUP}/before"
