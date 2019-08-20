@@ -31,11 +31,6 @@ sudo -v
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
 mkdir -p ~/Downloads/__BACKUP_CONFIGS && cp -r ~/Library/Preferences/ ${_}/Preferences_${CURRENT_DATE_TIME}
 
-# Security & Privacy
-## disable `Advanced…/Log out after N minutes of inactivity` (NOTE: isn't it default and doesn't have to be changed?)
-# sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.autologout.AutoLogOutDelay -int 0
-# sudo defaults write /Library/Preferences/.GlobalPreferences com.apple.securitypref.logoutvalue -int 0
-
 # Dock
 # bash <(curl -sL https://amrw.dev/scripts/macos-preferences/dock) # Run from the server
 # ~/Downloads/__macos-preferences/dock # Run from a local directory
