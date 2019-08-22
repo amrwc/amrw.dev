@@ -1,14 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # Make a backup of preferences before and after changes are made.
 #
 # Usage:
 # ./make_backup [before/after]
 
-source constants
+source utils
 
 if [ -z ${1} ]; then
-	read -p "Is it a backup (${COLOUR_MAGENTA}b${TEXT_RESET})efore or (${COLOUR_MAGENTA}a${TEXT_RESET})fter the change was made? (${COLOUR_MAGENTA}before${TEXT_RESET}/${COLOUR_MAGENTA}after${TEXT_RESET}): " before_or_after
+	vared -p "Is it a backup (${COLOUR_MAGENTA}b${TEXT_RESET})efore or (${COLOUR_MAGENTA}a${TEXT_RESET})fter the change was made? (${COLOUR_MAGENTA}before${TEXT_RESET}/${COLOUR_MAGENTA}after${TEXT_RESET}): " -c before_or_after
 else
 	before_or_after=${1}
 fi
@@ -21,7 +21,7 @@ case ${before_or_after} in
 		destination=${PATH_AFTER}
 	;;
 	* )
-		printf "${COLOUR_RED}No option was chosen, therefore no backups were made.${TEXT_RESET}\n"
+		println_colour red "No option was chosen, therefore no backups were made."
 		exit 1
 	;;
 esac
