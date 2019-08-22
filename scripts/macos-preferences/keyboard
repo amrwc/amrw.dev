@@ -7,11 +7,12 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 ## `Key Repeat` (rate)
 ### minimum: 1, off: 300000, slow: 120, fast: 2
-defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain KeyRepeat -int 2
 
 ## `Delay Until Repeat` (ms)
 ### long: 120, short: 15
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+### Anything below 15 causes unintentional repeating
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Text
 
