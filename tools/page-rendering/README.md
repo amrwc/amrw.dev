@@ -2,26 +2,24 @@
 
 This document describes how to render HTML pages with GitHub Flavoured Markdown (gfm) styling, including syntax highlighting, from Markdown files.
 
-## `index.html`
-
-`index.html` is rendered from `README.md` using `render-index.js` script.
-
-```bash
-node render-index.js
-```
-
-## [mume](https://github.com/shd101wyy/mume)
+## Using [mume](https://github.com/shd101wyy/mume)
 
 Install `mume` and run the preconfigured `render.js` script.
 
 ```bash
-npm i @shd101wyy/mume
+npm i
 node render.js <file_path>
 ```
 
 The rendered HTML will appear next to the source files.
 
-## [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+`index.html` is rendered from `README.md` in the project's root using the `render-index.js` script.
+
+```bash
+node render-index.js
+```
+
+## Using [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
 
 _Note that this method doesn't support syntax highlighting in code blocks. To achieve that, use the above `mume` method._
 
@@ -83,9 +81,9 @@ The caveat of auto-rendered Markdown files is that GitHub adds the pages name at
 
 Whichever method is used, when the `index.html` is re-rendered it requires additional steps.
 
-### Replace `.md` extensions with `.html` (deprecated)
+### Replace `.md` extensions with `.html
 
-_Please note: this case is deprecated, because the case has been covered in the `render-index.js` script._
+_Please note: this case is deprecated when using `mume`, because the it has been covered in the `render-index.js` script._
 
 `index.html` is rendered from `README.md` which contains URLs to other parts of the repository and the website. For instance, the table of content inside of README points to other Markdown documents, but after it's rendered, the hyperlinks will be broken when `index.html` is deployed to GitHub Pages. Therefore, run the following one-liner that will fix the href's.
 
