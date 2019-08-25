@@ -2,7 +2,7 @@
  * @read https://github.com/shd101wyy/mume
  * 
  * Example usage:
- * npm i @shd101wyy/mume
+ * npm i
  * node render.js ./page-rendering.md
  * node render.js ../mac-setup/setup-instructions.md
  */
