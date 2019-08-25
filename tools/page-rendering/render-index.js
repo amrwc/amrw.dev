@@ -1,19 +1,19 @@
 /**
  * @read https://github.com/shd101wyy/mume
  *
- * Example usage:
- * npm i @shd101wyy/mume
- * node render.js ./page-rendering.md
- * node render.js ../mac-setup/setup-instructions.md
+ * Usage:
+ * npm i
+ * node render-index.js
  */
 
 const mume = require('@shd101wyy/mume');
 const fs = require('fs');
 const { exec } = require('child_process');
 
-PATH_README_MD = '../../README.md';
-PATH_README_HTML = '../../README.html';
-PATH_INDEX_HTML = '../../index.html';
+// Paths relative to the script's location rather than where it's being called.
+PATH_README_MD = `${__dirname}/../../README.md`;
+PATH_README_HTML = `${__dirname}/../../README.html`;
+PATH_INDEX_HTML = `${__dirname}/../../index.html`;
 
 (async function() {
   await mume.init();
@@ -34,6 +34,15 @@ PATH_INDEX_HTML = '../../index.html';
   // Replace the `.md` href extensions with `.html`
   exec(
     `perl -i -pe "s/.md\\">/.html\\">/g" ${PATH_INDEX_HTML}`,
+    (err, stdout, stderr) => {
+      handleError(err);
+      console.log(stdout);
+      console.error(stderr);
+    }
+  );
+  // Replace the `README` page title with `amrw`
+  exec(
+    `perl -i -pe "s/<title>README<\\/title>/<title>amrw<\\/title>/g" ${PATH_INDEX_HTML}`,
     (err, stdout, stderr) => {
       handleError(err);
       console.log(stdout);
