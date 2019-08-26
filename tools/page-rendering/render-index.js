@@ -12,9 +12,9 @@ const path = require('path');
 const { exec } = require('child_process');
 
 // Paths relative to the script's location rather than where it's being called.
-PATH_README_MD = `${__dirname}${path.sep}..${path.sep}..${path.sep}README.md`;
-PATH_README_HTML = `${__dirname}${path.sep}..${path.sep}..${path.sep}README.html`;
-PATH_INDEX_HTML = `${__dirname}${path.sep}..${path.sep}..${path.sep}index.html`;
+const PATH_README_MD = path.join(__dirname, '..', '..', 'README.md');
+const PATH_README_HTML = path.join(__dirname, '..', '..', 'README.html');
+const PATH_INDEX_HTML = path.join(__dirname, '..', '..', 'index.html');
 
 (async function() {
   await mume.init();
