@@ -52,3 +52,10 @@ function print_colour() {
 function println_colour() {
 	print_colour ${1} "${2}\n"
 }
+
+# Returns current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
+# Usage:
+# date_time=$(get_date_time); echo "${date_time}"
+function get_date_time() {
+	printf "$(date +"%Y-%m-%d_%T")"
+}
