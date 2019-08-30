@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-######################
-# CONSTANTS          #
-######################
+############################################
+# CONSTANTS                                #
+############################################
 
 declare -A COLOURS=(
 	black $(tput setaf 0)
@@ -24,12 +24,12 @@ declare -A TXT_UTILS=(
 	underline $(tput smul)
 )
 
-######################
-# FUNCTIONS          #
-######################
+############################################
+# FUNCTIONS                                #
+############################################
 
-# @param colour {string}
-# @param text {string}
+# @param {string} colour
+# @param {string} text
 # Usage:
 # print_colour <colour_name> <text_to_display>
 function print_colour() {
@@ -41,8 +41,8 @@ function print_colour() {
 	printf "${colour}${2}${TXT_UTILS[reset]}"
 }
 
-# @param colour {string}
-# @param text {string}
+# @param {string} colour
+# @param {string} text
 # Usage:
 # println_colour <colour_name> <text_to_display>
 function println_colour() {
