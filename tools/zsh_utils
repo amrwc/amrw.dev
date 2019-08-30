@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+
+######################
+# CONSTANTS          #
+######################
+
+declare -A COLOURS=(
+	black $(tput setaf 0)
+	blue $(tput setaf 4)
+	cyan $(tput setaf 6)
+	green $(tput setaf 2)
+	lime_yellow $(tput setaf 190)
+	magenta $(tput setaf 5)
+	powder_blue $(tput setaf 153)
+	red $(tput setaf 1)
+	white $(tput setaf 7)
+	yellow $(tput setaf 3)
+)
+declare -A TXT_UTILS=(
+	bold $(tput bold)
+	blink $(tput blink)
+	reset $(tput sgr0)
+	reverse $(tput smso)
+	underline $(tput smul)
+)
+
+######################
+# FUNCTIONS          #
+######################
+
+# @param colour {string}
+# @param text {string}
+# Usage:
+# print_colour <colour_name> <text_to_display>
+function print_colour() {
+	local colour=${COLOURS[${1}]}
+	if [ -z ${colour} ]; then
+		printf "${COLOURS[red]}Colour '${1}' is not recognised.${TXT_UTILS[reset]}\n"
+		exit 1
+	fi
+	printf "${colour}${2}${TXT_UTILS[reset]}"
+}
+
+# @param colour {string}
+# @param text {string}
+# Usage:
+# println_colour <colour_name> <text_to_display>
+function println_colour() {
+	print_colour ${1} "${2}\n"
+}
