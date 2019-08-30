@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Usage:
+# source /dev/stdin <<< "$(curl -sL amrw.dev/tools/zsh_utils)"
+
 ############################################
 # CONSTANTS                                #
 ############################################
@@ -23,6 +26,7 @@ declare -A TXT_UTILS=(
 	reverse $(tput smso)
 	underline $(tput smul)
 )
+
 
 ############################################
 # FUNCTIONS                                #
