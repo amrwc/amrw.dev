@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+source /dev/stdin <<< "$(curl -sL amrw.dev/tools/zsh_utils)"
+
+BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup_$(get_date_time)/vscode"
+SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
+
+mkdir -p ${BACKUP_PATH}
+cp "${SOURCE_PATH}/keybindings.json" ${BACKUP_PATH}
+cp "${SOURCE_PATH}/settings.json" ${BACKUP_PATH}
