@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-source /dev/stdin <<< "$(curl -sL amrw.dev/tools/zsh_utils)"
+# Exports Visual Studio Code's preferences
 
-BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup_$(get_date_time)/vscode"
+BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup/vscode"
 SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
 
 mkdir -p ${BACKUP_PATH}
