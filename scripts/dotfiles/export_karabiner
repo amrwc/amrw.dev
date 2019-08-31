@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+# Exports Karabiner-Elements' preferences
+
+BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup/karabiner"
+SOURCE_PATH="${HOME}/.config/karabiner/karabiner.json"
+
+mkdir -p ${BACKUP_PATH}
+cp ${SOURCE_PATH} ${BACKUP_PATH}
