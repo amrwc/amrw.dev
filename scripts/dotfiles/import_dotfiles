@@ -2,26 +2,26 @@
 
 # Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
-DOTFILES_NAMES=(
-  bash_profile
-  bashrc
-  gitconfig
-  gitignore_global
-  zshrc
+DOTFILES=(
+	bash_profile
+	bashrc
+	gitconfig
+	gitignore_global
+	zshrc
 )
 
-import_dotfile() {
-  local name="$1"
-  local path="$HOME"/."$name"
-  # If the dotfile exists...
-  if [ -f "$path" ]; then
-    # ...make its dated copy before overwriting it.
-    cp "$path" "$path"_"$CURRENT_DATE_TIME"
-  fi
-  curl -sL https://amrw.dev/dotfiles/"$name" > "$path"
+function import_dotfile() {
+	local name="${1}"
+	local path="${HOME}"/."${name}"
+	# If the dotfile exists...
+	if [ -f "${path}" ]; then
+		# ...make its dated copy before overwriting it.
+		cp "$path" "$path"_"$CURRENT_DATE_TIME"
+	fi
+	curl -sL https://amrw.dev/dotfiles/dotfiles/"${name}" > ${path}
 }
 
-for name in "${DOTFILES_NAMES[@]}"
+for file in "${DOTFILES[@]}"
 do
-  import_dotfile "$name"
+	import_dotfile ${file}
 done
