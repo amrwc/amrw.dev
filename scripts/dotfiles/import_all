@@ -3,7 +3,7 @@
 # Executes all dotfiles exporting scripts
 
 URL="amrw.dev/scripts/dotfiles/"
-SCRIPT_PREFIX="export_"
+SCRIPT_PREFIX="import_"
 SCRIPTS=(
 	dotfiles
 	karabiner
