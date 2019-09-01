@@ -14,3 +14,7 @@ for script in "${SCRIPTS[@]}"
 do
 	bash <(curl -sL "${URL}${SCRIPT_PREFIX}${script}")
 done
+
+printf "Remember to set your 'git config --global' after the import, such as:\n"
+printf "\tgit config --global user.<name, email, signingKey>\n"
+printf "\tgit config --global commit.gpgSign true\n"
