@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# Exports the user's dotfiles from their home directory.
+
+BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup/dotfiles"
+SOURCE_PATH="${HOME}"
+DOTFILES=(
+	bash_profile
+	bashrc
+	gitconfig
+	gitignore_global
+	zshrc
+)
+
+mkdir -p ${BACKUP_PATH}
+for file in "${DOTFILES[@]}"
+do
+	cp "${SOURCE_PATH}/.${file}" "${BACKUP_PATH}/${file}"
+done
