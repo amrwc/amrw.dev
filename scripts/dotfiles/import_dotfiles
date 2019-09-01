@@ -1,7 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
+
+# Imports all dotfiles into the user's home directory.
 
 # Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
+DOTFILES_URL="https://amrw.dev/dotfiles/vscode"
 DOTFILES=(
 	bash_profile
 	bashrc
@@ -12,16 +15,16 @@ DOTFILES=(
 
 function import_dotfile() {
 	local name="${1}"
-	local path="${HOME}"/."${name}"
+	local file_path="${HOME}/.${name}"
 	# If the dotfile exists...
-	if [ -f "${path}" ]; then
+	if [ -f "${file_path}" ]; then
 		# ...make its dated copy before overwriting it.
-		cp "$path" "$path"_"$CURRENT_DATE_TIME"
+		cp "${file_path}" "${file_path}_${CURRENT_DATE_TIME}"
 	fi
-	curl -sL https://amrw.dev/dotfiles/dotfiles/"${name}" > ${path}
+	curl -sL "${DOTFILES_URL}/${name}" > "${file_path}"
 }
 
 for file in "${DOTFILES[@]}"
 do
-	import_dotfile ${file}
+	import_dotfile "${file}"
 done
