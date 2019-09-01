@@ -2,5 +2,6 @@
 
 # Executes all dotfiles exporting scripts
 
+bash <(curl -sL amrw.dev/scripts/dotfiles/export_dotfiles)
 bash <(curl -sL amrw.dev/scripts/dotfiles/export_karabiner)
 bash <(curl -sL amrw.dev/scripts/dotfiles/export_vscode)
