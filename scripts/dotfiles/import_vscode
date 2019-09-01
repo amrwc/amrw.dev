@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+# Imports Visual Studio Code's preferences
+
+# Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
+CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
+DOTFILES_URL="https://amrw.dev/dotfiles/vscode"
+DESTINATION_PATH="${HOME}/Library/Application Support/Code/User"
+
+function import_dotfile() {
+	local file_name="${1}"
+	local file_path="${DESTINATION_PATH}/${file_name}"
+	# If the file exists...
+	if [ -f "${file_path}" ]; then
+		# ...make its dated copy before overwriting it.
+		local backup_file_path="${DESTINATION_PATH}/${CURRENT_DATE_TIME}_${file_name}"
+		cp "${file_path}" "${backup_file_path}"
+	fi
+	curl -sL "${DOTFILES_URL}/${file_name}" > "${file_path}"
+}
+
+mkdir -p "${DESTINATION_PATH}"
+import_dotfile "keybindings.json"
+import_dotfile "settings.json"
