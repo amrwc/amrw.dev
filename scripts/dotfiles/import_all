@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Executes all dotfiles exporting scripts
+# Executes all dotfiles importing scripts
 
 URL="amrw.dev/scripts/dotfiles/"
 SCRIPT_PREFIX="import_"
