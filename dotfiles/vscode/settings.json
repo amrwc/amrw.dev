@@ -1,202 +1,210 @@
 {
-  // Most often used:
-  "editor.minimap.enabled": false,
-  "workbench.colorTheme": "Quiet Light",
-  // "workbench.colorTheme": "Solarized Light",
-  "editor.tabSize": 2,
-  "editor.detectIndentation": false,
+	"editor.minimap.enabled": false,
+	"workbench.colorTheme": "Quiet Light",
+	// "workbench.colorTheme": "Solarized Light",
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,
+	"terminal.integrated.confirmOnExit": true,
+	"window.zoomLevel": 0,
+	"editor.fontSize": 14,
+	// "editor.fontSize": 18,
+	"editor.wordWrap": "on",
+	"editor.wrappingIndent": "indent",
+	"explorer.confirmDelete": false,
+	"explorer.confirmDragAndDrop": false,
+	"window.newWindowDimensions": "inherit",
+	"editor.formatOnSave": false,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"editor.renderIndentGuides": true,
+	"prettier.singleQuote": true,
+	"files.trimFinalNewlines": false,
+	"files.trimTrailingWhitespace": false,
+	"workbench.enableExperiments": false,
+	"workbench.quickOpen.closeOnFocusLost": false,
+	"workbench.settings.editor": "json",
+	"telemetry.enableTelemetry": false,
+	"telemetry.enableCrashReporter": false,
+	"explorer.autoReveal": false,
+	"gitlens.defaultDateFormat": "D MMMM YYYY h:mma",
+	"gitlens.menus": {
+		"editor": {
+			"blame": true,
+			"clipboard": true,
+			"compare": true,
+			"details": true,
+			"history": true,
+			"remote": true
+		},
+		"editorGroup": {
+			"blame": true,
+			"compare": true,
+			"history": true,
+			"remote": true
+		},
+		"editorTab": {
+			"compare": true,
+			"history": true,
+			"remote": true
+		},
+		"explorer": {
+			"compare": true,
+			"history": true,
+			"remote": true
+		}
+	},
+	"todohighlight.keywords": [
+		{
+			"text": "TODO:",
+			"color": "white",
+			"backgroundColor": "#ff0000",
+			"overviewRulerColor": "grey",
+			"isWholeLine": false
+		},
+		{
+			"text": "TODOURGENT:",
+			"color": "white",
+			"backgroundColor": "#ff0000",
+			"overviewRulerColor": "grey",
+			"isWholeLine": true
+		},
+		{
+			"text": "NOTE:",
+			"color": "white",
+			"backgroundColor": "#8888ff",
+			"overviewRulerColor": "grey"
+		},
+		{
+			"text": "HACK:",
+			"color": "red",
+			"backgroundColor": "orange",
+			"overviewRulerColor": "grey"
+		},
+		{
+			"text": "DEBUG:",
+			"color": "white",
+			"backgroundColor": "orange",
+			"overviewRulerColor": "grey"
+		},
+		{
+			"text": "REVIEW:",
+			"color": "white",
+			"backgroundColor": "orange",
+			"overviewRulerColor": "grey"
+		},
+		{
+			"text": "CHANGE:",
+			"color": "white",
+			"backgroundColor": "orange",
+			"overviewRulerColor": "grey"
+		}
+	],
+	"extensions.ignoreRecommendations": false,
+	"workbench.startupEditor": "newUntitledFile",
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"javascript.validate.enable": true,
+	"editor.hover.delay": 1500,
+	"spellright.groupDictionaries": false,
+	"latex-workshop.message.update.show": false,
+	"latex-workshop.view.pdf.viewer": "tab",
+	"latex-workshop.latex.recipes": [
+		{
+			"name": "pdflatex",
+			"tools": ["pdflatex"]
+		},
+		{
+			"name": "pdflatex biber",
+			"tools": ["pdflatex", "biber", "pdflatex", "pdflatex"]
+		},
+		{
+			"name": "xelatex",
+			"tools": ["xelatex"]
+		},
+		{
+			"name": "biber",
+			"tools": ["biber"]
+		},
+		{
+			"name": "xelatex biber",
+			"tools": ["xelatex", "biber", "xelatex", "xelatex"]
+		},
+		{
+			"name": "xelatex minted",
+			"tools": ["xelatex minted"]
+		},
+		{
+			"name": "xelatex biber minted",
+			"tools": ["xelatex minted", "biber", "xelatex minted", "xelatex minted"]
+		}
+	],
+	"latex-workshop.latex.tools": [
+		{
+			"name": "pdflatex",
+			"command": "pdflatex",
+			"args": ["%DOC%"]
+		},
+		{
+			"name": "xelatex",
+			"command": "xelatex",
+			"args": ["%DOC%"]
+		},
+		{
+			"name": "xelatex minted",
+			"command": "xelatex",
+			"args": ["--shell-escape", "%DOC%"]
+		},
+		{
+			"name": "biber",
+			"command": "biber",
+			"args": ["%DOC%"]
+		}
+	],
 
-  "terminal.integrated.confirmOnExit": true,
-  "window.zoomLevel": 0,
-  "editor.fontSize": 14,
-  // "editor.fontSize": 18,
-  "editor.wordWrap": "on",
-  "editor.wrappingIndent": "indent",
-  "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": false,
-  "window.newWindowDimensions": "inherit",
-  "editor.formatOnSave": false,
-  "liveServer.settings.donotShowInfoMsg": true,
-  "editor.renderIndentGuides": true,
+	"liveServer.settings.donotVerifyTags": true,
+	"editor.suggestSelection": "first",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"python.formatting.autopep8Args": [
+		"--max-line-length",
+		"120",
+		"--experimental"
+	],
+	"python.jediEnabled": false,
 
-  "prettier.singleQuote": true,
-
-  "[csharp]": {
-    "editor.tabSize": 4
-  },
-  "[rust]": {
-    "editor.tabSize": 4
-  },
-  "[latex]": {
-    "editor.minimap.enabled": false
-  },
-
-  "files.trimFinalNewlines": false,
-  "files.trimTrailingWhitespace": false,
-  "workbench.enableExperiments": false,
-  "workbench.quickOpen.closeOnFocusLost": false,
-  "workbench.settings.editor": "json",
-  "telemetry.enableTelemetry": false,
-  "telemetry.enableCrashReporter": false,
-  "explorer.autoReveal": false,
-  "gitlens.settings.mode": "advanced",
-  "gitlens.defaultDateFormat": "D MMMM YYYY h:mma",
-  "gitlens.menus": {
-    "editor": {
-      "blame": true,
-      "clipboard": true,
-      "compare": true,
-      "details": true,
-      "history": true,
-      "remote": true
-    },
-    "editorGroup": {
-      "blame": true,
-      "compare": true,
-      "history": true,
-      "remote": true
-    },
-    "editorTab": {
-      "compare": true,
-      "history": true,
-      "remote": true
-    },
-    "explorer": {
-      "compare": true,
-      "history": true,
-      "remote": true
-    }
-  },
-  "todohighlight.keywords": [
-    {
-      "text": "TODO:",
-      "color": "white",
-      "backgroundColor": "#ff0000",
-      "overviewRulerColor": "grey",
-      "isWholeLine": false
-    },
-    {
-      "text": "TODOURGENT:",
-      "color": "white",
-      "backgroundColor": "#ff0000",
-      "overviewRulerColor": "grey",
-      "isWholeLine": true
-    },
-    {
-      "text": "NOTE:",
-      "color": "white",
-      "backgroundColor": "#8888ff",
-      "overviewRulerColor": "grey"
-    },
-    {
-      "text": "HACK:",
-      "color": "red",
-      "backgroundColor": "orange",
-      "overviewRulerColor": "grey"
-    },
-    {
-      "text": "DEBUG:",
-      "color": "white",
-      "backgroundColor": "orange",
-      "overviewRulerColor": "grey"
-    },
-    {
-      "text": "REVIEW:",
-      "color": "white",
-      "backgroundColor": "orange",
-      "overviewRulerColor": "grey"
-    },
-    {
-      "text": "CHANGE:",
-      "color": "white",
-      "backgroundColor": "orange",
-      "overviewRulerColor": "grey"
-    }
-  ],
-  "extensions.ignoreRecommendations": false,
-  "workbench.startupEditor": "newUntitledFile",
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "javascript.validate.enable": true,
-  "editor.hover.delay": 1500,
-  "spellright.groupDictionaries": false,
-  "latex-workshop.message.update.show": false,
-  "latex-workshop.latex.recipes": [
-    {
-      "name": "pdflatex",
-      "tools": ["pdflatex"]
-    },
-    {
-      "name": "pdflatex biber",
-      "tools": ["pdflatex", "biber", "pdflatex", "pdflatex"]
-    },
-    {
-      "name": "xelatex",
-      "tools": ["xelatex"]
-    },
-    {
-      "name": "biber",
-      "tools": ["biber"]
-    },
-    {
-      "name": "xelatex biber",
-      "tools": ["xelatex", "biber", "xelatex", "xelatex"]
-    },
-    {
-      "name": "xelatex minted",
-      "tools": ["xelatex minted"]
-    },
-    {
-      "name": "xelatex biber minted",
-      "tools": ["xelatex minted", "biber", "xelatex minted", "xelatex minted"]
-    }
-  ],
-  "latex-workshop.latex.tools": [
-    {
-      "name": "pdflatex",
-      "command": "pdflatex",
-      "args": ["%DOC%"]
-    },
-    {
-      "name": "xelatex",
-      "command": "xelatex",
-      "args": ["%DOC%"]
-    },
-    {
-      "name": "xelatex minted",
-      "command": "xelatex",
-      "args": ["--shell-escape", "%DOC%"]
-    },
-    {
-      "name": "biber",
-      "command": "biber",
-      "args": ["%DOC%"]
-    }
-  ],
-  "latex-workshop.view.pdf.viewer": "tab",
-  "files.associations": {
-    "*.js": "javascript"
-  },
-  "liveServer.settings.donotVerifyTags": true,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-
-  "python.formatting.autopep8Args": [
-    "--max-line-length",
-    "120",
-    "--experimental"
-  ],
-
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "python.jediEnabled": false,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+	/**
+	 * Extension-specific settings
+	 */
+	"files.associations": {
+		"*.js": "javascript"
+	},
+	"[csharp]": {
+		"editor.tabSize": 4
+	},
+	"[rust]": {
+		"editor.tabSize": 4
+	},
+	"[latex]": {
+		"editor.minimap.enabled": false
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": true
+	},
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": true
+	},
+	"[shellscript]": {
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": true
+	}
 }
