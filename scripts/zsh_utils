@@ -1,13 +1,15 @@
 #!/usr/bin/env zsh
 
 # Usage:
-# source /dev/stdin <<< "$(curl -sL amrw.dev/tools/zsh_utils)"
+# source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/zsh_utils)"
 
 ############################################
 # CONSTANTS                                #
 ############################################
 
-declare -A COLOURS=(
+# Usage:
+# printf "${FONT[bold]}${FONT[blue]}Some text${FONT[reset]}\n"
+declare -A FONT=(
 	black $(tput setaf 0)
 	blue $(tput setaf 4)
 	cyan $(tput setaf 6)
@@ -18,13 +20,13 @@ declare -A COLOURS=(
 	red $(tput setaf 1)
 	white $(tput setaf 7)
 	yellow $(tput setaf 3)
-)
-declare -A TXT_UTILS=(
+
 	bold $(tput bold)
 	blink $(tput blink)
-	reset $(tput sgr0)
 	reverse $(tput smso)
 	underline $(tput smul)
+
+	reset $(tput sgr0)
 )
 
 
