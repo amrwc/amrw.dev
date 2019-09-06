@@ -6,8 +6,8 @@
 	"editor.detectIndentation": false,
 	"terminal.integrated.confirmOnExit": true,
 	"window.zoomLevel": 0,
-	"editor.fontSize": 14,
-	// "editor.fontSize": 18,
+	// "editor.fontSize": 14,
+	"editor.fontSize": 18,
 	"editor.wordWrap": "on",
 	"editor.wrappingIndent": "indent",
 	"explorer.confirmDelete": false,
@@ -17,6 +17,7 @@
 	"liveServer.settings.donotShowInfoMsg": true,
 	"editor.renderIndentGuides": true,
 	"prettier.singleQuote": true,
+	"prettier.trailingComma": "es5",
 	"files.trimFinalNewlines": false,
 	"files.trimTrailingWhitespace": false,
 	"workbench.enableExperiments": false,
@@ -206,5 +207,8 @@
 		"editor.tabSize": 4,
 		"editor.insertSpaces": false,
 		"editor.detectIndentation": true
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }
