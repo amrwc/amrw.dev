@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+# Creates symbolic links for Visual Studio Code's preferences. The dotfiles
+# directory will be the source of all the preferences.
+#
+# NOTE: This must be run inside of the `/scripts/dotfiles` directory as the
+#       paths in this script are relative it its location.
+# TODO: Consider rewriting the script in Node.js to have a reliable way to get
+#       the absolute path of the running script rather than relying on a per-
+#       fect execution.
+
+# Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
+CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
+DOTFILES_PATH="${PWD}/../../dotfiles/vscode"
+DESTINATION_PATH="${HOME}/Library/Application Support/Code/User"
+
+function link_dotfile() {
+	local file_name="${1}"
+	local file_path="${DESTINATION_PATH}/${file_name}"
+	# If the file exists...
+	if [ -f "${file_path}" ]; then
+		# ...make its dated copy before replacing it with a symlink.
+		local backup_file_path="${DESTINATION_PATH}/${CURRENT_DATE_TIME}_${file_name}"
+		cp "${file_path}" "${backup_file_path}"
+	fi
+	rm "${file_path}"
+	ln -s "${DOTFILES_PATH}/settings.json" "${file_path}"
+}
+
+link_dotfile "keybindings.json"
+link_dotfile "settings.json"
