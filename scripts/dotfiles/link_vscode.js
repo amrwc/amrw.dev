@@ -3,18 +3,13 @@
  * dotfiles directory will be the source of all the preferences.
  */
 
-const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const { linkDotfile } = require('./link_utils');
 
-// Current date-time in 'YYYY_MM_DD_HH_MM_SS' format.
-// Source: https://stackoverflow.com/q/7357734/10620237#comment85093531_16426519
-const CURRENT_DATE_TIME = new Date()
-  .toJSON()
-  .slice(0, 19)
-  .replace(/[T\:\-]/g, '_');
-
-const DESTINATION_PATH = `${os.homedir()}/Library/Application Support/Code/User`;
+// VS Code preferences location
+const DESTINATION_DIR_PATH = `${os.homedir()}/Library/Application Support/Code/User`;
+// Name of the root of the repository
 const ROOT_DIR_NAME = 'amrwc.github.io';
 
 // Traverse the directories upwards to find the repository's root directory.
@@ -26,38 +21,8 @@ while (path.basename(perhapsRootDir) !== ROOT_DIR_NAME) {
     process.exit(1);
   }
 }
-const DOTFILES_DIR_PATH = path.resolve(`${perhapsRootDir}/dotfiles/vscode`);
+// Absolute path to the source dotfiles
+const SOURCE_DIR_PATH = path.resolve(`${perhapsRootDir}/dotfiles/vscode`);
 
-/**
- * Replaces a dotfile with a symbolic link to its source in the repository.
- * @param {string} fileName
- */
-function linkDotfile(fileName) {
-  const sourceFilePath = path.resolve(`${DOTFILES_DIR_PATH}/${fileName}`);
-  const destinationFilePath = path.resolve(`${DESTINATION_PATH}/${fileName}`);
-
-  // If the file exists...
-  if (fs.existsSync(destinationFilePath)) {
-    // ...make its dated copy before replacing it with a symlink.
-    const backupFilePath =
-      DESTINATION_PATH +
-      '/' +
-      path.basename(destinationFilePath, path.extname(destinationFilePath)) +
-      '_' +
-      CURRENT_DATE_TIME +
-      path.extname(destinationFilePath);
-
-    const callback = err => {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
-    };
-    fs.copyFile(destinationFilePath, backupFilePath, callback);
-    fs.unlink(destinationFilePath, callback);
-    fs.symlink(sourceFilePath, destinationFilePath, callback);
-  }
-}
-
-linkDotfile('settings.json');
-linkDotfile('keybindings.json');
+linkDotfile('keybindings.json', 'keybindings.json', SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
+linkDotfile('settings.json', 'settings.json', SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
