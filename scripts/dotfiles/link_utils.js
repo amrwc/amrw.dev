@@ -13,58 +13,54 @@ exports.getCurrentDateTime = function() {
 
 /**
  * Replaces a dotfile with a symbolic link to its source in the repository.
+ * NOTE: The script is Unix-specific due to the shell commands used with exec.
  *
  * @param {string} srcFileName
  * @param {string} destFileName
  * @param {string} srcDirPath
  * @param {string} destDirPath
  */
-exports.linkDotfile = async function(srcFileName, destFileName, srcDirPath, destDirPath) {
-  const path = require('path');
+exports.linkDotfile = function(srcFileName, destFileName, srcDirPath, destDirPath) {
+  const execSync = require('child_process').execSync;
   const fs = require('fs');
+  const path = require('path');
 
   const srcFilePath = path.resolve(`${srcDirPath}/${srcFileName}`);
   const destFilePath = path.resolve(`${destDirPath}/${destFileName}`);
 
-  const errorCallbackGeneric = err => {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-  };
+  // Test whether the destination file exists.
+  const existsDestFile =
+    execSync(`test -f "${destFilePath}" && printf "true" || printf "false"`).toString() === 'true'
+      ? true
+      : false;
 
-  // NOTE: 'fs.existsSync' gives unexpected results when supplied a symlink.
-  //       Find more reliable way of detecting whether a real file exists,
-  //       or whether it's a symlink.
-  const existsDestFile = fs.existsSync(destFilePath);
-  // const existsDestFile = (await fs.open(destFilePath, 'r', (err, fd) => {
-  //   errorCallbackGeneric(err);
-  // }))
-  //   ? true
-  //   : false;
-
-  let existsDestSymlink = false;
-  await fs.lstat(destFilePath, (err, stats) => {
-    if (!err && stats) existsDestSymlink = true;
-  });
-
-  // If the file or a symlink with the same path exists...
-  if (existsDestFile || existsDestSymlink) {
-    if (existsDestFile && !existsDestSymlink) {
-      // ...make a dated copy of the file before replacing it with a symlink.
+  // If the destination exists...
+  if (existsDestFile) {
+    // ...test whether it's a symlink, since the '-f' flag in test is true for symlinks too...
+    const existsDestSymlink =
+      execSync(`test -L "${destFilePath}" && printf "true" || printf "false"`).toString() === 'true'
+        ? true
+        : false;
+    // ...and if the file is indeed not a symlink...
+    if (!existsDestSymlink) {
+      // ...make a dated copy of the file before replacing it with a symlink...
       const backupFilePath =
         destDirPath +
         '/' +
         path.basename(destFilePath, path.extname(destFilePath)) +
-        '_' +
+        '_backup_' +
         exports.getCurrentDateTime() +
         path.extname(destFilePath);
-
-      await fs.copyFile(destFilePath, backupFilePath, errorCallbackGeneric);
+      fs.copyFileSync(destFilePath, backupFilePath);
     }
-
-    await fs.unlink(destFilePath, errorCallbackGeneric);
+    // ...then remove the existing file/symlink.
+    fs.unlinkSync(destFilePath);
   }
 
-  await fs.symlink(srcFilePath, destFilePath, errorCallbackGeneric);
+  fs.symlink(srcFilePath, destFilePath, err => {
+    if (err) {
+      console.error(err);
+      process.exit(err.errno);
+    }
+  });
 };
