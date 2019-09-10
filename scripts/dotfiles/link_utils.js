@@ -1,4 +1,42 @@
 /**
+ * Returns a colour escape sequence that can be used to create coloured console outputs.
+ *
+ * @source https://stackoverflow.com/a/41407246/10620237
+ * @param {string} colour
+ */
+exports.getColour = function(colour) {
+  const colours = {
+    Reset: '\x1b[0m',
+    Bright: '\x1b[1m',
+    Dim: '\x1b[2m',
+    Underscore: '\x1b[4m',
+    Blink: '\x1b[5m',
+    Reverse: '\x1b[7m',
+    Hidden: '\x1b[8m',
+
+    FgBlack: '\x1b[30m',
+    FgRed: '\x1b[31m',
+    FgGreen: '\x1b[32m',
+    FgYellow: '\x1b[33m',
+    FgBlue: '\x1b[34m',
+    FgMagenta: '\x1b[35m',
+    FgCyan: '\x1b[36m',
+    FgWhite: '\x1b[37m',
+
+    BgBlack: '\x1b[40m',
+    BgRed: '\x1b[41m',
+    BgGreen: '\x1b[42m',
+    BgYellow: '\x1b[43m',
+    BgBlue: '\x1b[44m',
+    BgMagenta: '\x1b[45m',
+    BgCyan: '\x1b[46m',
+    BgWhite: '\x1b[47m',
+  };
+
+  return colours[colour];
+};
+
+/**
  * Returns current date-time in 'YYYY_MM_DD_HH_MM_SS' format.
  *
  * @source https://stackoverflow.com/q/7357734/10620237#comment85093531_16426519
@@ -36,7 +74,7 @@ exports.linkDotfile = function(srcFileName, destFileName, srcDirPath, destDirPat
 
   // If the destination exists...
   if (existsDestFile) {
-    // ...test whether it's a symlink, since the '-f' flag in test is true for symlinks too...
+    // ...test whether it's a symlink, since the '-f' flag in 'test' is true for symlinks too...
     const existsDestSymlink =
       execSync(`test -L "${destFilePath}" && printf "true" || printf "false"`).toString() === 'true'
         ? true
@@ -52,6 +90,7 @@ exports.linkDotfile = function(srcFileName, destFileName, srcDirPath, destDirPat
         exports.getCurrentDateTime() +
         path.extname(destFilePath);
       fs.copyFileSync(destFilePath, backupFilePath);
+      console.info(`${exports.getColour('FgYellow')}Created a dated backup of ${destFileName}`);
     }
     // ...then remove the existing file/symlink.
     fs.unlinkSync(destFilePath);
@@ -63,4 +102,5 @@ exports.linkDotfile = function(srcFileName, destFileName, srcDirPath, destDirPat
       process.exit(err.errno);
     }
   });
+  console.info(`${exports.getColour('FgGreen')}Created a symlink to ${destFileName}`);
 };
