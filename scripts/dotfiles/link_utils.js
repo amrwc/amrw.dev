@@ -51,7 +51,7 @@ exports.getCurrentDateTime = function() {
 
 /**
  * Replaces a dotfile with a symbolic link to its source in the repository.
- * NOTE: The script is Unix-specific due to the shell commands used with exec.
+ * NOTE: The function is Unix-specific due to the shell programs usage through 'exec'.
  *
  * @param {string} srcFileName
  * @param {string} destFileName

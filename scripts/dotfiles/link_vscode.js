@@ -1,10 +1,9 @@
 /**
- * Creates symbolic links for Visual Studio Code's preferences. The repo's
- * dotfiles directory will be the source of all the preferences.
+ * Creates symbolic links for Visual Studio Code's preferences. The repo's dotfiles directory will
+ * be the source of all the preferences.
  *
- * NOTE: To use the script, the repository must be present locally, ideally
- *       in a place where it will stay indefinitely; otherwise, the script must
- *       be re-run.
+ * NOTE: To use the script, the repository must be present locally, ideally in a place where it
+ *       will stay indefinitely; otherwise, when moved, the script must be re-run.
  *
  * Usage:
  * From anywhere on your machine, run:
