@@ -110,7 +110,8 @@ exports.linkDotfile = function(srcFileName, destFileName, srcDirPath, destDirPat
     } else
       console.info(
         `${exports.txtUtils('green')}Created a new symlink to ${destFileName}:\n `,
-        `${exports.txtUtils('reset')}${destFilePath}`
+        `${exports.txtUtils('reset')}${srcFilePath} ->\n `,
+        `${destFilePath}`
       );
   });
 };
