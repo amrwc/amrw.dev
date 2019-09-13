@@ -50,6 +50,31 @@ exports.getCurrentDateTime = function() {
 };
 
 /**
+ * Traverse the directories upwards to find the destination directory. The initial usecase was to
+ * find the root directory of a repository using the cwd.
+ *
+ * @param {string} destDirname
+ * @param {string} startPath
+ * @returns {string}
+ */
+exports.findRootDir = function(destDirname, startPath = __dirname) {
+  const path = require('path');
+
+  let perhapsDestDir = startPath;
+  while (path.basename(perhapsDestDir) !== destDirname) {
+    perhapsDestDir = path.resolve(`${perhapsDestDir}/../`);
+    if (perhapsDestDir === '/') {
+      console.error(
+        `${exports.txtUtils('red')}Error: Couldn't locate the root directory:\n `,
+        `${exports.txtUtils('reset')}${destDirname}`
+      );
+      return null;
+    }
+  }
+  return perhapsDestDir;
+};
+
+/**
  * Replaces a dotfile with a symbolic link to its source in the repository.
  * NOTE: The function is Unix-specific due to the shell programs usage through 'exec'.
  *
