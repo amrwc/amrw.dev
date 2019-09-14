@@ -1,31 +1,30 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env node
 
-# Creates symbolic links for Visual Studio Code's preferences. The dotfiles
-# directory will be the source of all the preferences.
-#
-# NOTE: This must be run inside of the `/scripts/dotfiles` directory as the
-#       paths in this script are relative it its location.
-# TODO: Consider rewriting the script in Node.js to have a reliable way to get
-#       the absolute path of the running script rather than relying on a per-
-#       fect execution.
+/**
+ * Creates symbolic links for Visual Studio Code's preferences. The repo's dotfiles directory will
+ * be the source of all the preferences.
+ *
+ * NOTE: To use the script, the repository must be present locally, ideally in a place where it
+ *       will stay indefinitely; otherwise, when moved, the script must be re-run.
+ *
+ * Usage:
+ * From anywhere on your machine, run:
+ * node [path_to_the_file/]link_vscode.js
+ */
 
-# Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
-CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
-DOTFILES_PATH="${PWD}/../../dotfiles/vscode"
-DESTINATION_PATH="${HOME}/Library/Application Support/Code/User"
+const os = require('os');
+const path = require('path');
+const { findRootDir, linkDotfile } = require('./link_utils');
 
-function link_dotfile() {
-	local file_name="${1}"
-	local file_path="${DESTINATION_PATH}/${file_name}"
-	# If the file exists...
-	if [ -f "${file_path}" ]; then
-		# ...make its dated copy before replacing it with a symlink.
-		local backup_file_path="${DESTINATION_PATH}/${CURRENT_DATE_TIME}_${file_name}"
-		cp "${file_path}" "${backup_file_path}"
-	fi
-	rm "${file_path}"
-	ln -s "${DOTFILES_PATH}/settings.json" "${file_path}"
-}
+// VS Code preferences location
+const DESTINATION_DIR_PATH = `${os.homedir()}/Library/Application Support/Code/User`;
+// Name of the root directory of the repository
+const ROOT_DIR_NAME = 'amrwc.github.io';
 
-link_dotfile "keybindings.json"
-link_dotfile "settings.json"
+// Traverse the directories upwards to find the repository's root directory.
+const rootDirPath = findRootDir(ROOT_DIR_NAME, __dirname);
+// Absolute path to the source dotfiles
+const SOURCE_DIR_PATH = path.resolve(`${rootDirPath}/dotfiles/vscode`);
+
+linkDotfile('keybindings.json', 'keybindings.json', SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
+linkDotfile('settings.json', 'settings.json', SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
