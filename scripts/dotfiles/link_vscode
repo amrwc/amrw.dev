@@ -5,11 +5,12 @@
  * be the source of all the preferences.
  *
  * NOTE: To use the script, the repository must be present locally, ideally in a place where it
- *       will stay indefinitely; otherwise, when moved, the script must be re-run.
+ *       will stay indefinitely; otherwise, when (re)moved, the script must be re-run, or the
+ * 		 files' original names recovered.
  *
  * Usage:
  * From anywhere on your machine, run:
- * node [path_to_the_file/]link_vscode.js
+ * node [path_to_the_file/]link_vscode
  */
 
 const os = require('os');
