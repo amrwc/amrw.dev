@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Returns an escape sequence that can be used to format console outputs.
  *
