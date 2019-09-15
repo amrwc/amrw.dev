@@ -6,7 +6,7 @@
  * @source https://stackoverflow.com/a/41407246/10620237
  * @param {string} util
  */
-exports.txtUtils = function(util) {
+function txtUtils(util) {
   const utils = {
     reset: '\x1b[0m',
     bright: '\x1b[1m',
@@ -36,7 +36,7 @@ exports.txtUtils = function(util) {
   };
 
   return utils[util];
-};
+}
 
 /**
  * Returns current date-time in 'YYYY_MM_DD_HH_MM_SS' format.
@@ -44,12 +44,12 @@ exports.txtUtils = function(util) {
  * @source https://stackoverflow.com/q/7357734/10620237#comment85093531_16426519
  * @returns {string}
  */
-exports.getCurrentDateTime = function() {
+function getCurrentDateTime() {
   return new Date()
     .toJSON()
     .slice(0, 19)
     .replace(/[T\:\-]/g, '_');
-};
+}
 
 /**
  * Traverse the directories upwards to find the destination directory. The initial usecase was to
@@ -67,8 +67,8 @@ exports.findRootDir = function(destDirname, startPath = __dirname) {
     perhapsDestDir = path.resolve(`${perhapsDestDir}/../`);
     if (perhapsDestDir === '/') {
       console.error(
-        `${exports.txtUtils('red')}Error: Couldn't locate the root directory:\n `,
-        `${exports.txtUtils('reset')}${destDirname}`
+        `${txtUtils('red')}Error: Couldn't locate the root directory:\n `,
+        `${txtUtils('reset')}${destDirname}`
       );
       return null;
     }
@@ -77,68 +77,163 @@ exports.findRootDir = function(destDirname, startPath = __dirname) {
 };
 
 /**
- * Replaces a dotfile with a symbolic link to its source in the repository.
- * NOTE: The function is Unix-specific due to the shell programs usage through 'exec'.
+ * Copies a directory with all its contents; equivalent to `cp -R src dest`.
  *
- * @param {string} srcFileName
- * @param {string} destFileName
  * @param {string} srcDirPath
  * @param {string} destDirPath
+ * @read https://stackoverflow.com/q/13786160/10620237
+ * @source https://stackoverflow.com/a/52338335/10620237
  */
-exports.linkDotfile = function(srcFileName, destFileName, srcDirPath, destDirPath) {
-  const execSync = require('child_process').execSync;
+function cpdirRecursive(srcDirPath, destDirPath) {
+  const path = require('path');
+  const fs = require('fs');
+
+  fs.mkdirSync(destDirPath);
+  fs.readdirSync(srcDirPath).forEach(entry => {
+    if (fs.lstatSync(path.join(srcDirPath, entry)).isFile()) {
+      fs.copyFileSync(path.join(srcDirPath, entry), path.join(destDirPath, entry));
+    } else {
+      cpdirRecursive(path.join(srcDirPath, entry), path.join(destDirPath, entry));
+    }
+  });
+}
+
+/**
+ * Removes a directory with all its contents; equivalent to `rm -Rf`.
+ *
+ * @param {string} dirPath
+ * @read https://stackoverflow.com/q/18052762/10620237
+ * @source https://stackoverflow.com/a/42505874/10620237
+ */
+function rmdirRecursive(dirPath) {
   const fs = require('fs');
   const path = require('path');
 
-  const srcFilePath = path.resolve(`${srcDirPath}/${srcFileName}`);
-  const destFilePath = path.resolve(`${destDirPath}/${destFileName}`);
-
-  // Test whether the destination file exists.
-  const existsDestFile =
-    execSync(`test -f "${destFilePath}" && printf "true" || printf "false"`).toString() === 'true'
-      ? true
-      : false;
-
-  // If the full destination path exists...
-  if (existsDestFile) {
-    // ...test whether it's a symlink, since the '-f' flag in 'test' is true for symlinks too...
-    const existsDestSymlink =
-      execSync(`test -L "${destFilePath}" && printf "true" || printf "false"`).toString() === 'true'
-        ? true
-        : false;
-    // ...and if the file is indeed not a symlink...
-    if (!existsDestSymlink) {
-      // ...make a dated copy of the file before replacing it with a symlink...
-      const backupFilePath =
-        destDirPath +
-        '/' +
-        path.basename(destFilePath, path.extname(destFilePath)) +
-        '_backup_' +
-        exports.getCurrentDateTime() +
-        path.extname(destFilePath);
-      fs.copyFileSync(destFilePath, backupFilePath);
-      console.info(
-        `${exports.txtUtils('yellow')}Created a dated backup of ${destFileName}:\n `,
-        `${exports.txtUtils('reset')}${backupFilePath}`
-      );
+  fs.readdirSync(dirPath).forEach(entry => {
+    const entryPath = path.join(dirPath, entry);
+    if (fs.lstatSync(entryPath).isDirectory()) {
+      rmdirRecursive(entryPath);
+    } else {
+      fs.unlinkSync(entryPath);
     }
-    // ...then remove the existing file/symlink.
-    fs.unlinkSync(destFilePath);
-    console.info(
-      `${exports.txtUtils('yellow')}Removed the old file/symlink:\n `,
-      `${exports.txtUtils('reset')}${srcFilePath}`
-    );
-  }
+  });
+  fs.rmdirSync(dirPath);
+}
 
-  fs.symlink(srcFilePath, destFilePath, err => {
+/**
+ * Asynchronously creates a symbolic link.
+ *
+ * @param {string} src
+ * @param {string} dest
+ */
+function createSymlink(src, dest) {
+  const fs = require('fs');
+
+  fs.symlink(src, dest, err => {
     if (err) {
       console.error(err);
       process.exit(err.errno);
     } else
       console.info(
-        `${exports.txtUtils('green')}Created a new symlink to ${destFileName}:\n `,
-        `${exports.txtUtils('reset')}${srcFilePath} ->\n `,
-        `${destFilePath}`
+        `${txtUtils('green')}Created a new symlink:\n `,
+        `${txtUtils('reset')}${src} ->\n `,
+        `${dest}`
       );
   });
+}
+
+/**
+ * Replaces a file with a symbolic link to the specified source.
+ *
+ * @param {string} srcFilePath
+ * @param {string} destFilePath
+ */
+function linkFile(srcFilePath, destFilePath) {
+  const fs = require('fs');
+  const path = require('path');
+
+  const destDirPath = path.dirname(destFilePath);
+  const destFileName = path.basename(destFilePath, path.extname(destFilePath));
+  const destFileExt = path.extname(destFilePath);
+
+  // Make a dated copy of the file before replacing it with a symlink.
+  const backupFilePath = path.resolve(
+    destDirPath + '/' + destFileName + '_backup_' + getCurrentDateTime() + destFileExt
+  );
+  fs.copyFileSync(destFilePath, backupFilePath);
+  console.info(
+    `${txtUtils('yellow')}Created a dated backup:\n `,
+    `${txtUtils('reset')}${backupFilePath}`
+  );
+
+  fs.unlinkSync(destFilePath);
+  console.info(
+    `${txtUtils('yellow')}Removed the old file/symlink:\n `,
+    `${txtUtils('reset')}${destFilePath}`
+  );
+
+  createSymlink(srcFilePath, destFilePath);
+}
+
+/**
+ * Replaces a directory with a symbolic link to the specified source.
+ *
+ * @param {string} srcDirPath
+ * @param {string} destDirPath
+ */
+function linkDir(srcDirPath, destDirPath) {
+  const fs = require('fs');
+
+  // Make a dated copy of the directory before replacing it with a symlink
+  const backupDirPath = destDirPath + '_backup_' + getCurrentDateTime();
+  cpdirRecursive(destDirPath, backupDirPath);
+  console.info(
+    `${txtUtils('yellow')}Created a dated backup:\n `,
+    `${txtUtils('reset')}${backupDirPath}`
+  );
+
+  rmdirRecursive(destDirPath);
+  console.info(
+    `${txtUtils('yellow')}Removed the old directory:\n `,
+    `${txtUtils('reset')}${destDirPath}`
+  );
+
+  createSymlink(srcDirPath, destDirPath);
+}
+
+function relink(src, dest) {
+  const fs = require('fs');
+
+  if (fs.existsSync(dest)) {
+    fs.unlinkSync(dest);
+    console.info(`${txtUtils('yellow')}Removed the old symlink:\n `, `${txtUtils('reset')}${dest}`);
+  }
+  createSymlink(src, dest);
+}
+
+/**
+ * Handles creation, re-creation of symbolic links, or replacement of files/directories with sym-
+ * bolic links to the specified source.
+ *
+ * @param {string} srcPath
+ * @param {string} destPath
+ */
+exports.link = function(srcPath, destPath) {
+  const fs = require('fs');
+  const path = require('path');
+
+  const src = path.resolve(srcPath);
+  const dest = path.resolve(destPath);
+
+  // Is the destination a file or a directory?
+  let isFile = false;
+  let isDirectory = false;
+  if (fs.existsSync(dest)) {
+    isFile = fs.lstatSync(dest).isFile();
+    isDirectory = fs.lstatSync(dest).isDirectory();
+  }
+
+  if (isFile) linkFile(src, dest);
+  else if (isDirectory) linkDir(src, dest);
+  else relink(src, dest); // The destination path either doesn't exist or is a symlink.
 };

@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+/**
+ * Creates symbolic links for Karabiner-Elements's preferences. The repo's dotfiles directory will
+ * be the source of all the preferences.
+ *
+ * NOTE: To use the script, the repository must be present locally, ideally in a place where it
+ *       will stay indefinitely; otherwise, when (re)moved, the script must be re-run, or the
+ * 	     files recovered.
+ * NOTE: `karabiner.json` is auto-created from the JSON files in `~/.config/karabiner/assets`, thus
+ * 	     as per https://github.com/tekezo/Karabiner-Elements/issues/1764#issuecomment-490130976 the
+ * 	     normal file symlink setup is not possible with Karabiner. A recommended workaround is to
+ *       create a symlink to the directory containing `karabiner.json`
+ *       (https://github.com/tekezo/Karabiner-Elements/issues/708).
+ *
+ * Usage:
+ * From anywhere on your machine, run:
+ * node [path_to_the_file/]link_karabiner
+ */
+
+const os = require('os');
+const path = require('path');
+const { findRootDir, link } = require('./link_utils');
+
+// VS Code preferences location
+const DESTINATION_DIR_PATH = `${os.homedir()}/.config/karabiner`;
+// Name of the root directory of the repository
+const ROOT_DIR_NAME = 'amrwc.github.io';
+
+// Traverse the directories upwards to find the repository's root directory.
+const rootDirPath = findRootDir(ROOT_DIR_NAME, __dirname);
+// Absolute path to the source dotfiles
+const SOURCE_DIR_PATH = path.resolve(`${rootDirPath}/dotfiles/karabiner`);
+
+link(SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
