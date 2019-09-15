@@ -6,7 +6,7 @@
  *
  * NOTE: To use the script, the repository must be present locally, ideally in a place where it
  *       will stay indefinitely; otherwise, when (re)moved, the script must be re-run, or the
- * 		 files' original names recovered.
+ *       files recovered.
  *
  * Usage:
  * From anywhere on your machine, run:
@@ -15,7 +15,7 @@
 
 const os = require('os');
 const path = require('path');
-const { findRootDir, linkDotfile } = require('./link_utils');
+const { findRootDir, link } = require('./link_utils');
 
 // VS Code preferences location
 const DESTINATION_DIR_PATH = `${os.homedir()}/Library/Application Support/Code/User`;
@@ -27,5 +27,5 @@ const rootDirPath = findRootDir(ROOT_DIR_NAME, __dirname);
 // Absolute path to the source dotfiles
 const SOURCE_DIR_PATH = path.resolve(`${rootDirPath}/dotfiles/vscode`);
 
-linkDotfile('keybindings.json', 'keybindings.json', SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
-linkDotfile('settings.json', 'settings.json', SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
+link(`${SOURCE_DIR_PATH}/keybindings.json`, `${DESTINATION_DIR_PATH}/keybindings.json`);
+link(`${SOURCE_DIR_PATH}/settings.json`, `${DESTINATION_DIR_PATH}/settings.json`);
