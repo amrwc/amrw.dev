@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+/**
+ * Runs all the dotfiles symlinking scripts.
+ *
+ * NOTE: To use the script, the repository must be present locally, ideally in a place where it
+ *       will stay indefinitely; otherwise, when (re)moved, the script must be re-run, or the
+ *       files recovered.
+ *
+ * Usage:
+ * From anywhere on your machine, run:
+ * node [path_to_the_file/]link_all
+ */
+
+require('./link_dotfiles');
+require('./link_karabiner');
+require('./link_vscode');
