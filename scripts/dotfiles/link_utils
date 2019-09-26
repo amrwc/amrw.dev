@@ -1,146 +1,30 @@
 #!/usr/bin/env node
 
 /**
- * Returns an escape sequence that can be used to format console outputs.
+ * Replaces files/directories/symlinks at {destPath} with new symbolic links to the {srcPath}.
  *
- * @source https://stackoverflow.com/a/41407246/10620237
- * @param {string} util
+ * @param {string} srcPath
+ * @param {string} destPath
  */
-function txtUtils(util) {
-  const utils = {
-    reset: '\x1b[0m',
-    bright: '\x1b[1m',
-    dim: '\x1b[2m',
-    underscore: '\x1b[4m',
-    blink: '\x1b[5m',
-    reverse: '\x1b[7m',
-    hidden: '\x1b[8m',
-
-    black: '\x1b[30m',
-    red: '\x1b[31m',
-    green: '\x1b[32m',
-    yellow: '\x1b[33m',
-    blue: '\x1b[34m',
-    magenta: '\x1b[35m',
-    cyan: '\x1b[36m',
-    white: '\x1b[37m',
-
-    bgBlack: '\x1b[40m',
-    bgRed: '\x1b[41m',
-    bgGreen: '\x1b[42m',
-    bgYellow: '\x1b[43m',
-    bgBlue: '\x1b[44m',
-    bgMagenta: '\x1b[45m',
-    bgCyan: '\x1b[46m',
-    bgWhite: '\x1b[47m',
-  };
-
-  return utils[util];
-}
-
-/**
- * Returns current date-time in 'YYYY_MM_DD_HH_MM_SS' format.
- *
- * @source https://stackoverflow.com/q/7357734/10620237#comment85093531_16426519
- * @returns {string}
- */
-function getCurrentDateTime() {
-  return new Date()
-    .toJSON()
-    .slice(0, 19)
-    .replace(/[T\:\-]/g, '_');
-}
-
-/**
- * Traverse the directories upwards to find the destination directory. The initial usecase was to
- * find the root directory of a repository using the cwd.
- *
- * @param {string} destDirname
- * @param {string} startPath
- * @returns {string}
- */
-exports.findRootDir = function(destDirname, startPath = __dirname) {
+exports.link = function(srcPath, destPath) {
+  const fs = require('fs');
   const path = require('path');
 
-  let perhapsDestDir = startPath;
-  while (path.basename(perhapsDestDir) !== destDirname) {
-    perhapsDestDir = path.resolve(`${perhapsDestDir}/../`);
-    if (perhapsDestDir === '/') {
-      console.error(
-        `${txtUtils('red')}Error: Couldn't locate the root directory:\n `,
-        `${txtUtils('reset')}${destDirname}`
-      );
-      return null;
-    }
+  const src = path.resolve(srcPath);
+  const dest = path.resolve(destPath);
+
+  // Is the destination a file or a directory?
+  let isFile = false;
+  let isDirectory = false;
+  if (fs.existsSync(dest)) {
+    isFile = fs.lstatSync(dest).isFile();
+    isDirectory = fs.lstatSync(dest).isDirectory();
   }
-  return perhapsDestDir;
+
+  if (isFile) linkFile(src, dest);
+  else if (isDirectory) linkDir(src, dest);
+  else relink(src, dest); // The destination path either doesn't exist or is a symlink.
 };
-
-/**
- * Copies a directory with all its contents; equivalent to `cp -R src dest`.
- *
- * @param {string} srcDirPath
- * @param {string} destDirPath
- * @read https://stackoverflow.com/q/13786160/10620237
- * @source https://stackoverflow.com/a/52338335/10620237
- */
-function cpdirRecursive(srcDirPath, destDirPath) {
-  const path = require('path');
-  const fs = require('fs');
-
-  fs.mkdirSync(destDirPath);
-  fs.readdirSync(srcDirPath).forEach(entry => {
-    if (fs.lstatSync(path.join(srcDirPath, entry)).isFile()) {
-      fs.copyFileSync(path.join(srcDirPath, entry), path.join(destDirPath, entry));
-    } else {
-      cpdirRecursive(path.join(srcDirPath, entry), path.join(destDirPath, entry));
-    }
-  });
-}
-
-/**
- * Removes a directory with all its contents; equivalent to `rm -Rf`.
- *
- * @param {string} dirPath
- * @read https://stackoverflow.com/q/18052762/10620237
- * @source https://stackoverflow.com/a/42505874/10620237
- */
-function rmdirRecursive(dirPath) {
-  const fs = require('fs');
-  const path = require('path');
-
-  fs.readdirSync(dirPath).forEach(entry => {
-    const entryPath = path.join(dirPath, entry);
-    if (fs.lstatSync(entryPath).isDirectory()) {
-      rmdirRecursive(entryPath);
-    } else {
-      fs.unlinkSync(entryPath);
-    }
-  });
-  fs.rmdirSync(dirPath);
-}
-
-/**
- * Asynchronously creates a symbolic link.
- *
- * @param {string} src
- * @param {string} dest
- */
-function createSymlink(src, dest) {
-  const fs = require('fs');
-
-  fs.symlink(src, dest, err => {
-    if (err) {
-      console.error(err);
-      process.exit(err.errno);
-    } else
-      console.info(
-        `${txtUtils('green')}Created a new symlink:\n `,
-        `${txtUtils('reset')}${src} ->\n `,
-        `${dest}`
-      );
-  });
-}
 
 /**
  * Replaces a file with a symbolic link to the specified source.
@@ -182,8 +66,6 @@ function linkFile(srcFilePath, destFilePath) {
  * @param {string} destDirPath
  */
 function linkDir(srcDirPath, destDirPath) {
-  const fs = require('fs');
-
   // Make a dated copy of the directory before replacing it with a symlink
   const backupDirPath = destDirPath + '_backup_' + getCurrentDateTime();
   cpdirRecursive(destDirPath, backupDirPath);
@@ -201,6 +83,12 @@ function linkDir(srcDirPath, destDirPath) {
   createSymlink(srcDirPath, destDirPath);
 }
 
+/**
+ * (Re-)creates a symbolic link.
+ *
+ * @param {string} src
+ * @param {string} dest
+ */
 function relink(src, dest) {
   const fs = require('fs');
 
@@ -208,32 +96,127 @@ function relink(src, dest) {
     fs.unlinkSync(dest);
     console.info(`${txtUtils('yellow')}Removed the old symlink:\n `, `${txtUtils('reset')}${dest}`);
   }
+
   createSymlink(src, dest);
 }
 
 /**
- * Handles creation, re-creation of symbolic links, or replacement of files/directories with sym-
- * bolic links to the specified source.
+ * Asynchronously creates a symbolic link.
  *
- * @param {string} srcPath
- * @param {string} destPath
+ * @param {string} src
+ * @param {string} dest
  */
-exports.link = function(srcPath, destPath) {
+function createSymlink(src, dest) {
+  const fs = require('fs');
+
+  fs.symlink(src, dest, err => {
+    if (err) {
+      console.error(err);
+      process.exit(err.errno);
+    } else
+      console.info(
+        `${txtUtils('green')}Created a new symlink:\n `,
+        `${txtUtils('reset')}${src} ->\n `,
+        `${dest}`
+      );
+  });
+}
+
+/**
+ * Copies a directory with all its contents; equivalent to `cp -R src dest`.
+ *
+ * @read https://stackoverflow.com/q/13786160/10620237
+ * @source https://stackoverflow.com/a/52338335/10620237
+ * @param {string} srcDirPath
+ * @param {string} destDirPath
+ */
+function cpdirRecursive(srcDirPath, destDirPath) {
+  const path = require('path');
+  const fs = require('fs');
+
+  fs.mkdirSync(destDirPath);
+  fs.readdirSync(srcDirPath).forEach(entry => {
+    if (fs.lstatSync(path.join(srcDirPath, entry)).isFile()) {
+      fs.copyFileSync(path.join(srcDirPath, entry), path.join(destDirPath, entry));
+    } else {
+      cpdirRecursive(path.join(srcDirPath, entry), path.join(destDirPath, entry));
+    }
+  });
+}
+
+/**
+ * Removes a directory with all its contents; equivalent to `rm -Rf`.
+ *
+ * @read https://stackoverflow.com/q/18052762/10620237
+ * @source https://stackoverflow.com/a/42505874/10620237
+ * @param {string} dirPath
+ */
+function rmdirRecursive(dirPath) {
   const fs = require('fs');
   const path = require('path');
 
-  const src = path.resolve(srcPath);
-  const dest = path.resolve(destPath);
+  fs.readdirSync(dirPath).forEach(entry => {
+    const entryPath = path.join(dirPath, entry);
+    if (fs.lstatSync(entryPath).isDirectory()) {
+      rmdirRecursive(entryPath);
+    } else {
+      fs.unlinkSync(entryPath);
+    }
+  });
+  fs.rmdirSync(dirPath);
+}
 
-  // Is the destination a file or a directory?
-  let isFile = false;
-  let isDirectory = false;
-  if (fs.existsSync(dest)) {
-    isFile = fs.lstatSync(dest).isFile();
-    isDirectory = fs.lstatSync(dest).isDirectory();
+/**
+ * Returns current date-time in 'YYYY_MM_DD_HH_MM_SS' format.
+ *
+ * @source https://stackoverflow.com/q/7357734/10620237#comment85093531_16426519
+ * @returns {string}
+ */
+function getCurrentDateTime() {
+  return new Date()
+    .toJSON()
+    .slice(0, 19)
+    .replace(/[T\:\-]/g, '_');
+}
+
+/**
+ * Returns an escape sequence that can be used to format console outputs.
+ *
+ * @source https://stackoverflow.com/a/41407246/10620237
+ * @param {string} util
+ */
+function txtUtils(util) {
+  const utils = {
+    green: '\x1b[32m',
+    red: '\x1b[31m',
+    yellow: '\x1b[33m',
+    reset: '\x1b[0m',
+  };
+
+  return utils[util];
+}
+
+/**
+ * Traverse the directories upwards to find the destination directory. The initial usecase was to
+ * find the root directory of a repository using the cwd.
+ *
+ * @param {string} destDirname
+ * @param {string} startPath
+ * @returns {string}
+ */
+exports.findRootDir = function(destDirname, startPath = __dirname) {
+  const path = require('path');
+
+  let perhapsDestDir = startPath;
+  while (path.basename(perhapsDestDir) !== destDirname) {
+    perhapsDestDir = path.resolve(`${perhapsDestDir}/../`);
+    if (perhapsDestDir === '/') {
+      console.error(
+        `${txtUtils('red')}Error: Couldn't locate the root directory:\n `,
+        `${txtUtils('reset')}${destDirname}`
+      );
+      return null;
+    }
   }
-
-  if (isFile) linkFile(src, dest);
-  else if (isDirectory) linkDir(src, dest);
-  else relink(src, dest); // The destination path either doesn't exist or is a symlink.
+  return perhapsDestDir;
 };
