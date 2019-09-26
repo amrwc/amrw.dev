@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+
+/**
+ * Creates symbolic links for dotfiles. The repo's dotfiles directory will be the source of all the
+ * preferences.
+ *
+ * NOTE: To use the script, the repository must be present locally, ideally in a place where it
+ *       will stay indefinitely; otherwise, when (re)moved, the script must be re-run, or the
+ *       files recovered.
+ *
+ * Usage:
+ * From anywhere on your machine, run:
+ * node [path_to_the_file/]link_dotfiles
+ */
+
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+const { findRootDir, link } = require('./link_utils');
+
+// Dotfiles location
+const DESTINATION_DIR_PATH = os.homedir();
+// Name of the root directory of the repository
+const ROOT_DIR_NAME = 'amrwc.github.io';
+
+// Traverse the directories upwards to find the repository's root directory.
+const rootDirPath = findRootDir(ROOT_DIR_NAME, __dirname);
+// Absolute path to the source dotfiles
+const SOURCE_DIR_PATH = path.resolve(`${rootDirPath}/dotfiles/dotfiles`);
+
+// Link all dotfiles.
+fs.readdir(SOURCE_DIR_PATH, (err, files) => {
+  if (err) {
+    console.error(err);
+    process.exit(err.errno);
+  }
+
+  files.forEach(fileName => {
+    link(path.join(SOURCE_DIR_PATH, fileName), path.join(DESTINATION_DIR_PATH, '.' + fileName));
+  });
+});
