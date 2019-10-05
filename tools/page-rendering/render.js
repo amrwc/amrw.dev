@@ -1,6 +1,8 @@
+#!/usr/bin/env node
+
 /**
  * @read https://github.com/shd101wyy/mume
- * 
+ *
  * Example usage:
  * npm i
  * node render.js ./page-rendering.md
@@ -23,8 +25,8 @@ async function main() {
       // revealjsTheme: "white.css"
       codeBlockTheme: 'github.css',
       printBackground: true,
-      enableScriptExecution: true // <= for running code chunks
-    }
+      enableScriptExecution: true, // <= for running code chunks
+    },
   });
 
   // open in browser
