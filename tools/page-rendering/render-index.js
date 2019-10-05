@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * @read https://github.com/shd101wyy/mume
  *
@@ -24,8 +26,8 @@ const PATH_INDEX_HTML = path.join(__dirname, '..', '..', 'index.html');
       previewTheme: 'github-light.css',
       codeBlockTheme: 'github.css',
       printBackground: true,
-      enableScriptExecution: true
-    }
+      enableScriptExecution: true,
+    },
   });
   await engine.htmlExport({ offline: false, runAllCodeChunks: true });
   await fs.renameSync(PATH_README_HTML, PATH_INDEX_HTML, err =>
