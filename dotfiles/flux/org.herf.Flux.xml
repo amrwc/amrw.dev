@@ -1,0 +1,64 @@
+<!--
+	Mac-specific configuration for f.lux (https://justgetflux.com).
+
+	Usage:
+	plutil -convert binary1 org.herf.Flux.xml -o org.herf.Flux.plist
+	mv org.herf.Flux.plist ~/Library/Preferences/
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSStatusItem Preferred Position Item-0</key>
+	<real>364.328125</real>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>330 306 620 392 0 0 1280 800 </string>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SULastCheckTime</key>
+	<date>2019-10-05T15:58:22Z</date>
+	<key>SULastProfileSubmissionDate</key>
+	<date>2019-10-05T15:58:21Z</date>
+	<key>darkTheme</key>
+	<integer>1</integer>
+	<key>dayColorTemp</key>
+	<real>4900</real>
+	<key>disable-com.KleiEntertainment.Shank</key>
+	<true/>
+	<key>disable-org.videolan.vlc</key>
+	<true/>
+	<key>disableCount</key>
+	<integer>2</integer>
+	<key>disableFullscreen</key>
+	<integer>0</integer>
+	<key>expandedDay</key>
+	<integer>0</integer>
+	<key>firstrun</key>
+	<integer>1482440294</integer>
+	<key>lateColorTemp</key>
+	<integer>1900</integer>
+	<key>location</key>
+	<string>51.508530,-0.125740</string>
+	<key>locationTextField</key>
+	<string>London</string>
+	<key>locationType</key>
+	<string>L</string>
+	<key>nightColorTemp</key>
+	<integer>3400</integer>
+	<key>offlineMode</key>
+	<integer>1</integer>
+	<key>sleepLate</key>
+	<integer>0</integer>
+	<key>steptime</key>
+	<real>28</real>
+	<key>transitionSpeed</key>
+	<false/>
+	<key>version</key>
+	<integer>3</integer>
+	<key>wakeNotifyDisable</key>
+	<integer>1</integer>
+	<key>wakeTime</key>
+	<integer>420</integer>
+</dict>
+</plist>
