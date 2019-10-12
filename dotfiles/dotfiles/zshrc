@@ -103,3 +103,6 @@ source $ZSH/oh-my-zsh.sh
 
 # thefuck alias
 eval $(thefuck --alias)
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
