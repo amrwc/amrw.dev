@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+
+# Imports iTerm2's preferences
+
+source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+
+# TODO: Update the URL below
+readonly SOURCE_URL="https://github.com/amrwc/amrwc.github.io/raw/feature/import_iterm/dotfiles/iterm2/com.googlecode.iterm2.xml"
+readonly SOURCE_FILENAME="com.googlecode.iterm2.xml"
+readonly DESTINATION_DIR_PATH="${HOME}/Library/Preferences"
+readonly FINAL_FILENAME="com.googlecode.iterm2.plist"
+readonly PLIST_NAME="com.googlecode.iterm2"
+
+println_colour "yellow" "Quitting iTerm" && killall "iTerm2"
+backup_dotfile "${FINAL_FILENAME}" "${DESTINATION_DIR_PATH}" \
+	&& println_colour "yellow" "Backed up the existing preferences"
+defaults delete "${PLIST_NAME}" \
+	&& println_colour "yellow" "Deleted old preferences"
+import_dotfile "${SOURCE_URL}" "${SOURCE_FILENAME}" "${DESTINATION_DIR_PATH}" \
+	&& println_colour "yellow" "Deleted old preferences"
+
+cd "${DESTINATION_DIR_PATH}"
+# Convert the XML source file to binary (.plist)
+plutil -convert xml1 "${SOURCE_FILENAME}" -o "${FINAL_FILENAME}"
+# Load the preferences
+defaults read "${PLIST_NAME}" > /dev/null \
+	&& println_colour "green" "Applied new preferences"
+
+println_colour "blue" "NOTE: You may have to restart iTerm for the changes to take effect."
