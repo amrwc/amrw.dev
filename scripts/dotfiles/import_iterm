@@ -1,8 +1,13 @@
 #!/usr/bin/env zsh
 
 # Imports iTerm2's preferences
+#
+# Usage:
+# bash <(curl -sL amrw.dev/scripts/dotfiles/import_iterm)
 
-source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+# TODO: Update the URL below
+# source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+source /dev/stdin <<< "$(curl -sL https://github.com/amrwc/amrwc.github.io/raw/feature/import_iterm/scripts/dotfiles/dotfiles_utils)"
 
 # TODO: Update the URL below
 readonly SOURCE_URL="https://github.com/amrwc/amrwc.github.io/raw/feature/import_iterm/dotfiles/iterm2/com.googlecode.iterm2.xml"
