@@ -22,7 +22,7 @@ const os = require('os');
 const path = require('path');
 const { findRootDir, link } = require('./link_utils');
 
-// VS Code preferences location
+// Karabiner's preferences location
 const DESTINATION_DIR_PATH = `${os.homedir()}/.config/karabiner`;
 // Name of the root directory of the repository
 const ROOT_DIR_NAME = 'amrwc.github.io';

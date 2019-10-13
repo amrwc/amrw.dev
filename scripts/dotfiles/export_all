@@ -1,16 +1,15 @@
 #!/usr/bin/env zsh
 
-# Executes all dotfiles exporting scripts
+# Executes all dotfiles exporting scripts.
 
-URL="amrw.dev/scripts/dotfiles/"
-SCRIPT_PREFIX="export_"
-SCRIPTS=(
+readonly URL="amrw.dev/scripts/dotfiles"
+readonly SCRIPT_NAMES=(
 	dotfiles
+	iterm
 	karabiner
 	vscode
 )
 
-for script in "${SCRIPTS[@]}"
-do
-	bash <(curl -sL "${URL}${SCRIPT_PREFIX}${script}")
+for script in "${SCRIPT_NAMES[@]}"; do
+	zsh <(curl -sL "${URL}/export_${script}")
 done
