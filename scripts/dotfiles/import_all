@@ -2,17 +2,16 @@
 
 # Executes all dotfiles importing scripts
 
-URL="amrw.dev/scripts/dotfiles/"
-SCRIPT_PREFIX="import_"
-SCRIPTS=(
+readonly URL="amrw.dev/scripts/dotfiles"
+readonly SCRIPT_NAMES=(
 	dotfiles
+	iterm
 	karabiner
 	vscode
 )
 
-for script in "${SCRIPTS[@]}"
-do
-	bash <(curl -sL "${URL}${SCRIPT_PREFIX}${script}")
+for script in "${SCRIPT_NAMES[@]}"; do
+	zsh <(curl -sL "${URL}/import_${script}")
 done
 
 printf "Remember to set your 'git config --global' after the import, such as:\n"
