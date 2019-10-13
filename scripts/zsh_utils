@@ -9,9 +9,10 @@
 
 # Usage:
 # printf "${FONT[bold]}${FONT[blue]}Some text${FONT[reset]}\n"
+# Source: https://unix.stackexchange.com/a/438357
 declare -A FONT=(
 	black $(tput setaf 0)
-	blue $(tput setaf 4)
+	blue $(tput setaf 12)
 	cyan $(tput setaf 6)
 	green $(tput setaf 2)
 	lime_yellow $(tput setaf 190)
@@ -19,7 +20,7 @@ declare -A FONT=(
 	powder_blue $(tput setaf 153)
 	red $(tput setaf 1)
 	white $(tput setaf 7)
-	yellow $(tput setaf 3)
+	yellow $(tput setaf 11)
 
 	bold $(tput bold)
 	blink $(tput blink)
@@ -39,12 +40,12 @@ declare -A FONT=(
 # Usage:
 # print_colour <colour_name> <text_to_display>
 function print_colour() {
-	local colour=${COLOURS[${1}]}
-	if [ -z ${colour} ]; then
-		printf "${COLOURS[red]}Colour '${1}' is not recognised.${TXT_UTILS[reset]}\n"
+	local colour=${FONT[${1}]}
+	if [ -z "${colour}" ]; then
+		printf "${FONT[red]}Colour '${1}' is not recognised.${FONT[reset]}\n"
 		exit 1
 	fi
-	printf "${colour}${2}${TXT_UTILS[reset]}"
+	printf "${colour}${2}${FONT[reset]}"
 }
 
 # @param {string} colour
@@ -52,7 +53,7 @@ function print_colour() {
 # Usage:
 # println_colour <colour_name> <text_to_display>
 function println_colour() {
-	print_colour ${1} "${2}\n"
+	print_colour "${1}" "${2}\n"
 }
 
 # Returns current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
