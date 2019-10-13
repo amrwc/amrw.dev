@@ -1,10 +1,12 @@
 #!/usr/bin/env zsh
 
-# Exports Visual Studio Code's preferences
+# Exports Visual Studio Code's preferences.
 
-BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup/vscode"
-SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
+source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
 
-mkdir -p ${BACKUP_PATH}
-cp "${SOURCE_PATH}/keybindings.json" ${BACKUP_PATH}
-cp "${SOURCE_PATH}/settings.json" ${BACKUP_PATH}
+readonly BACKUP_PATH="${BACKUP_DIR_PATH}/vscode"
+readonly SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
+
+mkdir -p "${BACKUP_PATH}"
+cp "${SOURCE_PATH}/keybindings.json" "${BACKUP_PATH}"
+cp "${SOURCE_PATH}/settings.json" "${BACKUP_PATH}"

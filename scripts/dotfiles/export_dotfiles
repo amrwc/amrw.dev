@@ -2,9 +2,11 @@
 
 # Exports the user's dotfiles from their home directory.
 
-BACKUP_PATH="${HOME}/Downloads/__dotfiles_backup/dotfiles"
-SOURCE_PATH="${HOME}"
-DOTFILES=(
+source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+
+readonly BACKUP_PATH="${BACKUP_DIR_PATH}/dotfiles"
+readonly SOURCE_PATH="${HOME}"
+readonly DOTFILES_NAMES=(
 	bash_profile
 	bashrc
 	gitconfig
@@ -12,8 +14,7 @@ DOTFILES=(
 	zshrc
 )
 
-mkdir -p ${BACKUP_PATH}
-for file in "${DOTFILES[@]}"
-do
+mkdir -p "${BACKUP_PATH}"
+for file in "${DOTFILES_NAMES[@]}"; do
 	cp "${SOURCE_PATH}/.${file}" "${BACKUP_PATH}/${file}"
 done
