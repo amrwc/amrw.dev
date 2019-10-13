@@ -7,6 +7,17 @@
 
 source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/zsh_utils)"
 
+######################
+# CONSTANTS
+######################
+
+readonly BACKUP_DIR_PATH="${HOME}/Downloads/__dotfiles_backup"
+
+
+######################
+# FUNCTIONS
+######################
+
 # @param ${1} -- filename
 # @param ${2} -- directory path
 function backup_dotfile() {
