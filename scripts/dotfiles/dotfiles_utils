@@ -5,6 +5,9 @@
 # Usage:
 # source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
 
+# A flag to avoid sourcing the file more than once
+readonly IS_IMPORTED_DOTFILES_UTILS=true
+
 source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/zsh_utils)"
 
 ######################
@@ -32,4 +35,14 @@ function backup_dotfile() {
 function import_dotfile() {
 	backup_dotfile "${2}" "${3}"
 	curl -sL "${1}" > "${3}/${2}"
+}
+
+# @param ${1} -- source path
+# @param ${2} -- destination path
+function export_dotfile() {
+	if [ -d "${1}" ]; then
+		cp -r "${1}" "${2}"
+	elif [ -f "${1}" ]; then
+		cp "${1}" "${2}"
+	fi
 }
