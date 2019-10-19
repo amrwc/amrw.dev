@@ -2,11 +2,14 @@
 
 # Exports the user's dotfiles from their home directory.
 
-source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" \
+		|| "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
+	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+fi
 
-readonly BACKUP_PATH="${BACKUP_DIR_PATH}/dotfiles"
-readonly SOURCE_PATH="${HOME}"
-readonly DOTFILES_NAMES=(
+BACKUP_PATH="${BACKUP_DIR_PATH}/dotfiles"
+SOURCE_PATH="${HOME}"
+DOTFILES_NAMES=(
 	bash_profile
 	bashrc
 	gitconfig
@@ -16,5 +19,5 @@ readonly DOTFILES_NAMES=(
 
 mkdir -p "${BACKUP_PATH}"
 for file in "${DOTFILES_NAMES[@]}"; do
-	cp "${SOURCE_PATH}/.${file}" "${BACKUP_PATH}/${file}"
+	export_dotfile "${SOURCE_PATH}/.${file}" "${BACKUP_PATH}/${file}"
 done

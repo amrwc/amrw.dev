@@ -2,15 +2,18 @@
 
 # Exports iTerm2's preferences.
 
-source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" \
+		|| "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
+	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+fi
 
-readonly BACKUP_PATH="${BACKUP_DIR_PATH}/iterm2"
-readonly SOURCE_PATH="${HOME}/Library/Preferences"
-readonly FILE_NAME_NO_EXT="com.googlecode.iterm2"
+BACKUP_PATH="${BACKUP_DIR_PATH}/iterm2"
+SOURCE_PATH="${HOME}/Library/Preferences"
+FILE_NAME_NO_EXT="com.googlecode.iterm2"
 
 mkdir -p "${BACKUP_PATH}"
 # Copy the preferences file, convert it to XML and remove the binary
-cp "${SOURCE_PATH}/${FILE_NAME_NO_EXT}.plist" "${BACKUP_PATH}" \
+export_dotfile "${SOURCE_PATH}/${FILE_NAME_NO_EXT}.plist" "${BACKUP_PATH}" \
 	&& plutil -convert xml1 "${BACKUP_PATH}/${FILE_NAME_NO_EXT}.plist" \
 		-o "${BACKUP_PATH}/${FILE_NAME_NO_EXT}.xml" \
 	&& rm "${BACKUP_PATH}/${FILE_NAME_NO_EXT}.plist"

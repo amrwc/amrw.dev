@@ -2,11 +2,14 @@
 
 # Exports Visual Studio Code's preferences.
 
-source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" \
+		|| "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
+	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+fi
 
-readonly BACKUP_PATH="${BACKUP_DIR_PATH}/vscode"
-readonly SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
+BACKUP_PATH="${BACKUP_DIR_PATH}/vscode"
+SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
 
 mkdir -p "${BACKUP_PATH}"
-cp "${SOURCE_PATH}/keybindings.json" "${BACKUP_PATH}"
-cp "${SOURCE_PATH}/settings.json" "${BACKUP_PATH}"
+export_dotfile "${SOURCE_PATH}/keybindings.json" "${BACKUP_PATH}"
+export_dotfile "${SOURCE_PATH}/settings.json" "${BACKUP_PATH}"
