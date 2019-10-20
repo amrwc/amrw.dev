@@ -2,7 +2,7 @@
 
 # Executes all dotfiles importing scripts
 
-readonly URL="amrw.dev/scripts/dotfiles"
+readonly URL="amrw.dev/scripts/dotfiles/import"
 readonly SCRIPT_NAMES=(
 	dotfiles
 	iterm
