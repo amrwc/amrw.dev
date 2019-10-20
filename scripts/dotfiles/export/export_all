@@ -7,7 +7,7 @@ if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" \
 	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
 fi
 
-URL="amrw.dev/scripts/dotfiles"
+URL="amrw.dev/scripts/dotfiles/export"
 SCRIPT_NAMES=(
 	dotfiles
 	iterm
