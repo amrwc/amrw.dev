@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+# Unionises two text files overwriting the first (old) one. This script comes useful when two simi-
+# lar files differ slightly and overwriting the original file is not desireable. Using the git's
+# three-way merge algorithm does the job seamlessly.
+#
+# Usage:
+# ./unionise_files <old_file_path> <new_file_path>
+#
+# @read https://git-scm.com/docs/git-merge-file
+
+readonly OLD_FILE_PATH="${1}"
+readonly EMPTY_FILE_PATH="./empty"
+readonly NEW_FILE_PATH="${2}"
+
+touch "${EMPTY_FILE_PATH}"
+git merge-file "${OLD_FILE_PATH}" "${EMPTY_FILE_PATH}" "${NEW_FILE_PATH}" --union
+rm "${EMPTY_FILE_PATH}"
