@@ -2,13 +2,12 @@
 
 # Exports Karabiner-Elements' preferences.
 
-if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" \
-		|| "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
+if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" || "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
 	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
 fi
 
-BACKUP_PATH="${BACKUP_DIR_PATH}"
-SOURCE_PATH="${HOME}/.config/karabiner"
+readonly BACKUP_PATH="${BACKUP_DIR_PATH}"
+readonly SOURCE_PATH="${HOME}/.config/karabiner"
 
 mkdir -p "${BACKUP_PATH}"
 export_dotfile "${SOURCE_PATH}" "${BACKUP_PATH}"

@@ -2,13 +2,12 @@
 
 # Executes all dotfiles exporting scripts.
 
-if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" \
-		|| "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
+if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" || "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
 	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
 fi
 
-URL="amrw.dev/scripts/dotfiles/export"
-SCRIPT_NAMES=(
+readonly URL="amrw.dev/scripts/dotfiles/export"
+readonly SCRIPT_NAMES=(
 	dotfiles
 	iterm
 	karabiner
