@@ -27,6 +27,8 @@ const ROOT_DIR_NAME = 'amrwc.github.io';
 const rootDirPath = findRootDir(ROOT_DIR_NAME, __dirname);
 // Absolute path to the source dotfiles
 const SOURCE_DIR_PATH = path.resolve(`${rootDirPath}/dotfiles/dotfiles`);
+// Names of files to be skipped
+const EXCLUDED_FILES = ['gitconfig'];
 
 // Link all dotfiles.
 fs.readdir(SOURCE_DIR_PATH, (err, files) => {
@@ -36,6 +38,8 @@ fs.readdir(SOURCE_DIR_PATH, (err, files) => {
   }
 
   files.forEach(fileName => {
-    link(path.join(SOURCE_DIR_PATH, fileName), path.join(DESTINATION_DIR_PATH, '.' + fileName));
+    if (!EXCLUDED_FILES.includes(fileName)) {
+      link(path.join(SOURCE_DIR_PATH, fileName), path.join(DESTINATION_DIR_PATH, '.' + fileName));
+    }
   });
 });
