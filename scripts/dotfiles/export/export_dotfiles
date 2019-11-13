@@ -13,6 +13,7 @@ readonly DOTFILES_NAMES=(
 	bashrc
 	gitconfig
 	gitignore_global
+	vimrc
 	zshrc
 )
 
