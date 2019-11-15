@@ -1,4 +1,9 @@
 # Read: https://github.com/tekezo/Karabiner-Elements/issues/708
 *
-!karabiner.json
 !.gitignore
+!karabiner.json
+!.prettierrc.js
+
+!/assets/
+!/**/complex_modifications/
+!/**/complex_modifications/*
