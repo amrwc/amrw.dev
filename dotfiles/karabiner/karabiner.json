@@ -208,6 +208,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -229,6 +232,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -250,6 +256,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -271,6 +280,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -292,6 +304,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -313,6 +328,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -334,6 +352,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -355,6 +376,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -376,6 +400,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -397,6 +424,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -418,6 +448,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -439,6 +472,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -791,6 +827,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -812,6 +851,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -833,6 +875,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -854,6 +899,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -875,6 +923,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -896,6 +947,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -917,6 +971,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -938,6 +995,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -959,6 +1019,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -980,6 +1043,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -1001,6 +1067,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
@@ -1022,6 +1091,9 @@
                                     "modifiers": {
                                         "mandatory": [
                                             "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
                                         ]
                                     }
                                 },
