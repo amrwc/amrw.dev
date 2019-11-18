@@ -2,7 +2,7 @@
     "title": "ctrl_shift_hjkl_to_arrows",
     "rules": [
         {
-            "description": "`left_control` + `shift` + [hjkl] -> arrow keys",
+            "description": "`left_control` + `left_shift` + [hjkl] -> arrow keys",
             "manipulators": [
                 {
                     "conditions": [
@@ -15,7 +15,7 @@
                     "from": {
                         "key_code": "j",
                         "modifiers": {
-                            "mandatory": ["shift"],
+                            "mandatory": ["left_shift"],
                             "optional": ["any"]
                         }
                     },
@@ -37,7 +37,7 @@
                     "from": {
                         "key_code": "k",
                         "modifiers": {
-                            "mandatory": ["shift"],
+                            "mandatory": ["left_shift"],
                             "optional": ["any"]
                         }
                     },
@@ -59,7 +59,7 @@
                     "from": {
                         "key_code": "h",
                         "modifiers": {
-                            "mandatory": ["shift"],
+                            "mandatory": ["left_shift"],
                             "optional": ["any"]
                         }
                     },
@@ -81,7 +81,7 @@
                     "from": {
                         "key_code": "l",
                         "modifiers": {
-                            "mandatory": ["shift"],
+                            "mandatory": ["left_shift"],
                             "optional": ["any"]
                         }
                     },
@@ -96,7 +96,7 @@
                     "from": {
                         "key_code": "left_control",
                         "modifiers": {
-                            "mandatory": ["shift"],
+                            "mandatory": ["left_shift"],
                             "optional": ["any"]
                         }
                     },
