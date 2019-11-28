@@ -16,12 +16,12 @@
                 },
                 "rules": [
                     {
-                        "description": "`left_control` + `left_shift` + [hjkl] -> arrow keys",
+                        "description": "CAPS LOCK + shift + hjkl to scroll",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -30,8 +30,137 @@
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_shift"
-                                        ],
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": 40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": -40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "CAPS LOCK + [hjkl] => arrow keys",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
                                         "optional": [
                                             "any"
                                         ]
@@ -47,7 +176,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -55,9 +184,6 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -73,7 +199,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -81,9 +207,6 @@
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -99,7 +222,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -107,9 +230,6 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -124,11 +244,8 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "left_control",
+                                    "key_code": "caps_lock",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -137,7 +254,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 1
                                         }
                                     }
@@ -145,7 +262,7 @@
                                 "to_after_key_up": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 0
                                         }
                                     }
@@ -277,26 +394,10 @@
             "simple_modifications": [
                 {
                     "from": {
-                        "key_code": "caps_lock"
-                    },
-                    "to": {
-                        "key_code": "left_control"
-                    }
-                },
-                {
-                    "from": {
                         "key_code": "grave_accent_and_tilde"
                     },
                     "to": {
                         "key_code": "non_us_backslash"
-                    }
-                },
-                {
-                    "from": {
-                        "key_code": "left_control"
-                    },
-                    "to": {
-                        "key_code": "caps_lock"
                     }
                 },
                 {
@@ -573,12 +674,12 @@
                         ]
                     },
                     {
-                        "description": "`left_control` + `left_shift` + [hjkl] -> arrow keys",
+                        "description": "CAPS LOCK + [hjkl] => scroll vertically or horizontally",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -587,8 +688,137 @@
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_shift"
-                                        ],
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": 40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": -40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "CAPS LOCK + [hjkl] => arrow keys",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
                                         "optional": [
                                             "any"
                                         ]
@@ -604,7 +834,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -612,9 +842,6 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -630,7 +857,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -638,9 +865,6 @@
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -656,7 +880,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -664,9 +888,6 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -681,11 +902,8 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "left_control",
+                                    "key_code": "caps_lock",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -694,7 +912,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 1
                                         }
                                     }
@@ -702,7 +920,7 @@
                                 "to_after_key_up": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 0
                                         }
                                     }
@@ -834,26 +1052,10 @@
             "simple_modifications": [
                 {
                     "from": {
-                        "key_code": "caps_lock"
-                    },
-                    "to": {
-                        "key_code": "left_control"
-                    }
-                },
-                {
-                    "from": {
                         "key_code": "grave_accent_and_tilde"
                     },
                     "to": {
                         "key_code": "non_us_backslash"
-                    }
-                },
-                {
-                    "from": {
-                        "key_code": "left_control"
-                    },
-                    "to": {
-                        "key_code": "caps_lock"
                     }
                 },
                 {
@@ -897,12 +1099,12 @@
                 },
                 "rules": [
                     {
-                        "description": "`left_control` + `left_shift` + [hjkl] -> arrow keys",
+                        "description": "CAPS LOCK + [hjkl] => scroll vertically or horizontally",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -911,8 +1113,137 @@
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_shift"
-                                        ],
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": 40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": -40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "CAPS LOCK + [hjkl] => arrow keys",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
                                         "optional": [
                                             "any"
                                         ]
@@ -928,7 +1259,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -936,9 +1267,6 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -954,7 +1282,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -962,9 +1290,6 @@
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -980,7 +1305,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -988,9 +1313,6 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -1005,11 +1327,8 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "left_control",
+                                    "key_code": "caps_lock",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -1018,7 +1337,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 1
                                         }
                                     }
@@ -1026,7 +1345,7 @@
                                 "to_after_key_up": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 0
                                         }
                                     }
@@ -1432,12 +1751,12 @@
                         ]
                     },
                     {
-                        "description": "`left_control` + `left_shift` + [hjkl] -> arrow keys",
+                        "description": "CAPS LOCK + [hjkl] => scroll vertically or horizontally",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -1446,8 +1765,137 @@
                                     "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
-                                            "left_shift"
-                                        ],
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": 40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "vertical_wheel": -40
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "mouse_key": {
+                                            "horizontal_wheel": -30
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": [
+                                            "any"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "caps_lock pressed",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "CAPS LOCK + [hjkl] => arrow keys",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "caps_lock pressed",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
                                         "optional": [
                                             "any"
                                         ]
@@ -1463,7 +1911,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -1471,9 +1919,6 @@
                                 "from": {
                                     "key_code": "k",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -1489,7 +1934,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -1497,9 +1942,6 @@
                                 "from": {
                                     "key_code": "h",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -1515,7 +1957,7 @@
                             {
                                 "conditions": [
                                     {
-                                        "name": "left_control pressed",
+                                        "name": "caps_lock pressed",
                                         "type": "variable_if",
                                         "value": 1
                                     }
@@ -1523,9 +1965,6 @@
                                 "from": {
                                     "key_code": "l",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -1540,11 +1979,8 @@
                             },
                             {
                                 "from": {
-                                    "key_code": "left_control",
+                                    "key_code": "caps_lock",
                                     "modifiers": {
-                                        "mandatory": [
-                                            "left_shift"
-                                        ],
                                         "optional": [
                                             "any"
                                         ]
@@ -1553,7 +1989,7 @@
                                 "to": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 1
                                         }
                                     }
@@ -1561,7 +1997,7 @@
                                 "to_after_key_up": [
                                     {
                                         "set_variable": {
-                                            "name": "left_control pressed",
+                                            "name": "caps_lock pressed",
                                             "value": 0
                                         }
                                     }
@@ -1679,26 +2115,10 @@
             "simple_modifications": [
                 {
                     "from": {
-                        "key_code": "caps_lock"
-                    },
-                    "to": {
-                        "key_code": "left_control"
-                    }
-                },
-                {
-                    "from": {
                         "key_code": "left_command"
                     },
                     "to": {
                         "key_code": "left_option"
-                    }
-                },
-                {
-                    "from": {
-                        "key_code": "left_control"
-                    },
-                    "to": {
-                        "key_code": "caps_lock"
                     }
                 },
                 {
