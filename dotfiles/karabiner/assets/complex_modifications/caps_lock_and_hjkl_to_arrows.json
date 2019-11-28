@@ -175,7 +175,7 @@
                     "to": [
                         {
                             "mouse_key": {
-                                "horizontal_wheel": -30
+                                "horizontal_wheel": 30
                             }
                         }
                     ],
