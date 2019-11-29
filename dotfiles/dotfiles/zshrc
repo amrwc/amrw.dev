@@ -108,3 +108,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Git alias(es)
 alias -g glud="git pull upstream develop"
+## Pull current branch
+function gluc() {
+	current_branch=$(git rev-parse --abbrev-ref HEAD)
+	git pull upstream "${current_branch}"
+}
+# Export the function without printing it every time .zshrc is sourced
+export -f gluc > /dev/null 2>&1
