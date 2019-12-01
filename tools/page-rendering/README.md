@@ -8,7 +8,7 @@ Install `mume` and run the preconfigured `render.js` script.
 
 ```bash
 npm i
-node render.js <file_path>
+./render.js <file_path>
 ```
 
 The rendered HTML will appear next to the source files.
@@ -16,7 +16,7 @@ The rendered HTML will appear next to the source files.
 `index.html` is rendered from `README.md` in the project's root using the `render-index.js` script.
 
 ```bash
-node render-index.js
+./render-index.js
 ```
 
 ## Using [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
