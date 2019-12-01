@@ -287,7 +287,21 @@ pre[data-line] .line-highlight[data-end]:after {
 <span class="token comment"># Append to .zshrc, for instance:</span>
 <span class="token function">eval</span> <span class="token variable"><span class="token variable">$(</span>thefuck --alias<span class="token variable">)</span></span> <span class="token operator">&gt;&gt;</span> ~/.zshrc
 <span class="token function">source</span> ~/.zshrc
-</pre>
+</pre><h2 class="mume-header" id="github-pages-instance-with-a-custom-domain-doesnt-load-due-to-a-bad-certificate">GitHub Pages instance with a custom domain doesn&apos;t load due to a bad certificate</h2>
+
+<p>If something similar to what&apos;s pictured below happens when trying to load a GitHub Pages instance with a custom domain, it requires some shenanigans that aren&apos;t quite supported by GitHub at the time of this writing.</p>
+<center><img src="./assets/gh-pages-custom-domain-bad-cert.png" alt="GitHub Pages instance with a custom domain doesn&apos;t load due to a bad certificate" width="600"></center>
+<p>A solution was to put the domain on Cloudflare (free tier) and enable a couple of rules. The idea and a guide was taken from <a href="https://github.community/t5/GitHub-Pages/Certificate-error/m-p/1724#M137">this message on a relevant forum post</a>.</p>
+<p>Steps to resolution (<a href="https://hackernoon.com/set-up-ssl-on-github-pages-with-custom-domains-for-free-a576bdf51bc">source</a>):</p>
+<ol>
+<li>Register on/log into Cloudflare.</li>
+<li>Add the domain and follow the steps on the screen; especially those related to A and CNAME records.</li>
+<li>Go to the domain&apos;s registrar and change the DNS&apos;s (domain name servers) to those Cloudflare provides during the setup. <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain">Example steps for Namecheap.</a></li>
+<li>On Cloudflare, go to <code>SSL/TLS</code> settings of the domain and choose the <code>Flexible</code> mode.</li>
+<li>Go to <code>Page Rules</code> and add an <code>Always Use HTTPS</code> rule with <code>http://*.example.com/*</code> as a value.</li>
+<li>It should now work, but some browsers may still have troubles opening the page, or issue a warning regarding a cookie, even after waiting for a while. In such case, try clearing the cache for the page, especially the cookie.</li>
+</ol>
+
       </div>
       <div class="md-sidebar-toc"><ul>
 <li><a href="#random-technical-issues">Random Technical Issues</a>
@@ -295,6 +309,7 @@ pre[data-line] .line-highlight[data-end]:after {
 <li><a href="#netflix-full-screen-flicker-on-mac-safari">Netflix full screen flicker on Mac Safari</a></li>
 <li><a href="#autojumphttpsgithubcomwtingautojump-doesnt-work">Autojump doesn&apos;t work</a></li>
 <li><a href="#thefuckhttpsgithubcomnvbnthefuck-doesnt-work">thefuck doesn&apos;t work</a></li>
+<li><a href="#github-pages-instance-with-a-custom-domain-doesnt-load-due-to-a-bad-certificate">GitHub Pages instance with a custom domain doesn&apos;t load due to a bad certificate</a></li>
 </ul>
 </li>
 </ul>
