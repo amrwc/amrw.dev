@@ -18,8 +18,14 @@ const mume = require('@shd101wyy/mume');
 async function main() {
   await mume.init();
 
+  // Gets the file path based on whether the script is initiated with the `node` keyword
+  // or the dot-notation.
+  const filePath = String(process.argv[0]).includes('render.js')
+    ? process.argv[1]
+    : process.argv[2];
+
   const engine = new mume.MarkdownEngine({
-    filePath: `${process.argv[2]}`,
+    filePath,
     config: {
       previewTheme: 'github-light.css',
       // revealjsTheme: "white.css"

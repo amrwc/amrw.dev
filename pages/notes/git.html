@@ -321,7 +321,17 @@ line<span class="token operator">=</span><span class="token string">&quot;\nexpo
 <p>If the above tips didn&apos;t help, try removing the gpg programs and go through <a href="https://stackoverflow.com/a/40066889/10620237">the comprehensive guide on SO</a>.</p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash">brew uninstall gpg pinentry-mac
 <span class="token function">rm</span> -rf ~/.gnupg <span class="token comment"># Careful! You will lose your GPG keys.</span>
-</pre><h2 class="mume-header" id="change-committers-name-andor-email-in-all-previous-commits">Change committer&apos;s name and/or email in all previous commits</h2>
+</pre><h2 class="mume-header" id="fatal-could-not-read-from-remote-repository">fatal: Could not read from remote repository.</h2>
+
+<p>The following error message may appear when you try to clone a repository or push to one.</p>
+<pre data-role="codeBlock" data-info class="language-"><code>git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+</code></pre><p>In such case, check whether you have the correct SSH keys in <code>~/.ssh/</code> &#x2013; compare them with those stored on your GitHub/GitLab/Bitbucket account. If one of them is a match, add it to the <code>ssh-agent</code>:</p>
+<pre data-role="codeBlock" data-info class="language-"><code>ssh-add ~/.ssh/&lt;the_correct_ssh_key&gt;
+</code></pre><h2 class="mume-header" id="change-committers-name-andor-email-in-all-previous-commits">Change committer&apos;s name and/or email in all previous commits</h2>
 
 <p><em>WARNING: All the commit IDs will change, therefore you&apos;re rewriting the history. Proceed with care, especially if you collaborate with other developers.</em></p>
 <pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Source: https://stackoverflow.com/a/870367/10620237</span>
@@ -365,6 +375,7 @@ line<span class="token operator">=</span><span class="token string">&quot;\nexpo
 <li><a href="#error-miscellaneous">Error: miscellaneous</a></li>
 </ul>
 </li>
+<li><a href="#fatal-could-not-read-from-remote-repository">fatal: Could not read from remote repository.</a></li>
 <li><a href="#change-committers-name-andor-email-in-all-previous-commits">Change committer&apos;s name and/or email in all previous commits</a></li>
 <li><a href="#gpg-sign-all-previous-commits">GPG sign all previous commits</a>
 <ul>
