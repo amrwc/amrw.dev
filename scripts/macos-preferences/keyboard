@@ -39,13 +39,10 @@ defaults write NSGlobalDomain NSUserQuotesArray -array '"\""' '"\""' '"'\''"' '"
 
 ## Input Sources
 ### disable `Select the previous input source`
-### TODO: Test it, since it doesn't seem to work.
-###       What to restart? Finder is not it.
-###       Try setting it in /Library/Preferences (the root Preferences)
-# defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 "{enabled = 0; value = {parameters = (65535, 49, 1048576); type = 'standard';};}"
 /usr/libexec/PlistBuddy -c 'Set :AppleSymbolicHotKeys:60:enabled 0' ~/Library/Preferences/com.apple.symbolichotkeys.plist
 
 ## `App Shortcuts`
+### NOTE: The changes may not be visible in System Preferences -- test them after the run.
 ### Modifier key legend:
 ### ^: ⌃  Control
 ### ~: ⌥  Option
@@ -53,10 +50,9 @@ defaults write NSGlobalDomain NSUserQuotesArray -array '"\""' '"\""' '"'\''"' '"
 ### @: ⌘  Command
 ### \033: Nested Option Delimiter
 ### nil:  no shortcut
-### TODO: This doesn't seem to take effect in the System Preferences
-defaults delete NSGlobalDomain NSUserKeyEquivalents
-defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Copy" -string "@;"
-defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Paste" -string "@'"
+defaults delete NSGlobalDomain NSUserKeyEquivalents # Remove all shortcuts in place
+# defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Copy" -string "@;"
+# defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Paste" -string "@'"
 
 ## `Full Keyboard Access`: All controls -- press Tab to move keyboard focus between:
 ### Text boxes and lists only: 1
@@ -64,9 +60,8 @@ defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Paste" -string "@'
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Input Sources
-# TODO: This doesn't seem to take effect in the System Preferences
 
-##  Set `Polish - Pro` and `British - PC` as available Input Sources
+## Set `Polish - Pro` and `British - PC` as available Input Sources
 ## NOTE: The dictionary below outputs 30788 as a string. A workaround is to use
 ##       the PlistBuddy method beneath, despite its verbosity.
 # defaults write com.apple.HIToolbox AppleEnabledInputSources -array '{InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 30788; "KeyboardLayout Name" = "Polish Pro";}' '{InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 250; "KeyboardLayout Name" = "British-PC";}'

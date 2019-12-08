@@ -6,4 +6,5 @@
 defaults write com.apple.dock mru-spaces -bool false
 
 ## disable `When switching to an application, switch to a Space (…)`
+### TODO: Doesn't work -- investigate
 defaults write com.apple.Dock workspaces-auto-swoosh -bool false && killall Dock

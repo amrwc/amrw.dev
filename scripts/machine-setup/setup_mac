@@ -86,6 +86,9 @@ function isElementIn() {
 	return 1
 }
 
+# Set up System Preferences
+curl -sL https://amrw.dev/scripts/macos-preferences/setup_macos_preferences | bash -s
+
 # Install Homebrew
 command -v brew >/dev/null 2>&1 || \
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -100,11 +103,19 @@ for cask in "${BREW_CASKS_COMMON[@]}"; do
 	brew cask install "${cask}"
 done
 
-# Install software development-related brew casks
+# Install software development-related brew casks and software
 if isElementIn "--development" "$@"; then
 	for cask in "${BREW_CASKS_DEVELOPMENT[@]}"; do
 		brew cask install "${cask}"
 	done
+
+	# Install nvm -- Node Version Manager
+	if [[ ! -d "${HOME}/.nvm" || -z "$(ls -A "${HOME}/.nvm")" ]]; then
+		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+	fi
+
+	# Install Node.js and npm
+	nvm install 11 --lts --latest-npm
 fi
 
 # Install communication-related brew casks
@@ -121,10 +132,8 @@ if isElementIn "--personal" "$@"; then
 	done
 fi
 
-# Install nvm -- Node Version Manager
-if [[ ! -d "${HOME}/.nvm" || -z "$(ls -A "${HOME}/.nvm")" ]]; then
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-fi
+# Import dotfiles
+curl -fsSL https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/import/import_all | bash -s
 
 # Install Oh My Zsh
 ## NOTE: It should be executed last, because the Oh My Zsh installation script prompts the user whether they want to
