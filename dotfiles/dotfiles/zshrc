@@ -115,3 +115,6 @@ function gluc() {
 }
 # Export the function without printing it every time .zshrc is sourced
 export -f gluc > /dev/null 2>&1
+
+# Helps the GPG agent with commit signing
+export GPG_TTY=$(tty)
