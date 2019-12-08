@@ -77,6 +77,24 @@ brew uninstall gpg pinentry-mac
 rm -rf ~/.gnupg # Careful! You will lose your GPG keys.
 ```
 
+## fatal: Could not read from remote repository.
+
+The following error message may appear when you try to clone a repository or push to one.
+
+```
+git@github.com: Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+In such case, check whether you have the correct SSH keys in `~/.ssh/` – compare them with those stored on your GitHub/GitLab/Bitbucket account. If one of them is a match, add it to the `ssh-agent`:
+
+```
+ssh-add ~/.ssh/<the_correct_ssh_key>
+```
+
 ## Change committer's name and/or email in all previous commits
 
 _WARNING: All the commit IDs will change, therefore you're rewriting the history. Proceed with care, especially if you collaborate with other developers._
