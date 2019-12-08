@@ -2,7 +2,7 @@
 
 # Dock
 
-## TODO: Mojave: disable `Show recent applications in Dock`
-
 ## enable `Automatically hide and show the Dock`
 defaults write com.apple.dock autohide -bool true
+
+## TODO: Mojave: disable `Show recent applications in Dock`

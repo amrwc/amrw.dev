@@ -1,7 +1,12 @@
 #!/usr/bin/env zsh
 
+# Zsh Utils
+#
 # Usage:
-# source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/zsh_utils)"
+# source /dev/stdin <<< "$(curl -fsSL amrw.dev/scripts/zsh_utils)"
+#
+# More explicitly to avoid redirect loops:
+# source /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/dotfiles_utils)"
 
 ############################################
 # CONSTANTS                                #
