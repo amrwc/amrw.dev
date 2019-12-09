@@ -4,7 +4,7 @@
 
 # Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
-DOTFILES_URL="https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/vscode"
+DOTFILES_URL="https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/dotfiles/vscode"
 DESTINATION_PATH="${HOME}/Library/Application Support/Code/User"
 
 function import_dotfile() {
@@ -22,3 +22,4 @@ function import_dotfile() {
 mkdir -p "${DESTINATION_PATH}"
 import_dotfile "keybindings.json"
 import_dotfile "settings.json"
+curl -fsSL https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/dotfiles/vscode/extensions | bash -s

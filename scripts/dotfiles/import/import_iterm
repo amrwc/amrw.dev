@@ -9,7 +9,7 @@ if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" || "${IS_IMPORTED_DOTFILES_UTILS}" != t
 	source /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/dotfiles_utils)"
 fi
 
-SOURCE_URL="https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/iterm2/com.googlecode.iterm2.xml"
+SOURCE_URL="https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/dotfiles/iterm2/com.googlecode.iterm2.xml"
 SOURCE_FILENAME="com.googlecode.iterm2.xml"
 DESTINATION_DIR_PATH="${HOME}/Library/Preferences"
 FINAL_FILENAME="com.googlecode.iterm2.plist"

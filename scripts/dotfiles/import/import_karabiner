@@ -4,7 +4,7 @@
 
 # Current date and time in 'YYYY-MM-DD_HH:MM:SS' format.
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d_%T")
-DOTFILES_URL="https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/karabiner"
+DOTFILES_URL="https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/dotfiles/karabiner"
 DESTINATION_PATH="${HOME}/.config/karabiner"
 
 function import_dotfile() {

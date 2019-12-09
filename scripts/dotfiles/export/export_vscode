@@ -3,12 +3,17 @@
 # Exports Visual Studio Code's preferences.
 
 if [[ -z "${IS_IMPORTED_DOTFILES_UTILS}" || "${IS_IMPORTED_DOTFILES_UTILS}" != true ]]; then
-	source /dev/stdin <<< "$(curl -sL amrw.dev/scripts/dotfiles/dotfiles_utils)"
+	source /dev/stdin <<< "$(curl -fsSL https://raw.githubusercontent.com/amrwc/amrwc.github.io/master/scripts/dotfiles/dotfiles_utils)"
 fi
 
 readonly BACKUP_PATH="${BACKUP_DIR_PATH}/vscode"
+readonly EXTENSIONS_BACKUP_PATH="${BACKUP_PATH}/extensions"
 readonly SOURCE_PATH="${HOME}/Library/Application Support/Code/User"
 
 mkdir -p "${BACKUP_PATH}"
 export_dotfile "${SOURCE_PATH}/keybindings.json" "${BACKUP_PATH}"
 export_dotfile "${SOURCE_PATH}/settings.json" "${BACKUP_PATH}"
+
+# Export a list of extensions
+[[ -f "${EXTENSIONS_BACKUP_PATH}" ]] && rm "${EXTENSIONS_BACKUP_PATH}" || touch "${EXTENSIONS_BACKUP_PATH}"
+code --list-extensions | xargs -L 1 echo code --install-extension >> "${EXTENSIONS_BACKUP_PATH}"
