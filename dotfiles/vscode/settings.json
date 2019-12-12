@@ -2,7 +2,6 @@
 	"editor.minimap.enabled": false,
 	"workbench.colorTheme": "Quiet Light",
 	// "workbench.colorTheme": "Solarized Light",
-	"editor.tabSize": 2,
 	"editor.detectIndentation": false,
 	"terminal.integrated.confirmOnExit": true,
 	"window.zoomLevel": 0,
