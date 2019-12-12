@@ -116,14 +116,14 @@
             ]
         },
         {
-            "description": "CAPS LOCK + [hjkl] => scroll vertically or horizontally",
+            "description": "CAPS LOCK + FN + [hjkl] => scroll vertically or horizontally",
             "manipulators": [
                 {
                     "type": "basic",
                     "from": {
                         "key_code": "j",
                         "modifiers": {
-                            "mandatory": ["shift"]
+                            "mandatory": ["fn"]
                         }
                     },
                     "to": [
@@ -146,7 +146,7 @@
                     "from": {
                         "key_code": "k",
                         "modifiers": {
-                            "mandatory": ["shift"]
+                            "mandatory": ["fn"]
                         }
                     },
                     "to": [
@@ -169,7 +169,7 @@
                     "from": {
                         "key_code": "h",
                         "modifiers": {
-                            "mandatory": ["shift"]
+                            "mandatory": ["fn"]
                         }
                     },
                     "to": [
@@ -192,7 +192,7 @@
                     "from": {
                         "key_code": "l",
                         "modifiers": {
-                            "mandatory": ["shift"]
+                            "mandatory": ["fn"]
                         }
                     },
                     "to": [
