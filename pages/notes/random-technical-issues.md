@@ -55,3 +55,25 @@ Steps to resolution ([source][2]):
 [1]: https://github.community/t5/GitHub-Pages/Certificate-error/m-p/1724#M137
 [2]: https://hackernoon.com/set-up-ssl-on-github-pages-with-custom-domains-for-free-a576bdf51bc
 [3]: https://www.namecheap.com/support/knowledgebase/article.aspx/767/10/how-to-change-dns-for-a-domain
+
+## Firefox: darken blank page/tab
+
+_Tested on Firefox Nightly 73.0a1_
+
+1. Visit `about:config`.
+2. Change the `browser.display.background_color` variable to the desired hex colour.
+
+Remember to confirm the change with the tick-box on the right – if successful, the variable name and value should be displayed in bold and the change will take effect immediately.
+
+To also darken the flash of unstyled content before a page is loaded, create a `userChrome.css` stylesheet:
+
+1. In the Firefox's menu go to `Help -> Troubleshooting Information`.
+2. On the newly opened page locate `Profile Folder` row in the table. There will be a path to the current Firefox profile – copy it.
+
+   ```bash
+   cd "$(pbpaste)"
+   mkdir -p chrome
+   [[ -f "./chrome/userChrome.css" ]] || touch ./chrome/userChrome.css
+   echo ".browserContainer {\n\tbackground-color: #3d3d3d !important;\n}" >> ./chrome/userChrome.css
+   ```
+3. Restart Firefox.

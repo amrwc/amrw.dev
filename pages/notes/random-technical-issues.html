@@ -301,6 +301,30 @@ pre[data-line] .line-highlight[data-end]:after {
 <li>Go to <code>Page Rules</code> and add an <code>Always Use HTTPS</code> rule with <code>http://*.example.com/*</code> as a value.</li>
 <li>It should now work, but some browsers may still have troubles opening the page, or issue a warning regarding a cookie, even after waiting for a while. In such case, try clearing the cache for the page, especially the cookie.</li>
 </ol>
+<h2 class="mume-header" id="firefox-darken-blank-pagetab">Firefox: darken blank page/tab</h2>
+
+<p><em>Tested on Firefox Nightly 73.0a1</em></p>
+<ol>
+<li>Visit <code>about:config</code>.</li>
+<li>Change the <code>browser.display.background_color</code> variable to the desired hex colour.</li>
+</ol>
+<p>Remember to confirm the change with the tick-box on the right &#x2013;&#xA0;if successful, the variable name and value should be displayed in bold and the change will take effect immediately.</p>
+<p>To also darken the flash of unstyled content before a page is loaded, create a <code>userChrome.css</code> stylesheet:</p>
+<ol>
+<li>
+<p>In the Firefox&apos;s menu go to <code>Help -&gt; Troubleshooting Information</code>.</p>
+</li>
+<li>
+<p>On the newly opened page locate <code>Profile Folder</code> row in the table. There will be a path to the current Firefox profile &#x2013; copy it.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">cd</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span>pbpaste<span class="token variable">)</span></span>&quot;</span>
+<span class="token function">mkdir</span> -p chrome
+<span class="token punctuation">[</span><span class="token punctuation">[</span> -f <span class="token string">&quot;./chrome/userChrome.css&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token function">touch</span> ./chrome/userChrome.css
+<span class="token keyword">echo</span> <span class="token string">&quot;.browserContainer {\n\tbackground-color: #3d3d3d !important;\n}&quot;</span> <span class="token operator">&gt;&gt;</span> ./chrome/userChrome.css
+</pre></li>
+<li>
+<p>Restart Firefox.</p>
+</li>
+</ol>
 
       </div>
       <div class="md-sidebar-toc"><ul>
@@ -310,6 +334,7 @@ pre[data-line] .line-highlight[data-end]:after {
 <li><a href="#autojumphttpsgithubcomwtingautojump-doesnt-work">Autojump doesn&apos;t work</a></li>
 <li><a href="#thefuckhttpsgithubcomnvbnthefuck-doesnt-work">thefuck doesn&apos;t work</a></li>
 <li><a href="#github-pages-instance-with-a-custom-domain-doesnt-load-due-to-a-bad-certificate">GitHub Pages instance with a custom domain doesn&apos;t load due to a bad certificate</a></li>
+<li><a href="#firefox-darken-blank-pagetab">Firefox: darken blank page/tab</a></li>
 </ul>
 </li>
 </ul>
