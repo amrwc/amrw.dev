@@ -316,10 +316,10 @@ pre[data-line] .line-highlight[data-end]:after {
 </li>
 <li>
 <p>On the newly opened page locate <code>Profile Folder</code> row in the table. There will be a path to the current Firefox profile &#x2013; copy it.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">cd</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span>pbpaste<span class="token variable">)</span></span>&quot;</span>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">cd</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span>pbpaste<span class="token variable">)</span></span>&quot;</span> <span class="token comment"># Beware leading and trailing spaces</span>
 <span class="token function">mkdir</span> -p chrome
 <span class="token punctuation">[</span><span class="token punctuation">[</span> -f <span class="token string">&quot;./chrome/userChrome.css&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token function">touch</span> ./chrome/userChrome.css
-<span class="token keyword">echo</span> <span class="token string">&quot;.browserContainer {\n\tbackground-color: #3d3d3d !important;\n}&quot;</span> <span class="token operator">&gt;&gt;</span> ./chrome/userChrome.css
+<span class="token keyword">echo</span> <span class="token string">&apos;.browserContainer {\n\tbackground-color: #3d3d3d !important;\n}&apos;</span> <span class="token operator">&gt;&gt;</span> ./chrome/userChrome.css
 </pre></li>
 <li>
 <p>Restart Firefox.</p>

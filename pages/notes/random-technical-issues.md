@@ -71,9 +71,9 @@ To also darken the flash of unstyled content before a page is loaded, create a `
 2. On the newly opened page locate `Profile Folder` row in the table. There will be a path to the current Firefox profile – copy it.
 
    ```bash
-   cd "$(pbpaste)"
+   cd "$(pbpaste)" # Beware leading and trailing spaces
    mkdir -p chrome
    [[ -f "./chrome/userChrome.css" ]] || touch ./chrome/userChrome.css
-   echo ".browserContainer {\n\tbackground-color: #3d3d3d !important;\n}" >> ./chrome/userChrome.css
+   echo '.browserContainer {\n\tbackground-color: #3d3d3d !important;\n}' >> ./chrome/userChrome.css
    ```
 3. Restart Firefox.
