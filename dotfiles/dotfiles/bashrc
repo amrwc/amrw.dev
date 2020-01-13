@@ -19,3 +19,5 @@ eval $(thefuck --alias fuck)
 
 # https://stackoverflow.com/questions/41052538/git-error-gpg-failed-to-sign-data#comment84711185_41054093
 export GPG_TTY=$(tty)
+
+source /Users/am/Library/Preferences/org.dystroy.broot/launcher/bash/br

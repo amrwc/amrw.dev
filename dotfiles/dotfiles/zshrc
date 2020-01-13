@@ -107,10 +107,12 @@ eval $(thefuck --alias)
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Git alias(es)
+alias -g glu="git pull upstream"
 alias -g glud="git pull upstream develop"
+alias -g glum="git pull upstream master"
 ## Pull current branch
 function gluc() {
-	current_branch=$(git rev-parse --abbrev-ref HEAD)
+	current_branch="$(git rev-parse --abbrev-ref HEAD)"
 	git pull upstream "${current_branch}"
 }
 # Export the function without printing it every time .zshrc is sourced
@@ -122,3 +124,5 @@ export GPG_TTY=$(tty)
 # Load nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+source /Users/am/Library/Preferences/org.dystroy.broot/launcher/bash/br
