@@ -76,4 +76,13 @@ To also darken the flash of unstyled content before a page is loaded, create a `
    [[ -f "./chrome/userChrome.css" ]] || touch ./chrome/userChrome.css
    echo '.browserContainer {\n\tbackground-color: #3d3d3d !important;\n}' >> ./chrome/userChrome.css
    ```
+
 3. Restart Firefox.
+
+## Prevent a Mac from auto-connecting to audio devices
+
+The following command should prevent wireless speakers from auto-pairing with a Mac with the Bluetooth on.
+
+```bash
+sudo defaults write /Library/Preferences/com.apple.Bluetooth.plist DontPageAudioDevices 1
+```
