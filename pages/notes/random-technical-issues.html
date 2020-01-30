@@ -325,7 +325,11 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>Restart Firefox.</p>
 </li>
 </ol>
+<h2 class="mume-header" id="prevent-a-mac-from-auto-connecting-to-audio-devices">Prevent a Mac from auto-connecting to audio devices</h2>
 
+<p>The following command should prevent wireless speakers from auto-pairing with a Mac with the Bluetooth on.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">sudo</span> defaults <span class="token function">write</span> /Library/Preferences/com.apple.Bluetooth.plist DontPageAudioDevices 1
+</pre>
       </div>
       <div class="md-sidebar-toc"><ul>
 <li><a href="#random-technical-issues">Random Technical Issues</a>
@@ -335,6 +339,7 @@ pre[data-line] .line-highlight[data-end]:after {
 <li><a href="#thefuckhttpsgithubcomnvbnthefuck-doesnt-work">thefuck doesn&apos;t work</a></li>
 <li><a href="#github-pages-instance-with-a-custom-domain-doesnt-load-due-to-a-bad-certificate">GitHub Pages instance with a custom domain doesn&apos;t load due to a bad certificate</a></li>
 <li><a href="#firefox-darken-blank-pagetab">Firefox: darken blank page/tab</a></li>
+<li><a href="#prevent-a-mac-from-auto-connecting-to-audio-devices">Prevent a Mac from auto-connecting to audio devices</a></li>
 </ul>
 </li>
 </ul>
