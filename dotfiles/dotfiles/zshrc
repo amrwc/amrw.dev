@@ -106,7 +106,7 @@ eval $(thefuck --alias)
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# Git alias(es)
+# Git aliases
 alias -g glu="git pull upstream"
 alias -g glud="git pull upstream develop"
 alias -g glum="git pull upstream master"
@@ -118,6 +118,10 @@ function gluc() {
 # Export the function without printing it every time .zshrc is sourced
 export -f gluc > /dev/null 2>&1
 
+# Devbox aliases
+alias -g dp="devbox push"
+alias -g dl="devbox pull"
+
 # Helps the GPG agent with commit signing
 export GPG_TTY=$(tty)
 
@@ -126,3 +130,5 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 source /Users/am/Library/Preferences/org.dystroy.broot/launcher/bash/br
+export PATH="/usr/local/opt/maven@3.2/bin:$PATH"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home"
