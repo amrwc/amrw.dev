@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# The command goes through all the previous commits and signs them with the currently set up GPG
+# key, i.e. the one in `git config user.signingKey`. Remember that it's rewriting history and
+# therefore it will break the repository for all users. If you collaborate with anyone, make sure
+# they re-clone the repository afterwards.
+#
+# Credit: https://stackoverflow.com/a/27387391/10620237
+
+readonly TXT_RED="$(tput setaf 1)"
+readonly TXT_GREEN="$(tput setaf 2)"
+readonly TXT_BOLD="$(tput bold)"
+readonly TXT_RESET="$(tput sgr0)"
+
+git filter-branch -f --commit-filter 'git commit-tree -S "$@"' HEAD \
+	|| echo "${TXT_RED}${TXT_BOLD}Error during execution of 'git filter-branch' ${TXT_RESET}"
+
+echo "${TXT_GREEN}${TXT_BOLD}Done GPG signing all previous commits${TXT_RESET}"
