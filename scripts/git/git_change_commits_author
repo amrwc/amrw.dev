@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# The following command will rewrite all previous git commits and change the author's details.
+# Remember that it's rewriting history and therefore it will break the repository for all users.
+# If you collaborate with anyone, make sure they re-clone the repository afterwards.
+#
+# Credit: https://stackoverflow.com/a/8444091/10620237
+
+readonly TXT_RED="$(tput setaf 1)"
+readonly TXT_GREEN="$(tput setaf 2)"
+readonly TXT_YELLOW="$(tput setaf 3)"
+readonly TXT_BOLD="$(tput bold)"
+readonly TXT_RESET="$(tput sgr0)"
+
+echo "${TXT_YELLOW}${TXT_BOLD}Did you remember to change the name in the script?${TXT_RESET}"
+
+git filter-branch --force --env-filter '
+	if [ "$GIT_COMMITTER_NAME" = "<old_name>" ]; then
+		GIT_COMMITTER_NAME="<new_name>";
+		GIT_COMMITTER_EMAIL="<new_email>";
+		GIT_AUTHOR_NAME="<new_name>";
+		GIT_AUTHOR_EMAIL="<new_email>";
+	fi' -- --all \
+	|| echo "${TXT_RED}${TXT_BOLD}Error during execution of 'git filter-branch' ${TXT_RESET}"
+
+echo "${TXT_GREEN}${TXT_BOLD}Done changing author of all previous commits${TXT_RESET}"
