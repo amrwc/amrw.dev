@@ -130,5 +130,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 source /Users/am/Library/Preferences/org.dystroy.broot/launcher/bash/br
-export PATH="/usr/local/opt/maven@3.2/bin:$PATH"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home"
+#export PATH="/usr/local/opt/maven@3.2/bin:$PATH"
+#export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home"
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
