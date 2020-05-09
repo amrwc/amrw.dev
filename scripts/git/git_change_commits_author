@@ -12,6 +12,9 @@ readonly TXT_YELLOW="$(tput setaf 3)"
 readonly TXT_BOLD="$(tput bold)"
 readonly TXT_RESET="$(tput sgr0)"
 
+# Uncomment the following variable to disable the Git warning regarding `filter-branch`
+# export FILTER_BRANCH_SQUELCH_WARNING=1
+
 echo "${TXT_YELLOW}${TXT_BOLD}Did you remember to change the name in the script?${TXT_RESET}"
 
 git filter-branch --force --env-filter '
@@ -20,7 +23,12 @@ git filter-branch --force --env-filter '
 		GIT_COMMITTER_EMAIL="<new_email>";
 		GIT_AUTHOR_NAME="<new_name>";
 		GIT_AUTHOR_EMAIL="<new_email>";
-	fi' -- --all \
-	|| echo "${TXT_RED}${TXT_BOLD}Error during execution of 'git filter-branch' ${TXT_RESET}"
+	fi' -- --all
+if [ $? -ne 0 ]; then
+	echo "${TXT_RED}${TXT_BOLD}Error executing 'git filter-branch' while changing the author's details${TXT_RESET}"
+	exit 1
+fi
+echo "${TXT_GREEN}${TXT_BOLD}Finished changing author of all previous commits${TXT_RESET}"
 
-echo "${TXT_GREEN}${TXT_BOLD}Done changing author of all previous commits${TXT_RESET}"
+git config user.name '<new_name>'
+git config user.email '<new_email>'

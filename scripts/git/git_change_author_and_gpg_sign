@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+# Remember that this script rewrites history and therefore it will break the
+# repository for all users. If you collaborate with anyone, make sure they
+# re-clone the repository afterwards.
+
+readonly OLD_NAME=''
+readonly OLD_EMAIL=''
+readonly NEW_NAME=''
+readonly NEW_EMAIL=''
+readonly GITHUB_USERNAME=''
+readonly WORKING_DIR='change-author-and-gpg-sign'
+readonly REPOSITORY_NAMES=(
+)
+
+###############################################################################
+# Command to be fed to `git filter-branch`
+cmd=''
+
+# if [ "$GIT_COMMITTER_NAME" = "<old_name>" ] || [ "$GIT_COMMITTER_EMAIL" = "<old_email>" ]; then
+cmd+='if [ "$GIT_COMMITTER_NAME" = "'
+cmd+="${OLD_NAME}"
+cmd+='" ] || [ "$GIT_COMMITTER_EMAIL" = "'
+cmd+="${OLD_EMAIL}"
+cmd+='" ]; then\n'
+
+if [ ! -z "${NEW_NAME}" ]; then
+	# GIT_COMMITTER_NAME="<new_name>";
+	cmd+='\tGIT_COMMITTER_NAME="'
+	cmd+="${NEW_NAME}"
+	cmd+='";\n'
+	# GIT_AUTHOR_NAME="<new_name>";
+	cmd+='\tGIT_AUTHOR_NAME="'
+	cmd+="${NEW_NAME}"
+	cmd+='";\n'
+fi
+
+if [ ! -z "${NEW_EMAIL}" ]; then
+	# GIT_COMMITTER_EMAIL="<new_email>";
+	cmd+='\tGIT_COMMITTER_EMAIL="'
+	cmd+="${NEW_EMAIL}"
+	cmd+='";\n'
+	# GIT_AUTHOR_EMAIL="<new_email>";
+	cmd+='\tGIT_AUTHOR_EMAIL="'
+	cmd+="${NEW_EMAIL}"
+	cmd+='";\n'
+fi
+
+cmd+='fi'
+
+###############################################################################
+readonly TXT_RED="$(tput setaf 1)"
+readonly TXT_GREEN="$(tput setaf 2)"
+readonly TXT_YELLOW="$(tput setaf 3)"
+readonly TXT_BOLD="$(tput bold)"
+readonly TXT_RESET="$(tput sgr0)"
+
+mkdir -p "${WORKING_DIR}" && cd "${WORKING_DIR}"
+
+# The following variable disables the Git warning regarding `filter-branch`
+export FILTER_BRANCH_SQUELCH_WARNING=1
+
+for repository_name in "${REPOSITORY_NAMES[@]}"; do
+	if [ ! -d "${repository_name}" ]; then
+		git clone "git@github.com:${GITHUB_USERNAME}/${repository_name}.git"
+	fi
+	if [ ! -d "${repository_name}" ]; then
+		echo "${TXT_RED}${TXT_BOLD}Error: '${repository_name}' directory is missing${TXT_RESET}"
+		echo -e "${TXT_YELLOW}${TXT_BOLD}Skipping to the next repository${TXT_RESET}\n"
+		continue
+	else
+		cd "${repository_name}"
+	fi
+
+	# The following command rewrites all previous git commits and changes the author's details.
+	# Credit: https://stackoverflow.com/a/8444091/10620237
+	git filter-branch --force --env-filter "$(echo -e "${cmd}")" -- --all
+	if [ $? -ne 0 ]; then
+		echo "${TXT_RED}${TXT_BOLD}Error executing 'git filter-branch' while changing the author's details on '${repository_name}'${TXT_RESET}"
+		echo -e "${TXT_YELLOW}${TXT_BOLD}Skipping to the next repository${TXT_RESET}\n"
+		continue
+	else
+		echo -e "${TXT_GREEN}${TXT_BOLD}Finished changing author of all previous commits${TXT_RESET}\n"
+	fi
+
+	git config user.name "${NEW_NAME}"
+	git config user.email "${NEW_EMAIL}"
+
+	# The command goes through all the previous commits and signs them with the currently set up GPG
+	# key, i.e. the one in `git config user.signingKey`.
+	# Credit: https://stackoverflow.com/a/27387391/10620237
+	git filter-branch -f --commit-filter 'git commit-tree -S "$@"' HEAD
+	if [ $? -ne 0 ]; then
+		echo "${TXT_RED}${TXT_BOLD}Error executing 'git filter-branch' while GPG signing on '${repository_name}'${TXT_RESET}"
+		echo -e "${TXT_YELLOW}${TXT_BOLD}Skipping to the next repository${TXT_RESET}\n"
+		continue
+	else
+		echo -e "${TXT_GREEN}${TXT_BOLD}Finished GPG signing all previous commits${TXT_RESET}\n"
+	fi
+
+	git push -f
+	if [ $? -ne 0 ]; then
+		echo "${TXT_RED}${TXT_BOLD}Error executing of 'git push -f' on '${repository_name}'${TXT_RESET}"
+		echo -e "${TXT_YELLOW}${TXT_BOLD}Moving on to the next repository${TXT_RESET}\n"
+	else
+		echo ""
+	fi
+
+	cd ".."
+done

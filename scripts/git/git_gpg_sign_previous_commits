@@ -12,7 +12,12 @@ readonly TXT_GREEN="$(tput setaf 2)"
 readonly TXT_BOLD="$(tput bold)"
 readonly TXT_RESET="$(tput sgr0)"
 
-git filter-branch -f --commit-filter 'git commit-tree -S "$@"' HEAD \
-	|| echo "${TXT_RED}${TXT_BOLD}Error during execution of 'git filter-branch' ${TXT_RESET}"
+# Uncomment the following variable to disable the Git warning regarding `filter-branch`
+# export FILTER_BRANCH_SQUELCH_WARNING=1
 
-echo "${TXT_GREEN}${TXT_BOLD}Done GPG signing all previous commits${TXT_RESET}"
+git filter-branch -f --commit-filter 'git commit-tree -S "$@"' HEAD
+if [ $? -ne 0 ]; then
+	echo "${TXT_RED}${TXT_BOLD}Error executing 'git filter-branch' while GPG signing${TXT_RESET}"
+	exit 1
+fi
+echo "${TXT_GREEN}${TXT_BOLD}Finished GPG signing all previous commits${TXT_RESET}"
