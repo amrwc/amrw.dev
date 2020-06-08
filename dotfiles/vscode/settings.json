@@ -2,7 +2,7 @@
     /**
      * Frequently changed
      */
-    "workbench.colorTheme": "Quiet Light",
+    // "workbench.colorTheme": "Quiet Light",
     // "workbench.colorTheme": "Solarized Light",
     // "editor.fontSize": 14,
     "editor.fontSize": 16,
@@ -84,6 +84,11 @@
         "editor.tabSize": 4,
         "editor.insertSpaces": true,
         "editor.detectIndentation": true
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": false
     },
     "[shellscript]": {
         "editor.tabSize": 4,
@@ -251,5 +256,11 @@
      * Visual Studio IntelliCode
      * https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode
      */
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+
+    /**
+     * markdownlint
+     * https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
+     */
+    "markdownlint.run": "onSave"
 }
