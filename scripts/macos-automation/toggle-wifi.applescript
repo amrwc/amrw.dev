@@ -1,14 +1,13 @@
 #!/usr/bin/osascript
 
-do shell script "/bin/zsh -s << 'EOF'
-device=$(networksetup -listallhardwareports | awk '$3==\"Wi-Fi\" {getline;print}' | awk '{print $2}')
-power=$(networksetup -getairportpower \"$device\" | awk '{print $4}' | tr '[:upper:]' '[:lower:]')
+set device to (do shell script "networksetup -listallhardwareports | awk '$3==\"Wi-Fi\" {getline;print}' | awk '{print $2}'")
+set power to (do shell script "networksetup -getairportpower " & device & " | awk '{print $4}' | tr '[:upper:]' '[:lower:]'")
 
-if [[ \"$power\" == 'on' ]]; then
-	opposite_power='off'
+set opposite_power to ""
+if power = "on" then
+    set opposite_power to "off"
 else
-	opposite_power='on'
-fi
+    set opposite_power to "on"
+end if
 
-networksetup -setairportpower \"$device\" \"$opposite_power\"
-EOF"
+do shell script "networksetup -setairportpower " & device & " " & opposite_power
