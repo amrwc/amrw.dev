@@ -2,11 +2,12 @@
     /**
      * Frequently changed
      */
-    // "workbench.colorTheme": "Quiet Light",
+    "workbench.colorTheme": "Quiet Light",
     // "workbench.colorTheme": "Solarized Light",
     // "editor.fontSize": 14,
     "editor.fontSize": 16,
     // "editor.fontSize": 18,
+    "workbench.tree.indent": 24,
 
     /**
      * General
@@ -262,5 +263,7 @@
      * markdownlint
      * https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
      */
-    "markdownlint.run": "onSave"
+    "markdownlint.run": "onSave",
+    "python.showStartPage": false,
+    "python.languageServer": "Microsoft"
 }
