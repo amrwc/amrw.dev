@@ -124,3 +124,18 @@ sudo defaults write /Library/Preferences/com.apple.Bluetooth.plist DontPageAudio
 
 4. If the extension doesn't work right away, quit the desktop app and the web
    browser completely. They should establish a connection when turned back on.
+
+## Misplaced notification bubble on macOS
+
+Sometimes, when the second screen is plugged in/out, the notification bubble
+alignment gets messed up – it appears out of the built-in screen, on the
+bottom-left part of the external screen (thus is invisible if the external
+screen is unplugged).
+
+### Steps to fix the issue
+
+1. Go to `System Preferences -> Displays`.
+2. Navigate to the `Arrangement` tab.
+3. Tick `Mirror Displays` and untick it again.
+
+It's best to have a notification open to verify the fix.
