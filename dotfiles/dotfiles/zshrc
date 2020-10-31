@@ -130,3 +130,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #export PATH="/usr/local/opt/maven@3.2/bin:$PATH"
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 #export JAVA_HOME="$(/usr/libexec/java_home -v 14)"
+
+# Maven
+export PATH=$PATH:/opt/apache-maven/bin
