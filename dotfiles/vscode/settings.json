@@ -2,7 +2,7 @@
     /**
      * Frequently changed
      */
-    "workbench.colorTheme": "Quiet Light",
+    // "workbench.colorTheme": "Quiet Light",
     // "workbench.colorTheme": "Solarized Light",
     // "workbench.colorTheme": "Kimbie Dark",
     // "workbench.colorTheme": "Solarized Dark",
@@ -112,7 +112,7 @@
      * Extension: Python
      */
     "python.showStartPage": false,
-    "python.languageServer": "Microsoft",
+    "python.languageServer": "Pylance",
 
     /**
      * Extension: Prettier
