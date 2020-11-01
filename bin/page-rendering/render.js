@@ -77,10 +77,6 @@ function parseArgv() {
             i++;
             continue;
         }
-        if (existsOptionValue(argv, i)) {
-            i += 2;
-            continue;
-        }
         switch (arg) {
             case '-f':
             case '--file':
@@ -106,13 +102,6 @@ function parseArgv() {
 
 function isOptionOrFlag(arg) {
     return arg.startsWith('--') || arg.startsWith('-');
-}
-
-function existsOptionValue(argv, index) {
-    if (index > argv.length) {
-        return false;
-    }
-    return argv[index] && !isOptionOrFlag(argv[index]);
 }
 
 function raiseError(errorCode, message) {
