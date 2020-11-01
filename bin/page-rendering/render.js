@@ -1,15 +1,20 @@
 #!/usr/bin/env node
+'use strict';
 
-/**
- * Example usage:
- * ./render.js -f ./page-rendering.md
- * ./render.js --file ../mac-setup/setup-instructions.md
- * ./render.js --file ../README.md --index
- * ./render.js --recursive
- *
- * @see https://github.com/shd101wyy/mume
- */
+// # Render
+//
+// Renders GitHub flavoured HTML out of Markdown documents.
+//
+// ## Usage
+//
+// ```console
+// ./render.js -f ./page-rendering.md
+// ./render.js --file ../mac-setup/setup-instructions.md
+// ./render.js --file ../README.md --index
+// ./render.js --recursive
+// ```
 
+const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -21,21 +26,27 @@ const MUME_CONFIG = {
     printBackground: true,
     enableScriptExecution: true, // needed for `runAllCodeChunks: true` in `htmlExport()`
 };
+const RENDERING_EXEMPTIONS = new Set(['node_modules', 'README.md']);
 
 async function main() {
     const props = parseArgv();
     await mume.init();
-    if (props.isRecursive) {
+    if (props.isIndex) {
+        verifyFilePath(props);
+        await convertMarkdownToHtml(props.filePath);
+        processIndexPage(props.filePath);
+    } else if (props.isRecursive) {
         const markdownFilePaths = getMarkdownFilePathsRecursively([], process.cwd());
-        for (mdFile of markdownFilePaths) {
+        for (const mdFile of markdownFilePaths) {
             await convertMarkdownToHtml(mdFile);
         }
     } else {
-        if (!props.filePath) {
-            raiseError('No file path provided');
-        }
+        verifyFilePath(props);
         await convertMarkdownToHtml(props.filePath);
     }
+
+    // It's needed because of some inherent issue within `mume` that keeps the process running perpetually
+    // See: https://github.com/shd101wyy/mume/issues/70
     return process.exit(0);
 }
 
@@ -50,13 +61,57 @@ async function convertMarkdownToHtml(filePath) {
 function getMarkdownFilePathsRecursively(filePaths, directory) {
     fs.readdirSync(directory).forEach(file => {
         const absolutePath = path.join(directory, file);
+        if (RENDERING_EXEMPTIONS.has(file)) {
+            console.info(`Skipping rendering for: ${absolutePath}`);
+            return;
+        }
         if (fs.statSync(absolutePath).isDirectory()) {
             getMarkdownFilePathsRecursively(filePaths, absolutePath);
-        } else if (absolutePath.split('.').pop() === 'md') {
+        } else if (path.extname(absolutePath) === '.md') {
             filePaths.push(absolutePath);
         }
     });
     return filePaths;
+}
+
+function verifyFilePath(props) {
+    if (!props.filePath) {
+        raiseError(1, 'No file path provided');
+    }
+}
+
+function processIndexPage(mdFilePath) {
+    // The HTML file rendered from the given Markdown file must be renamed to 'index.html'
+    const srcHtmlPathParts = path.join(process.cwd(), mdFilePath).split('/'); // ['', 'Users', ..., 'README.md']
+    const srcHtmlName = srcHtmlPathParts[srcHtmlPathParts.length - 1].split('.'); // ['README', 'md']
+    srcHtmlName[1] = 'html'; // ['README', 'html']
+    srcHtmlPathParts[srcHtmlPathParts.length - 1] = srcHtmlName.join('.'); // ['', 'Users', ..., 'README.html']
+    const srcHtmlPath = srcHtmlPathParts.join('/'); // /Users/.../README.html
+
+    const indexPathParts = srcHtmlPathParts.slice(); // ['', 'Users', ..., 'README.html']
+    indexPathParts[indexPathParts.length - 1] = 'index.html'; // ['', 'Users', ..., 'index.html']
+    const indexPath = indexPathParts.join('/'); // /Users/.../index.html
+
+    // README.html -> index.html
+    fs.renameSync(srcHtmlPath, indexPath, err => {
+        if (err) {
+            raiseError(1, err);
+        }
+    });
+
+    const callback = (err, stdout, stderr) => {
+        if (err) {
+            raiseError(1, err);
+        }
+        console.log(stdout);
+        if (stderr) {
+            raiseError(1, stderr);
+        }
+    };
+    // Replace the `.md` href extensions in the file with `.html`
+    childProcess.exec(`perl -i -pe "s/.md\\">/.html\\">/g" ${indexPath}`, callback);
+    // Replace the `README` page title with `amrw`
+    childProcess.exec(`perl -i -pe "s/<title>README<\\/title>/<title>amrw<\\/title>/g" ${indexPath}`, callback);
 }
 
 function parseArgv() {
