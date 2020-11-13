@@ -69,6 +69,10 @@ function replaceTitle(filePath, replacement = '') {
         const html = fs.readFileSync(filePath, 'utf8');
         let pageTitle = '';
         if (!replacement) {
+            // This could be done _way_ easier (and the `htmlparser2` dependency could be removed) by using the
+            // original Markdown file's `h1` tag (the single pound sign `#`) which is at the very top of each file,
+            // assuming there indeed is the `h1` tag near the top as is recommended by the linter. This would, however,
+            // involve reading two files instead of just one.
             const headers = [];
             const htmlParser = new htmlparser2.Parser({
                 onopentag(tagname, attributes) {
