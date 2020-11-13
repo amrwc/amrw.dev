@@ -18,6 +18,7 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+const htmlparser2 = require('htmlparser2');
 const mume = require('@shd101wyy/mume');
 
 const MUME_CONFIG = {
@@ -32,17 +33,22 @@ async function main() {
     const props = parseArgv();
     await mume.init();
     if (props.isIndex) {
+        const { filePath } = props;
         verifyFilePath(props);
-        await convertMarkdownToHtml(props.filePath);
-        processIndexPage(props.filePath);
+        await convertMarkdownToHtml(filePath);
+        const indexHtmlPath = processIndexPage(filePath);
+        replaceTitle(indexHtmlPath, 'amrw');
     } else if (props.isRecursive) {
         const markdownFilePaths = getMarkdownFilePathsRecursively([], process.cwd());
         for (const mdFile of markdownFilePaths) {
             await convertMarkdownToHtml(mdFile);
+            replaceTitle(mdFile.replace('.md', '.html'));
         }
     } else {
+        const { filePath } = props;
         verifyFilePath(props);
-        await convertMarkdownToHtml(props.filePath);
+        await convertMarkdownToHtml(filePath);
+        replaceTitle(filePath.replace('.md', '.html'));
     }
 
     // It's needed because of some inherent issue within `mume` that keeps the process running perpetually
@@ -56,6 +62,43 @@ async function convertMarkdownToHtml(filePath) {
         config: MUME_CONFIG,
     });
     await markdownEngine.htmlExport({ offline: false, runAllCodeChunks: true });
+}
+
+function replaceTitle(filePath, replacement = '') {
+    try {
+        const html = fs.readFileSync(filePath, 'utf8');
+        let pageTitle = '';
+        if (!replacement) {
+            const headers = [];
+            const htmlParser = new htmlparser2.Parser({
+                onopentag(tagname, attributes) {
+                    if (tagname === 'h1') {
+                        headers.push('<h1>'); // ['<h1>']
+                    }
+                },
+                ontext(text) {
+                    if (headers[headers.length - 1] === '<h1>') {
+                        headers.push(text); // ['<h1>', 'Page title']
+                    }
+                },
+                onclosetag(tagname) {
+                    if (tagname === 'h1') {
+                        headers.push('</h1>'); // ['<h1>', 'Page title', '</h1>']
+                    }
+                },
+            });
+            htmlParser.write(html);
+            htmlParser.end();
+            pageTitle = headers[1]; // 'Page title'
+        } else {
+            pageTitle = replacement;
+        }
+        const htmlReplaced = html.replace(/<title>(.+?)<\/title>/, `<title>${pageTitle}</title>`);
+        fs.writeFileSync(filePath, htmlReplaced);
+    } catch (err) {
+        console.warn('Error replacing page title:');
+        console.warn(err);
+    }
 }
 
 function getMarkdownFilePathsRecursively(filePaths, directory) {
@@ -112,6 +155,8 @@ function processIndexPage(mdFilePath) {
     childProcess.exec(`perl -i -pe "s/.md\\">/.html\\">/g" ${indexPath}`, callback);
     // Replace the `README` page title with `amrw`
     childProcess.exec(`perl -i -pe "s/<title>README<\\/title>/<title>amrw<\\/title>/g" ${indexPath}`, callback);
+    // Return the path for future convenience
+    return indexPath;
 }
 
 function parseArgv() {
