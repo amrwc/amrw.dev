@@ -7,5 +7,14 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "tabWidth": 4,
-    "useTabs": false
+    "useTabs": false,
+    "overrides": [
+        {
+            "files": "*.md",
+            "options": {
+                "printWidth": 79,
+                "proseWrap": "always"
+            }
+        }
+    ]
 }

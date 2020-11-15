@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 'use strict';
 
-// # Render
+// Render
 //
 // Renders GitHub flavoured HTML out of Markdown documents.
 //
-// ## Usage
+// Usage:
+//   render.js (-f|--file) <file> [-i|--index]
+//   render.js (-r|--recursive)
 //
-// ```console
-// ./render.js -f ./page-rendering.md
-// ./render.js --file ../mac-setup/setup-instructions.md
-// ./render.js --file ../README.md --index
-// ./render.js --recursive
-// ```
+// Options:
+//   -h, --help              Show this help
+//   --version               Show the version
+//   -f, --file=<file>       Input file
+//   -r, --recursive         Traverse the current working directory recursively
 
-const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
@@ -30,30 +30,40 @@ const MUME_CONFIG = {
 const RENDERING_EXEMPTIONS = new Set(['node_modules', 'README.md']);
 
 async function main() {
-    const props = parseArgv();
+    const { filePath, isIndex, isRecursive } = parseArgv();
     await mume.init();
-    if (props.isIndex) {
-        const { filePath } = props;
-        verifyFilePath(props);
+    if (isIndex) {
+        if (!filePath) {
+            raiseError(1, 'No file path provided');
+        }
         await convertMarkdownToHtml(filePath);
         const indexHtmlPath = processIndexPage(filePath);
-        replaceTitle(indexHtmlPath, 'amrw');
-    } else if (props.isRecursive) {
+        let html = fs.readFileSync(indexHtmlPath, 'utf8');
+        html = replaceTitle(html, 'amrw');
+        html = replaceMarkdownExtensions(html);
+        fs.writeFileSync(indexHtmlPath, html);
+    } else if (isRecursive) {
         const markdownFilePaths = getMarkdownFilePathsRecursively([], process.cwd());
-        for (const mdFile of markdownFilePaths) {
-            await convertMarkdownToHtml(mdFile);
-            replaceTitle(mdFile.replace('.md', '.html'));
+        for (const mdFilePath of markdownFilePaths) {
+            await processMarkdownFile(mdFilePath);
         }
     } else {
-        const { filePath } = props;
-        verifyFilePath(props);
-        await convertMarkdownToHtml(filePath);
-        replaceTitle(filePath.replace('.md', '.html'));
+        await processMarkdownFile(filePath);
     }
 
-    // It's needed because of some inherent issue within `mume` that keeps the process running perpetually
+    // It's needed because of some inherent issue within `mume` that keeps the process running
     // See: https://github.com/shd101wyy/mume/issues/70
     return process.exit(0);
+}
+
+async function processMarkdownFile(filePath) {
+    if (!filePath) {
+        raiseError(1, 'No file path provided');
+    }
+    const htmlPath = await convertMarkdownToHtml(filePath);
+    let html = fs.readFileSync(htmlPath, 'utf8');
+    html = replaceTitle(html);
+    fs.writeFileSync(htmlPath, html);
 }
 
 async function convertMarkdownToHtml(filePath) {
@@ -62,11 +72,11 @@ async function convertMarkdownToHtml(filePath) {
         config: MUME_CONFIG,
     });
     await markdownEngine.htmlExport({ offline: false, runAllCodeChunks: true });
+    return filePath.replace('.md', '.html');
 }
 
-function replaceTitle(filePath, replacement = '') {
+function replaceTitle(html, replacement = '') {
     try {
-        const html = fs.readFileSync(filePath, 'utf8');
         let pageTitle = '';
         if (!replacement) {
             // This could be done _way_ easier (and the `htmlparser2` dependency could be removed) by using the
@@ -97,12 +107,15 @@ function replaceTitle(filePath, replacement = '') {
         } else {
             pageTitle = replacement;
         }
-        const htmlReplaced = html.replace(/<title>(.+?)<\/title>/, `<title>${pageTitle}</title>`);
-        fs.writeFileSync(filePath, htmlReplaced);
+        return html.replace(/<title>(.+?)<\/title>/, `<title>${pageTitle}</title>`);
     } catch (err) {
         console.warn('Error replacing page title:');
         console.warn(err);
     }
+}
+
+function replaceMarkdownExtensions(html) {
+    return html.replace(/\.md">/g, '.html">');
 }
 
 function getMarkdownFilePathsRecursively(filePaths, directory) {
@@ -119,12 +132,6 @@ function getMarkdownFilePathsRecursively(filePaths, directory) {
         }
     });
     return filePaths;
-}
-
-function verifyFilePath(props) {
-    if (!props.filePath) {
-        raiseError(1, 'No file path provided');
-    }
 }
 
 function processIndexPage(mdFilePath) {
@@ -146,19 +153,6 @@ function processIndexPage(mdFilePath) {
         }
     });
 
-    const callback = (err, stdout, stderr) => {
-        if (err) {
-            raiseError(1, err);
-        }
-        console.log(stdout);
-        if (stderr) {
-            raiseError(1, stderr);
-        }
-    };
-    // Replace the `.md` href extensions in the file with `.html`
-    childProcess.exec(`perl -i -pe "s/.md\\">/.html\\">/g" ${indexPath}`, callback);
-    // Replace the `README` page title with `amrw`
-    childProcess.exec(`perl -i -pe "s/<title>README<\\/title>/<title>amrw<\\/title>/g" ${indexPath}`, callback);
     // Return the path for future convenience
     return indexPath;
 }
