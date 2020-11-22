@@ -264,14 +264,348 @@ pre[data-line] .line-highlight[data-end]:after {
       <div class="mume markdown-preview  ">
       <h1 class="mume-header" id="mac-setup">Mac Setup</h1>
 
-<h2 class="mume-header" id="homebrew">Homebrew</h2>
+<h2 class="mume-header" id="quick-steps">Quick steps</h2>
 
-<p>Run the following to install <code>brew</code>. It will also take care of the Xcode Command Line Tools installation.</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash">/usr/bin/ruby -e <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install<span class="token variable">)</span></span>&quot;</span>
-</pre><p>Install relevant programs:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash">brew <span class="token function">install</span> autojump <span class="token function">git</span> gpg pandoc thefuck the_silver_searcher zsh
-brew cask <span class="token function">install</span> iterm2 slack visual-studio-code
-</pre><h2 class="mume-header" id="iterm2">iTerm2</h2>
+<ol>
+<li>
+<p>Open Terminal.</p>
+</li>
+<li>
+<p>Install <a href="https://brew.sh">Homebrew</a>.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)&quot;
+</code></pre></li>
+<li>
+<p>Install prerequisites.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew install git nvm
+source ~/.zshrc
+</code></pre></li>
+<li>
+<p>Install Node.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>mkdir ~/.nvm
+
+# Find latest long-term service branch from the list
+nvm ls-remote
+
+# Install the LTS
+nvm install --lts=Fermium
+</code></pre></li>
+<li>
+<p>Get the repository with dotfiles.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>git clone https://github.com/amrwc/amrwc.github.io.git
+</code></pre></li>
+<li>
+<p>Symlink dotfiles to the repository (the script uses Node).</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>cd amrwc.github.io
+./scripts/dotfiles/link/link_all
+</code></pre></li>
+<li>
+<p>Install <a href="https://karabiner-elements.pqrs.org">Karabiner-Elements</a> to avoid<br>
+further frustration about key mapping.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew cask install karabiner-elements
+</code></pre><p>In case you encounter problems with installing the virtual keyboard/mouse<br>
+driver, as instructed in the app (as of <code>13.1.0</code>), the latest known version<br>
+to work flawlessly is <code>12.10.0</code> (the disk image<br>
+<a href="https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v12.10.0">can be found on GitHub</a>).</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/a/26321141/10620237">Change default shell</a> from<br>
+<code>Bash</code> to <code>Zsh</code>.</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash">chsh -s /bin/zsh
+<span class="token comment"># Alternatively:</span>
+chsh -s <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">which</span> zsh<span class="token variable">)</span></span>&quot;</span>
+</pre></li>
+<li>
+<p>Install <code>Oh My Zsh</code>.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
+</code></pre></li>
+<li>
+<p>Install remaining applications.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew install autojump gpg pandoc thefuck the_silver_searcher zsh
+brew cask install 1password firefox flux iterm2 slack visual-studio-code
+source ~/.zshrc
+</code></pre></li>
+</ol>
+<h2 class="mume-header" id="less-important">Less important</h2>
+
+<ol>
+<li>Set f.lux preferences.</li>
+</ol>
+<ul>
+<li>Location: use the current city.</li>
+<li>Daytime: full brightness (Normal (Daylight)).</li>
+<li>Sunset: 3400K (Halogen).</li>
+<li>Bedtime: 1600K.</li>
+<li>In the dropdown from the menu bar:
+<ul>
+<li>Options:
+<ul>
+<li>Fast transitions enabled.</li>
+<li>Notifications from f.lux website disabled.</li>
+<li>Backwards alarm clock disabled.</li>
+</ul>
+</li>
+<li>Color effects:
+<ul>
+<li>OS X Dark theme at sunset.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>
+<p>Turn on English spell-checking in <code>Spell Right</code> in VS Code &#x2013;&#xA0;press the &apos;dot<br>
+with halo&apos; icon in the bottom-right corner and choose the language from the<br>
+list.</p>
+</li>
+<li>
+<p>Adding more than 3 fingerprints to Touch ID.</p>
+<p><a href="https://apple.stackexchange.com/q/270229">https://apple.stackexchange.com/q/270229</a></p>
+<p>Basically, alternate fingers while you register them. This way, more than<br>
+one finger can get saved into one memory slot. Of course, the accuracy goes<br>
+down, but for two fingers in each slot it&apos;s not too bad.</p>
+</li>
+</ol>
+<h2 class="mume-header" id="git">Git</h2>
+
+<ul>
+<li>
+<p><a href="https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">create and add an SSH key to the account</a><br>
+&#x2013; this enables to push to private repositories without providing credentials<br>
+every time,</p>
+</li>
+<li>
+<p>set up GnuPG &#x2013; it&apos;s used for<br>
+<a href="https://help.github.com/en/articles/managing-commit-signature-verification">verifying the identity of the commiter (signing commits)</a></p>
+<p><a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key">https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key</a></p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code># Installs GnuPG
+brew install gpg pinentry-mac
+
+# Starts an interactive setup
+gpg --full-generate-key
+
+# Lists the local gpg keys &#x2013;&#xA0;copy the right ssb
+# (the part after &apos;rsa4096/&apos;)
+gpg --list-secret-keys --keyid-format LONG
+
+# Exports the GPG key &#x2013;&#xA0;copy-paste it to GitHub/GitLab/whatever
+gpg --armor --export &lt;the_ssb_from_above&gt;
+
+# Arms Git with the signing key
+git config --global user.signingkey &lt;the_ssb_from_above&gt;
+
+# These two are necessary for GitHub and others
+# to properly recognise the signature
+# The email looks like the following:
+# 01231230+username@users.noreply.github.com
+git config --global user.email &quot;your.github.or.gitlab@email.address&quot;
+git config --global user.name &quot;Your Name&quot;
+
+# This tells Git to always sign the local commits
+git config --global commit.gpgSign true
+</code></pre></li>
+</ul>
+<h2 class="mume-header" id="firefox">Firefox</h2>
+
+<h3 class="mume-header" id="general">General</h3>
+
+<ol>
+<li>Allow Firefox to
+<ul>
+<li>Choose &apos;Check for updates but let you choose to install them&apos;.</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="home">Home</h3>
+
+<ol>
+<li>Firefox Home Content
+<ul>
+<li>Uncheck &apos;Recommended by Pocket&apos;.</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="search">Search</h3>
+
+<ol>
+<li>Default Search Engine
+<ul>
+<li>Choose &apos;DuckDuckGo&apos;.</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="privacy-security">Privacy &amp; Security</h3>
+
+<ol>
+<li>Firefox Data Collection and Use
+<ul>
+<li>Uncheck &apos;Allow Firefox to send technical and interaction data to Mozilla&apos;.</li>
+</ul>
+</li>
+<li>HTTPS-Only Mode
+<ul>
+<li>Check &apos;Enable HTTPS-Only Mode in all windows&apos;.</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="sync">Sync</h3>
+
+<ol>
+<li>Device Name
+<ul>
+<li>Give a descriptive name for the device.</li>
+</ul>
+</li>
+</ol>
+<h3 class="mume-header" id="extensions">Extensions</h3>
+
+<h4 class="mume-header" id="1password">1Password</h4>
+
+<ul>
+<li>Set up Touch ID unlocking.
+<ul>
+<li>Download the &apos;companion app extension&apos; from<br>
+<a href="https://1password.com/downloads/mac/#browsers">https://1password.com/downloads/mac/#browsers</a>.
+<ul>
+<li>If you see an error saying &apos;The add-on could not be downloaded because of<br>
+a connection failure&apos;, it&apos;s probably due to uBlock/uMatrix. Disable them<br>
+temporarily and try again.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="ublock-origin">uBlock Origin</h4>
+
+<ul>
+<li>Settings
+<ul>
+<li>Uncheck &apos;Show the number of blocked requests on the icon&apos;.</li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="umatrix">uMatrix</h4>
+
+<ul>
+<li>Settings
+<ul>
+<li>Uncheck &apos;Show the number of blocked resources on the icon&apos;.</li>
+</ul>
+</li>
+<li>Import uMatrix rules from <code>kitchen-sink</code> repository.</li>
+</ul>
+<h4 class="mume-header" id="cookie-autodelete">Cookie AutoDelete</h4>
+
+<ul>
+<li>Settings
+<ul>
+<li>Extension Options
+<ul>
+<li>Uncheck &apos;Show Number of Cookies for that Domain over the Icon&apos;.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Disable number badge.</li>
+<li>Whitelist common pages.</li>
+<li>TODO: Try exporting the config.</li>
+</ul>
+<h4 class="mume-header" id="tampermonkey">Tampermonkey</h4>
+
+<ul>
+<li>Import userscripts from <code>userscripts</code> repository.
+<ul>
+<li>Simply view the &apos;raw file&apos; in the GitHub repository and Tampermonkey should<br>
+recognise the text on the page as a userscript and offer to install it.</li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="allow-extensions-in-private-windows">Allow extensions in private windows</h4>
+
+<ul>
+<li>Go to <code>about:addons</code> and enable all the extensions to work in private<br>
+windows.</li>
+</ul>
+<h2 class="mume-header" id="1password-1">1Password</h2>
+
+<ul>
+<li>Preferences
+<ul>
+<li>Security
+<ul>
+<li>Require Master Password every 1 day.</li>
+<li>Clear clipboard contents after 10 seconds.</li>
+</ul>
+</li>
+<li>Notifications
+<ul>
+<li>Enable &apos;Watchtower alerts&apos;.</li>
+</ul>
+</li>
+<li>Updates
+<ul>
+<li>Disable &apos;Automatically install updates&apos;.</li>
+</ul>
+</li>
+<li>Advanced
+<ul>
+<li>Enable &apos;Show numbers and symbols first&apos;.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="finder">Finder</h2>
+
+<ul>
+<li>Show items as a list.</li>
+<li>Preferences
+<ul>
+<li>General
+<ul>
+<li>New Finder windows show: Documents.</li>
+</ul>
+</li>
+<li>Sidebar
+<ul>
+<li>Uncheck Recents.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Advanced
+<ul>
+<li>Enable &apos;Show all filename extensions&apos;.</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="spotify">Spotify</h2>
+
+<ul>
+<li>Preferences
+<ul>
+<li>Music Quality
+<ul>
+<li>Streaming quality: Very High.</li>
+<li>Disable &apos;Normalize volume&apos;.</li>
+</ul>
+</li>
+<li>Display Options
+<ul>
+<li>Enable &apos;Show unavailable songs in playlists&apos;.</li>
+<li>Disable &apos;Show Friend Activity&apos;. (It&apos;s the annoying side bar to the<br>
+right.)</li>
+</ul>
+</li>
+<li>Startup and Window Behaviour
+<ul>
+<li>Open Spotify automatically after you log into the computer: No.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="iterm2-todo-deprecated-check-whether-the-symlinkedimported-files-handle-all-the-points">iTerm2 (TODO: deprecated? &#x2013; check whether the symlinked/imported files handle all the points.)</h2>
 
 <ul>
 <li>Amend the <code>Quit iTerm2</code> keyboard shortcut to prevent accidental quits:
@@ -290,106 +624,116 @@ brew cask <span class="token function">install</span> iterm2 slack visual-studio
 <li>Import JSON profile:
 <ol>
 <li>Open <code>Preferences&#x2026;</code> (<code>cmd + ,</code>).</li>
-<li>In <code>Profiles</code> tab press <code>Other Actions&#x2026;</code> at near the bottom and choose <code>Import JSON Profiles&#x2026;</code>.</li>
+<li>In <code>Profiles</code> tab press <code>Other Actions&#x2026;</code> at near the bottom and choose<br>
+<code>Import JSON Profiles&#x2026;</code>.</li>
 <li>Navigate to the downloaded JSON profile and choose it.</li>
 </ol>
 </li>
 </ul>
-<h2 class="mume-header" id="shell">Shell</h2>
-
-<ul>
-<li>
-<p>Install <code>Oh My Zsh</code>:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash">sh -c <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh<span class="token variable">)</span></span>&quot;</span>
-</pre></li>
-<li>
-<p><a href="https://stackoverflow.com/a/26321141/10620237">Change default shell</a> from <code>Bash</code> to <code>Zsh</code>:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash">chsh -s /bin/zsh
-<span class="token comment"># Alternatively:</span>
-<span class="token comment"># chsh -s $(which zsh)</span>
-</pre></li>
-<li>
-<p>(optional) More useful tips:</p>
-<ul>
-<li><a href="https://sourabhbajaj.com/mac-setup/iTerm/zsh.html">https://sourabhbajaj.com/mac-setup/iTerm/zsh.html</a></li>
-</ul>
-</li>
-<li>
-<p>Import dotfiles:</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">bash</span> <span class="token operator">&lt;</span><span class="token punctuation">(</span>curl -sL amrw.dev/scripts/import_dotfiles<span class="token punctuation">)</span>
-<span class="token function">source</span> ~/.zshrc
-</pre></li>
-</ul>
-<h2 class="mume-header" id="git">Git</h2>
-
-<ul>
-<li>
-<p><a href="https://stackoverflow.com/a/2596835/10620237">set commit editor</a> to <code>nano</code> (as opposed to the default <code>vim</code>)</p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token function">git</span> config --global core.editor <span class="token string">&quot;nano&quot;</span>
-</pre></li>
-<li>
-<p><a href="https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">create and add an SSH key to the account</a> &#x2013; this enables to push to private repositories without providing credentials every time,</p>
-</li>
-<li>
-<p>set up GnuPG &#x2013; it&apos;s used for <a href="https://help.github.com/en/articles/managing-commit-signature-verification">verifying the identity of the commiter (signing commits)</a></p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash"><span class="token comment"># Installs GnuPG</span>
-brew <span class="token function">install</span> gpg pinentry-mac
-
-<span class="token comment"># Starts an interactive setup</span>
-gpg --full-generate-key
-
-<span class="token comment"># Lists the local gpg keys &#x2013; copy the right ssb</span>
-<span class="token comment"># (the part after &apos;rsa4096/&apos;)</span>
-gpg --list-secret-keys --keyid-format LONG
-
-<span class="token comment"># Exports the GPG key &#x2013; copy-paste it to GitHub/GitLab/whatever</span>
-gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<span class="token operator">&gt;</span>
-
-<span class="token comment"># Arms Git with the signing key</span>
-<span class="token function">git</span> config --global user.signingkey <span class="token operator">&lt;</span>the_ssb_from_above<span class="token operator">&gt;</span>
-
-<span class="token comment"># These two are necessary for GitHub and others</span>
-<span class="token comment"># to properly recognise the signature</span>
-<span class="token comment"># The email looks like the following:</span>
-<span class="token comment"># 01231230+username@users.noreply.github.com</span>
-<span class="token function">git</span> config --global user.email <span class="token string">&quot;your.github.or.gitlab@email.address&quot;</span>
-<span class="token function">git</span> config --global user.name <span class="token string">&quot;Your Name&quot;</span>
-
-<span class="token comment"># This tells Git to always sign the local commits</span>
-<span class="token function">git</span> config --global commit.gpgSign <span class="token boolean">true</span>
-</pre></li>
-</ul>
 <h2 class="mume-header" id="system-preferences">System Preferences</h2>
 
+<h3 class="mume-header" id="icloud">iCloud</h3>
+
+<ol>
+<li>Sign in to iCloud.</li>
+</ol>
+<h3 class="mume-header" id="apple-id">Apple ID</h3>
+
+<p>This item appears after you&apos;ve signed in to iCloud.</p>
 <ul>
-<li>Dock
+<li>iCloud
 <ul>
-<li>disable <code>Show recent applications in Dock</code>,</li>
-<li>Remove every icon from the Dock, keep Downloads and Documents.</li>
-<li>enable <code>Automatically hide and show the Dock</code>.</li>
+<li>Uncheck &apos;News&apos;.</li>
+<li>Uncheck &apos;Home&apos;.</li>
 </ul>
 </li>
-<li>Mission Control
+<li>Verify devices list and remove any that should no longer be there.</li>
+</ul>
+<h3 class="mume-header" id="general-1">General</h3>
+
 <ul>
-<li>disable <code>Automatically rearrange Spaces based on most recent use</code>,</li>
-<li>disable <code>When switching to an application, switch to a Space (&#x2026;)</code>.</li>
+<li>Appearance: Auto.</li>
+<li>Default web browser: Firefox.app.</li>
+<li>Check &apos;Ask to keep changes when closing documents&apos;.</li>
+<li>Recent items: None. (This is the menu available via the Apple icon in<br>
+top-left corner.)</li>
+</ul>
+<h3 class="mume-header" id="dock">Dock</h3>
+
+<ul>
+<li>Check &apos;Automatically hide and show the Dock&apos;.</li>
+<li>Uncheck &apos;Show recent applications in Dock&apos;.</li>
+</ul>
+<h3 class="mume-header" id="mission-control">Mission Control</h3>
+
+<ul>
+<li>Uncheck &apos;Automatically rearrange Spaces based on most recent use&apos;.</li>
+<li>Uncheck &apos;When switching to an application, switch to a Space with open<br>
+windows for the application&apos;.</li>
+</ul>
+<h3 class="mume-header" id="siri">Siri</h3>
+
+<ul>
+<li>Uncheck &apos;Enable Ask Siri&apos;.</li>
+<li>Uncheck &apos;Show Siri in menu bar&apos;.</li>
+</ul>
+<h3 class="mume-header" id="spotlight">Spotlight</h3>
+
+<ul>
+<li>Search Results
+<ul>
+<li>Uncheck:
+<ul>
+<li>Bookmarks &amp; History</li>
+<li>Films</li>
+<li>Fonts</li>
+<li>Images</li>
+<li>Mail &amp; Messages</li>
+<li>Music</li>
+<li>Other</li>
+<li>PDF Documents</li>
+<li>Presentations</li>
+<li>Spotlight Suggestions</li>
+<li>Spreadsheets</li>
 </ul>
 </li>
-<li>Language &amp; Region
-<ul>
-<li>Just make sure these settings won&apos;t cause any confusion.</li>
+<li>Uncheck &apos;Allow Spotlight Suggestions in Look up&apos;.</li>
 </ul>
 </li>
-<li>Security &amp; Privacy
+<li>Privacy
+<ul>
+<li>Add any directories that take lots of space, and may be the reason for<br>
+slower results, such as <code>node_modules</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="notifications">Notifications</h3>
+
+<p>Adjust notification settings for individual applications.</p>
+<h3 class="mume-header" id="language-region">Language &amp; Region</h3>
+
+<p>Just make sure these settings won&apos;t cause any confusion.</p>
+<h3 class="mume-header" id="users-groups">Users &amp; Groups</h3>
+
+<ul>
+<li>Login Items
+<ul>
+<li>Make sure the items make sense and that no redundant apps launch at login.</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="security-privacy">Security &amp; Privacy</h3>
+
 <ul>
 <li>General
 <ul>
-<li>set <code>Require password (&#x2026;)</code> to <code>immediately</code>,</li>
+<li>Require password <code>immediately</code> after sleep or screen saver begins.</li>
 </ul>
 </li>
 <li>FileVault
 <ul>
-<li>It requires an iCloud account as a backup option, or else it will return a recovery key that has to be saved somewhere.</li>
+<li>It requires an iCloud account as a backup option, or else it will return a<br>
+recovery key that has to be saved somewhere.</li>
 <li>It&apos;s actually a quick process when the disk isn&apos;t full.</li>
 </ul>
 </li>
@@ -400,14 +744,14 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </li>
 <li>Privacy
 <ul>
-<li>disable Location Services,</li>
+<li>Uncheck &apos;Enable Location Services&apos;.</li>
 <li>disable Analytics,</li>
 <li>disable Advertising.</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>Displays
+<h3 class="mume-header" id="displays">Displays</h3>
+
 <ul>
 <li>Display
 <ul>
@@ -415,18 +759,16 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </ul>
 </li>
 </ul>
-</li>
-<li>Energy Saver
-<ul>
-<li>Battery
+<h3 class="mume-header" id="energy-saver">Energy Saver</h3>
+
+<h3 class="mume-header" id="battery">Battery</h3>
+
 <ul>
 <li><code>Turn display off after</code>: 3min,</li>
 <li>disable <code>Slightly dim the display while on battery power</code>.</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>Keyboard
+<h3 class="mume-header" id="keyboard">Keyboard</h3>
+
 <ul>
 <li>Text
 <ul>
@@ -446,7 +788,10 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </li>
 <li>App Shortcuts
 <ul>
-<li>Override <code>Quit &lt;app_name&gt;</code> with <code>cmd + Q</code> behaviour of the system by adding shortcuts here. <code>Menu Title</code> would be, for instance, &apos;Quit Safari&apos;. The spelling must be correct. <code>Keyboard Shortcut</code> is whatever combination of keys; use <code>cmd + option + Q</code>.</li>
+<li>Override <code>Quit &lt;app_name&gt;</code> with <code>cmd + Q</code> behaviour of the system by<br>
+adding shortcuts here. <code>Menu Title</code> would be, for instance, &apos;Quit<br>
+Safari&apos;. The spelling must be correct. <code>Keyboard Shortcut</code> is whatever<br>
+combination of keys; use <code>cmd + option + Q</code>.</li>
 <li>Re-bind copy-paste
 <ol>
 <li>Press <code>+</code> down below.</li>
@@ -467,25 +812,25 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </ul>
 </li>
 </ul>
-</li>
-<li>Trackpad
+<h3 class="mume-header" id="trackpad">Trackpad</h3>
+
 <ul>
 <li><code>Look up &amp; data detectors</code>: Tap with three fingers,</li>
 <li>enable <code>Tap to click</code>,</li>
 <li>enable every other gesture and keep defaults.</li>
 </ul>
-</li>
-<li>Sound
+<h3 class="mume-header" id="sound">Sound</h3>
+
 <ul>
 <li>enable <code>Show volume in menu bar</code>.</li>
 </ul>
-</li>
-<li>iCloud
+<h3 class="mume-header" id="icloud-1">iCloud</h3>
+
 <ul>
 <li>Make a company-specific account using the company-issued email address.</li>
 </ul>
-</li>
-<li>Software Update
+<h3 class="mume-header" id="software-update">Software Update</h3>
+
 <ul>
 <li><code>Advanced&#x2026;</code>
 <ul>
@@ -493,13 +838,13 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </ul>
 </li>
 </ul>
-</li>
-<li>Bluetooth
+<h3 class="mume-header" id="bluetooth">Bluetooth</h3>
+
 <ul>
 <li>Turn Bluetooth off, unless you use external devices.</li>
 </ul>
-</li>
-<li>Extensions
+<h3 class="mume-header" id="extensions-1">Extensions</h3>
+
 <ul>
 <li>Touch Bar
 <ul>
@@ -507,20 +852,20 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </ul>
 </li>
 </ul>
-</li>
-<li>Touch ID
+<h3 class="mume-header" id="touch-id">Touch ID</h3>
+
 <ul>
 <li>add the fingerprints,</li>
 <li><code>Use Touch ID for</code>: enable all.</li>
 </ul>
-</li>
-<li>Siri
+<h3 class="mume-header" id="siri-1">Siri</h3>
+
 <ul>
 <li>disable <code>Ask Siri</code>,</li>
 <li>disable <code>Show Siri in menu bar</code>.</li>
 </ul>
-</li>
-<li>Date &amp; Time
+<h3 class="mume-header" id="date-time">Date &amp; Time</h3>
+
 <ul>
 <li>Clock
 <ul>
@@ -532,9 +877,7 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h2 class="mume-header" id="finder">Finder</h2>
+<h2 class="mume-header" id="finder-1">Finder</h2>
 
 <ul>
 <li>Preferences (<code>cmd + ,</code>)
@@ -570,7 +913,7 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </ol>
 </li>
 </ul>
-<h2 class="mume-header" id="safari">Safari</h2>
+<h2 class="mume-header" id="safari-deprecated">Safari (deprecated)</h2>
 
 <ul>
 <li>View
@@ -615,7 +958,8 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 <ul>
 <li>Notifications
 <ul>
-<li>(optional) disable <code>Allow websites to ask for permission to send push notifications</code>.</li>
+<li>(optional) disable<br>
+<code>Allow websites to ask for permission to send push notifications</code>.</li>
 </ul>
 </li>
 </ul>
@@ -631,7 +975,8 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 </li>
 <li>Toolbar
 <ul>
-<li>Control-click (two fingers) an empty space near the top of the window and press <code>Customise Toolbar&#x2026;</code></li>
+<li>Control-click (two fingers) an empty space near the top of the window and<br>
+press <code>Customise Toolbar&#x2026;</code></li>
 <li>Add the following:
 <ul>
 <li>Home,</li>
@@ -652,8 +997,10 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
 
 <ul>
 <li><a href="https://stackoverflow.com/a/36882426">Install &apos;code&apos; command in PATH</a>,</li>
-<li>settings.json &#x2013; <code>cmd + ,</code> and copy-paste the contents into JSON version of the settings,</li>
-<li><a href="https://code.visualstudio.com/docs/getstarted/keybindings">keybindings.json</a> (<code>cmd + K cmd + S</code>),</li>
+<li>settings.json &#x2013; <code>cmd + ,</code> and copy-paste the contents into JSON version of<br>
+the settings,</li>
+<li><a href="https://code.visualstudio.com/docs/getstarted/keybindings">keybindings.json</a><br>
+(<code>cmd + K cmd + S</code>),</li>
 <li>plug-ins:
 <ul>
 <li>Bracket Pair Colorizer,</li>
@@ -683,13 +1030,62 @@ gpg --armor --export <span class="token operator">&lt;</span>the_ssb_from_above<
       <div class="md-sidebar-toc"><ul>
 <li><a href="#mac-setup">Mac Setup</a>
 <ul>
-<li><a href="#homebrew">Homebrew</a></li>
-<li><a href="#iterm2">iTerm2</a></li>
-<li><a href="#shell">Shell</a></li>
+<li><a href="#quick-steps">Quick steps</a></li>
+<li><a href="#less-important">Less important</a></li>
 <li><a href="#git">Git</a></li>
-<li><a href="#system-preferences">System Preferences</a></li>
+<li><a href="#firefox">Firefox</a>
+<ul>
+<li><a href="#general">General</a></li>
+<li><a href="#home">Home</a></li>
+<li><a href="#search">Search</a></li>
+<li><a href="#privacy-security">Privacy &amp; Security</a></li>
+<li><a href="#sync">Sync</a></li>
+<li><a href="#extensions">Extensions</a>
+<ul>
+<li><a href="#1password">1Password</a></li>
+<li><a href="#ublock-origin">uBlock Origin</a></li>
+<li><a href="#umatrix">uMatrix</a></li>
+<li><a href="#cookie-autodelete">Cookie AutoDelete</a></li>
+<li><a href="#tampermonkey">Tampermonkey</a></li>
+<li><a href="#allow-extensions-in-private-windows">Allow extensions in private windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#1password-1">1Password</a></li>
 <li><a href="#finder">Finder</a></li>
-<li><a href="#safari">Safari</a></li>
+<li><a href="#spotify">Spotify</a></li>
+<li><a href="#iterm2-todo-deprecated-check-whether-the-symlinkedimported-files-handle-all-the-points">iTerm2 (TODO: deprecated? &#x2013; check whether the symlinked/imported files handle all the points.)</a></li>
+<li><a href="#system-preferences">System Preferences</a>
+<ul>
+<li><a href="#icloud">iCloud</a></li>
+<li><a href="#apple-id">Apple ID</a></li>
+<li><a href="#general-1">General</a></li>
+<li><a href="#dock">Dock</a></li>
+<li><a href="#mission-control">Mission Control</a></li>
+<li><a href="#siri">Siri</a></li>
+<li><a href="#spotlight">Spotlight</a></li>
+<li><a href="#notifications">Notifications</a></li>
+<li><a href="#language-region">Language &amp; Region</a></li>
+<li><a href="#users-groups">Users &amp; Groups</a></li>
+<li><a href="#security-privacy">Security &amp; Privacy</a></li>
+<li><a href="#displays">Displays</a></li>
+<li><a href="#energy-saver">Energy Saver</a></li>
+<li><a href="#battery">Battery</a></li>
+<li><a href="#keyboard">Keyboard</a></li>
+<li><a href="#trackpad">Trackpad</a></li>
+<li><a href="#sound">Sound</a></li>
+<li><a href="#icloud-1">iCloud</a></li>
+<li><a href="#software-update">Software Update</a></li>
+<li><a href="#bluetooth">Bluetooth</a></li>
+<li><a href="#extensions-1">Extensions</a></li>
+<li><a href="#touch-id">Touch ID</a></li>
+<li><a href="#siri-1">Siri</a></li>
+<li><a href="#date-time">Date &amp; Time</a></li>
+</ul>
+</li>
+<li><a href="#finder-1">Finder</a></li>
+<li><a href="#safari-deprecated">Safari (deprecated)</a></li>
 <li><a href="#vs-code">VS Code</a></li>
 <li><a href="#terminal-deprecated">Terminal (deprecated)</a></li>
 </ul>

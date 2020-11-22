@@ -1,4 +1,4 @@
-# Random Technical Issues
+# Miscellaneous Technical Issues
 
 Uncategorised issues, such as ‘mouse doesn’t work in such and such scenario and
 here’s how to fix it’.
@@ -139,3 +139,25 @@ screen is unplugged).
 3. Tick `Mirror Displays` and untick it again.
 
 It's best to have a notification open to verify the fix.
+
+## Karabiner-Elements doesn't handle complex modifications
+
+Sometimes, Karabiner-Elements doesn't handle some complex modifications that
+were imported to the machine.
+
+## Block Google consent modals
+
+### uBlock Origin
+
+Add the following to 'My filters'.
+
+```console
+! The modal
+youtube.com###consent-bump
+! The modal's background
+youtube.com##.opened
+
+! The modal
+google.com###consent-bump
+google.com##.widget-consent-frame-container
+```
