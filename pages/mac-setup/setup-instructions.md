@@ -457,7 +457,26 @@ but for two fingers in each slot it works quite well.
 
 ### Mouse
 
-- TODO: Disable mouse acceleration.
+- Disable mouse acceleration.
+
+  ```console
+  defaults write .GlobalPreferences com.apple.mouse.scaling -1
+  ```
+
+  The above may no longer work, according to some threads on Ask Different:
+
+  - <https://apple.stackexchange.com/q/333989/365339>
+  - <https://apple.stackexchange.com/q/251456/365339>
+
+  Though, I suspect they didn't restart the machine after they made the change.
+
+  Since I use a SteelSeries mouse, I suppose it doesn't affect me much as I use
+  their driver.
+
+  Could also try the
+  [ExactMouse tool](https://downloads.steelseriescdn.com/drivers/tools/steelseries-exactmouse-tool.dmg)
+  from SteelSeries – some comments claim that it works with any mouse, not just
+  SteelSeries's.
 
 ### Displays
 

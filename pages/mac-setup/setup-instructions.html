@@ -938,7 +938,22 @@ example:
 <h3 class="mume-header" id="mouse">Mouse</h3>
 
 <ul>
-<li>TODO: Disable mouse acceleration.</li>
+<li>
+<p>Disable mouse acceleration.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>defaults write .GlobalPreferences com.apple.mouse.scaling -1
+</code></pre><p>The above may no longer work, according to some threads on Ask Different:</p>
+<ul>
+<li><a href="https://apple.stackexchange.com/q/333989/365339">https://apple.stackexchange.com/q/333989/365339</a></li>
+<li><a href="https://apple.stackexchange.com/q/251456/365339">https://apple.stackexchange.com/q/251456/365339</a></li>
+</ul>
+<p>Though, I suspect they didn&apos;t restart the machine after they made the change.</p>
+<p>Since I use a SteelSeries mouse, I suppose it doesn&apos;t affect me much as I use<br>
+their driver.</p>
+<p>Could also try the<br>
+<a href="https://downloads.steelseriescdn.com/drivers/tools/steelseries-exactmouse-tool.dmg">ExactMouse tool</a><br>
+from SteelSeries &#x2013;&#xA0;some comments claim that it works with any mouse, not just<br>
+SteelSeries&apos;s.</p>
+</li>
 </ul>
 <h3 class="mume-header" id="displays">Displays</h3>
 
