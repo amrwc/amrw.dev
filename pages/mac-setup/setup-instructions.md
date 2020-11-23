@@ -96,14 +96,6 @@
    with halo' icon in the bottom-right corner and choose the language from the
    list.
 
-1. Adding more than 3 fingerprints to Touch ID.
-
-   <https://apple.stackexchange.com/q/270229>
-
-   Basically, alternate fingers while you register them. This way, more than
-   one finger can get saved into one memory slot. Of course, the accuracy goes
-   down, but for two fingers in each slot it's not too bad.
-
 ## Git
 
 - [create and add an SSH key to the account](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -269,7 +261,10 @@
 
 ### iCloud
 
-1. Sign in to iCloud.
+- Sign in to iCloud. Ask the employer whether you should use a company-provided
+  account, make a new one with the company's email, or just use whatever you
+  prefer. It's definitely nice to be able to sync notes, reminders, and
+  calendars between the computer and phone.
 
 ### Apple ID
 
@@ -332,6 +327,18 @@ Adjust notification settings for individual applications.
 
 Just make sure these settings won't cause any confusion.
 
+### Touch ID
+
+Set it up to unlock your Mac with it. Currently, there are only 3 fingerprints
+slots, so it may get tricky as you can't, for instance, use both index fingers
+and both thumbs. Unless... 😳
+
+<https://apple.stackexchange.com/q/270229>
+
+Basically, alternate fingers while you register them. This way, more than one
+finger can get saved into one memory slot. Of course, the accuracy goes down,
+but for two fingers in each slot it works quite well.
+
 ### Users & Groups
 
 - Login Items
@@ -348,94 +355,139 @@ Just make sure these settings won't cause any confusion.
 - Firewall
   - Ask the employer for details.
 - Privacy
-  - Uncheck 'Enable Location Services'.
-  - disable Analytics,
-  - disable Advertising.
+  - Location Services
+    - Uncheck 'Enable Location Services'.
+  - Advertising
+    - Check 'Limit Ad Tracking'.
+  - Analytics and Improvements
+    - Uncheck all.
+- Advanced...
+  - Check 'Require an administrator password to access system-wide
+    preferences'.
+
+### Software Update
+
+- Uncheck 'Automatically keep my Mac up to date'.
+- Advanced...
+  - Only leave 'Check for updates' checked.
+
+### Network
+
+- Wi-Fi
+  - Advanced...
+    - DNS
+      - DNS Servers
+        - Add `1.1.1.1`.
+        - Press OK.
+        - Press Apply to save the settings.
+- Thunderbolt Bridge
+  - Advanced...
+    - DNS
+      - DNS Servers
+        - Add `1.1.1.1`.
+        - Press OK.
+        - Press Apply to save the settings.
+
+### Bluetooth
+
+- Check 'Show Bluetooth in menu bar'.
+
+### Sound
+
+- Alert volume
+  - Put the slider in the middle.
+- Check 'Show volume in menu bar'.
+
+### Keyboard
+
+- Keyboard
+  - Key Repeat
+    - Put the slider in the fastest possible position.
+      ```console
+      defaults write NSGlobalDomain KeyRepeat -int 2
+      ```
+  - Delay Until Repeat
+    - Put the slider in the fastest possible position.
+      ```console
+      defaults write NSGlobalDomain InitialKeyRepeat -int 15
+      ```
+  - Check 'Adjust keyboard brightness in low light'.
+  - Check 'Turn keyboard backlight off after `10 secs` of inactivity.
+  - Touch Bar shows `Expanded Control Strip`.
+  - Customise Control Strip...
+    - Put these items in the following order:
+      - Brightness
+      - Quick Actions
+      - Keyboard Brightness
+      - Space
+      - Media
+      - Volume
+- Text
+  - Uncheck
+    - 'Correct spelling automatically'
+    - 'Capitalise words automatically'
+    - 'Add full stop with double-space'
+    - 'Use smart quotes and dashes'
+- Shortcuts
+  - Input Sources
+    - Uncheck both input source navigation options as to avoid accidentally
+      changing keyboard layout.
+  - Check 'Use keyboard navigation to move focus between controls'.
+  - App Shortcuts
+    - Override `Quit <app_name>` with `cmd + Q` behaviour of the system by
+      adding shortcuts here. `Menu Title` would be, for instance, 'Quit
+      Safari'. The spelling must, of course, be correct. `Keyboard Shortcut` is
+      whatever combination of keys you want; use `cmd + option + Q`. For
+      example:
+      - Application: `Firefox.app`
+      - Menu title: `Quit Firefox`
+      - Keyboard shortcut: `cmd + option + Q`
+- Input Sources
+  - Add 'British - PC'.
+  - Add 'Polish - Pro'.
+  - Check 'Show Input menu in menu bar'.
+
+### Trackpad
+
+- Point & Click
+  - Look up & data detectors: `Tap with three fingers`.
+  - Check 'Tap to click'.
+- More gestures
+  - Check 'App Exposé'.
+
+### Mouse
+
+- TODO: Disable mouse acceleration.
 
 ### Displays
 
 - Display
-  - disable `Automatically adjust brightness`.
+  - ~~Uncheck 'Automatically adjust brightness'.~~
 
 ### Energy Saver
 
-### Battery
-
-- `Turn display off after`: 3min,
-- disable `Slightly dim the display while on battery power`.
-
-### Keyboard
-
-- Text
-  - disable `Correct spelling automatically`,
-  - disable `Capitalise words automatically`,
-  - disable `Add full stop with double-space`,
-  - disable `Use smart quotes and dashes`.
-- Shortcuts
-  - `Full Keyboard Acces`: All controls,
-  - Input Sources
-    - disable `Select the previous input source`,
-  - App Shortcuts
-    - Override `Quit <app_name>` with `cmd + Q` behaviour of the system by
-      adding shortcuts here. `Menu Title` would be, for instance, 'Quit
-      Safari'. The spelling must be correct. `Keyboard Shortcut` is whatever
-      combination of keys; use `cmd + option + Q`.
-    - Re-bind copy-paste
-      1. Press `+` down below.
-      1. Application: `All Applications`.
-      1. Menu Title: `Copy`/`Paste`.
-      1. Keyboard Shortcut: `cmd + ;`/`cmd + '`.
-- Input Sources
-  - add `British`,
-  - add `Polish - Pro`,
-  - enable `Show Input menu in menu bar`.
-
-### Trackpad
-
-- `Look up & data detectors`: Tap with three fingers,
-- enable `Tap to click`,
-- enable every other gesture and keep defaults.
-
-### Sound
-
-- enable `Show volume in menu bar`.
-
-### iCloud
-
-- Make a company-specific account using the company-issued email address.
-
-### Software Update
-
-- `Advanced…`
-  - disable `Download new updates when available`.
-
-### Bluetooth
-
-- Turn Bluetooth off, unless you use external devices.
-
-### Extensions
-
-- Touch Bar
-  - Only keep the ESC, brightness, volume and mute buttons.
-
-### Touch ID
-
-- add the fingerprints,
-- `Use Touch ID for`: enable all.
-
-### Siri
-
-- disable `Ask Siri`,
-- disable `Show Siri in menu bar`.
+- Check/uncheck (TODO: test with this option on first to see whether there are
+  any side effects) 'Automatic graphics switching'.
+- Battery
+  - Turn display off after: `3 minutes`.
+  - Uncheck 'Slightly dim the display while on battery power'.
+- Power Adapter
+  - Turn display off after: `5 minutes`.
+  - Check 'Prevent computer from sleeping when the display is off'.
+  - Uncheck 'Wake for Wi-Fi network access'.
+  - Uncheck 'Enable Power Nap while plugged into a power adapter'.
+- Check 'Show battery status in menu bar'.
+- Battery Health...
+  - Uncheck 'Battery health management'.
 
 ### Date & Time
 
 - Clock
-  - enable `Show date and time in menu bar`,
-  - disable `Use a 24-hour clock`,
-  - enable `Show AM/PM`,
-  - enable `Show the day of the week`,
-  - enable `Show date`.
+  - Check 'Show date and time in menu bar'.
+  - Uncheck 'Use a 24-hour clock'.
+  - Check 'Show am/pm'.
+  - Check 'Show the day of the week'.
+  - Check 'Show date'.
 
 ## Finder
 
