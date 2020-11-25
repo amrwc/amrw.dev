@@ -12,14 +12,22 @@
 1. Install prerequisites.
 
    ```console
-   brew install git nvm
+   brew install git nvm zsh
+   ```
+
+1. Set up NVM (Node Version Manager).
+
+   ```console
+   echo 'export NVM_DIR="$HOME/.nvm"' > ~/.zshrc
+   echo '[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"' >> ~/.zshrc
+   echo '[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"' >> ~/.zshrc
    source ~/.zshrc
    ```
 
 1. Install Node.
 
    ```console
-   mkdir ~/.nvm
+   mkdir -p ~/.nvm
 
    # Find latest long-term service branch from the list
    nvm ls-remote
@@ -34,24 +42,12 @@
    git clone https://github.com/amrwc/amrwc.github.io.git
    ```
 
-1. Symlink dotfiles to the repository (the script uses Node).
+1. Symlink dotfiles to the repository.
 
    ```console
    cd amrwc.github.io
-   ./scripts/dotfiles/link/link_all
+   node ./scripts/dotfiles/link/link_all
    ```
-
-1. Install [Karabiner-Elements](https://karabiner-elements.pqrs.org) to avoid
-   further frustration about key mapping.
-
-   ```console
-   brew cask install karabiner-elements
-   ```
-
-   In case you encounter problems with installing the virtual keyboard/mouse
-   driver, as instructed in the app (as of `13.1.0`), the latest known version
-   to work flawlessly is `12.10.0` (the disk image
-   [can be found on GitHub](https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v12.10.0)).
 
 1. [Change default shell](https://stackoverflow.com/a/26321141/10620237) from
    `Bash` to `Zsh`.
@@ -71,12 +67,24 @@
 1. Install remaining applications.
 
    ```console
-   brew install autojump gpg pandoc thefuck the_silver_searcher zsh
-   brew cask install 1password firefox flux iterm2 slack visual-studio-code
+   brew install autojump gpg pandoc thefuck the_silver_searcher
+   brew cask install 1password firefox flux intellij-idea iterm2 slack visual-studio-code
    source ~/.zshrc
    ```
 
-## Less important
+1. Install [Karabiner-Elements](https://karabiner-elements.pqrs.org) to avoid
+   further frustration about key mapping.
+
+   ```console
+   brew cask install karabiner-elements
+   ```
+
+   In case you encounter problems with installing the virtual keyboard/mouse
+   driver, as instructed in the app (as of `13.1.0`), the latest known version
+   to work flawlessly is `12.10.0` (the disk image
+   [can be found on GitHub](https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v12.10.0)).
+
+### Less important
 
 1. Set f.lux preferences.
 
@@ -85,12 +93,12 @@
 - Sunset: 3400K (Halogen).
 - Bedtime: 1600K.
 - In the dropdown from the menu bar:
-  - Options:
-    - Fast transitions enabled.
-    - Notifications from f.lux website disabled.
-    - Backwards alarm clock disabled.
-  - Color effects:
-    - OS X Dark theme at sunset.
+  - Options
+    - Check 'Fast transitions'.
+    - Uncheck 'Notifications from f.lux website'.
+    - Uncheck 'Backwards alarm clock'.
+  - Color effects
+    - Check 'OS X Dark theme at sunset'.
 
 1. Turn on English spell-checking in `Spell Right` in VS Code – press the 'dot
    with halo' icon in the bottom-right corner and choose the language from the
@@ -156,7 +164,7 @@
 1. Firefox Data Collection and Use
    - Uncheck 'Allow Firefox to send technical and interaction data to Mozilla'.
 1. HTTPS-Only Mode
-   - Check 'Enable HTTPS-Only Mode in all windows'.
+   - Choose 'Enable HTTPS-Only Mode in all windows'.
 
 ### Sync
 
@@ -191,7 +199,6 @@
   - Extension Options
     - Uncheck 'Show Number of Cookies for that Domain over the Icon'.
 - Disable number badge.
-- Whitelist common pages.
 - TODO: Try exporting the config.
 
 #### Tampermonkey
@@ -209,25 +216,32 @@
 
 - Preferences
   - Security
-    - Require Master Password every 1 day.
-    - Clear clipboard contents after 10 seconds.
+    - Require Master Password every `1 day`.
+    - Clear clipboard contents after `10` seconds.
   - Notifications
-    - Enable 'Watchtower alerts'.
+    - Check 'Watchtower alerts'.
   - Updates
-    - Disable 'Automatically install updates'.
+    - Uncheck 'Automatically install updates'.
   - Advanced
-    - Enable 'Show numbers and symbols first'.
+    - Check 'Show numbers and symbols first'.
 
 ## Finder
 
 - Show items as a list.
 - Preferences
   - General
-    - New Finder windows show: Documents.
+    - New Finder windows show: `Documents`.
   - Sidebar
-    - Uncheck Recents.
+    - Uncheck 'Recents'.
 - Advanced
-  - Enable 'Show all filename extensions'.
+  - Check 'Show all filename extensions'.
+- Show hidden files
+  1. Open Terminal.
+  2. Run
+     ```console
+     defaults write com.apple.finder AppleShowAllFiles YES
+     ```
+  3. Relaunch (Force Quit) Finder.
 
 ## Spotify
 
@@ -241,21 +255,6 @@
       right.)
   - Startup and Window Behaviour
     - Open Spotify automatically after you log into the computer: No.
-
-## iTerm2 (TODO: deprecated? – check whether the symlinked/imported files handle all the points.)
-
-- Amend the `Quit iTerm2` keyboard shortcut to prevent accidental quits:
-  1. Open `System Preferences -> Keyboard`.
-  1. Go to `Shortcuts -> App Shortcuts`.
-  1. Press the `+` button to add a shortcut.
-     - `Application`: iTerm.app`,
-     - `Menu Title`: `Quit iTerm2`,
-     - `Keyboard Shortcut`: `cmd + alt + Q`
-- Import JSON profile:
-  1. Open `Preferences…` (`cmd + ,`).
-  1. In `Profiles` tab press `Other Actions…` at near the bottom and choose
-     `Import JSON Profiles…`.
-  1. Navigate to the downloaded JSON profile and choose it.
 
 ## System Preferences
 
@@ -277,8 +276,8 @@ This item appears after you've signed in to iCloud.
 
 ### General
 
-- Appearance: Auto.
-- Default web browser: Firefox.app.
+- Appearance: `Auto`.
+- Default web browser: `Firefox.app`.
 - Check 'Ask to keep changes when closing documents'.
 - Recent items: None. (This is the menu available via the Apple icon in
   top-left corner.)
@@ -319,13 +318,25 @@ This item appears after you've signed in to iCloud.
   - Add any directories that take lots of space, and may be the reason for
     slower results, such as `node_modules`.
 
+### Language & Region
+
+Just make sure these settings won't cause any confusion.
+
 ### Notifications
 
 Adjust notification settings for individual applications.
 
-### Language & Region
+- Disable:
 
-Just make sure these settings won't cause any confusion.
+  - Books
+  - Games
+  - Home
+
+- Uncheck 'Play sound for notifications':
+  - 1Password
+  - Flux
+  - Photos
+  - Wallet
 
 ### Touch ID
 
@@ -427,8 +438,11 @@ but for two fingers in each slot it works quite well.
     - 'Correct spelling automatically'
     - 'Capitalise words automatically'
     - 'Add full stop with double-space'
+    - 'Touch Bar typing suggestions'
     - 'Use smart quotes and dashes'
 - Shortcuts
+  - Launchpad & Dock
+    - Uncheck 'Turn Dock Hiding On/Off'.
   - Input Sources
     - Uncheck both input source navigation options as to avoid accidentally
       changing keyboard layout.
@@ -508,25 +522,6 @@ but for two fingers in each slot it works quite well.
   - Check 'Show the day of the week'.
   - Check 'Show date'.
 
-## Finder
-
-- Preferences (`cmd + ,`)
-  - General
-    - New Finder windows show: `Documents`,
-  - Tags
-    - Select all the tags (`cmd + a`) and remove them (the `-` button below).
-  - Sidebar
-    - disable `Recents`.
-  - Advanced
-    - enable `Show all filename extensions`.
-- Show hidden files
-  1. Open Terminal.
-  2. Run
-     ```bash
-     defaults write com.apple.finder AppleShowAllFiles YES
-     ```
-  3. Relaunch (Force Quit) Finder.
-
 ## Safari (deprecated)
 
 - View
@@ -567,21 +562,13 @@ but for two fingers in each slot it works quite well.
   1. Open [settings](https://duckduckgo.com/settings).
   1. Import the settings (the passphrase from the password manager).
 
-## VS Code
+## iTerm2 (TODO: deprecated? – the symlinked/imported profile seems to already apply these changes)
 
-- [Install 'code' command in PATH](https://stackoverflow.com/a/36882426),
-- settings.json – `cmd + ,` and copy-paste the contents into JSON version of
-  the settings,
-- [keybindings.json](https://code.visualstudio.com/docs/getstarted/keybindings)
-  (`cmd + K cmd + S`),
-- plug-ins:
-  - Bracket Pair Colorizer,
-  - GitLens – Git supercharged,
-  - Markdown Preview Enhanced,
-  - Prettier – Code formatter,
-  - Quit Control for VSCode,
-  - TODO Highlight,
-  - Visual Studio IntelliCode.
+- Import JSON profile:
+  1. Open `Preferences…` (`cmd + ,`).
+  1. In `Profiles` tab press `Other Actions…` at near the bottom and choose
+     `Import JSON Profiles…`.
+  1. Navigate to the downloaded JSON profile and choose it.
 
 ## Terminal (deprecated)
 

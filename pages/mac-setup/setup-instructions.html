@@ -276,12 +276,18 @@ pre[data-line] .line-highlight[data-end]:after {
 </code></pre></li>
 <li>
 <p>Install prerequisites.</p>
-<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew install git nvm
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew install git nvm zsh
+</code></pre></li>
+<li>
+<p>Set up NVM (Node Version Manager).</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>echo &apos;export NVM_DIR=&quot;$HOME/.nvm&quot;&apos; &gt; ~/.zshrc
+echo &apos;[ -s &quot;/usr/local/opt/nvm/nvm.sh&quot; ] &amp;&amp; . &quot;/usr/local/opt/nvm/nvm.sh&quot;&apos; &gt;&gt; ~/.zshrc
+echo &apos;[ -s &quot;/usr/local/opt/nvm/etc/bash_completion.d/nvm&quot; ] &amp;&amp; . &quot;/usr/local/opt/nvm/etc/bash_completion.d/nvm&quot;&apos; &gt;&gt; ~/.zshrc
 source ~/.zshrc
 </code></pre></li>
 <li>
 <p>Install Node.</p>
-<pre data-role="codeBlock" data-info="console" class="language-console"><code>mkdir ~/.nvm
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>mkdir -p ~/.nvm
 
 # Find latest long-term service branch from the list
 nvm ls-remote
@@ -294,19 +300,10 @@ nvm install --lts=Fermium
 <pre data-role="codeBlock" data-info="console" class="language-console"><code>git clone https://github.com/amrwc/amrwc.github.io.git
 </code></pre></li>
 <li>
-<p>Symlink dotfiles to the repository (the script uses Node).</p>
+<p>Symlink dotfiles to the repository.</p>
 <pre data-role="codeBlock" data-info="console" class="language-console"><code>cd amrwc.github.io
-./scripts/dotfiles/link/link_all
+node ./scripts/dotfiles/link/link_all
 </code></pre></li>
-<li>
-<p>Install <a href="https://karabiner-elements.pqrs.org">Karabiner-Elements</a> to avoid<br>
-further frustration about key mapping.</p>
-<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew cask install karabiner-elements
-</code></pre><p>In case you encounter problems with installing the virtual keyboard/mouse<br>
-driver, as instructed in the app (as of <code>13.1.0</code>), the latest known version<br>
-to work flawlessly is <code>12.10.0</code> (the disk image<br>
-<a href="https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v12.10.0">can be found on GitHub</a>).</p>
-</li>
 <li>
 <p><a href="https://stackoverflow.com/a/26321141/10620237">Change default shell</a> from<br>
 <code>Bash</code> to <code>Zsh</code>.</p>
@@ -320,12 +317,21 @@ chsh -s <span class="token string">&quot;<span class="token variable"><span clas
 </code></pre></li>
 <li>
 <p>Install remaining applications.</p>
-<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew install autojump gpg pandoc thefuck the_silver_searcher zsh
-brew cask install 1password firefox flux iterm2 slack visual-studio-code
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew install autojump gpg pandoc thefuck the_silver_searcher
+brew cask install 1password firefox flux intellij-idea iterm2 slack visual-studio-code
 source ~/.zshrc
 </code></pre></li>
+<li>
+<p>Install <a href="https://karabiner-elements.pqrs.org">Karabiner-Elements</a> to avoid<br>
+further frustration about key mapping.</p>
+<pre data-role="codeBlock" data-info="console" class="language-console"><code>brew cask install karabiner-elements
+</code></pre><p>In case you encounter problems with installing the virtual keyboard/mouse<br>
+driver, as instructed in the app (as of <code>13.1.0</code>), the latest known version<br>
+to work flawlessly is <code>12.10.0</code> (the disk image<br>
+<a href="https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v12.10.0">can be found on GitHub</a>).</p>
+</li>
 </ol>
-<h2 class="mume-header" id="less-important">Less important</h2>
+<h3 class="mume-header" id="less-important">Less important</h3>
 
 <ol>
 <li>Set f.lux preferences.</li>
@@ -337,16 +343,16 @@ source ~/.zshrc
 <li>Bedtime: 1600K.</li>
 <li>In the dropdown from the menu bar:
 <ul>
-<li>Options:
+<li>Options
 <ul>
-<li>Fast transitions enabled.</li>
-<li>Notifications from f.lux website disabled.</li>
-<li>Backwards alarm clock disabled.</li>
+<li>Check &apos;Fast transitions&apos;.</li>
+<li>Uncheck &apos;Notifications from f.lux website&apos;.</li>
+<li>Uncheck &apos;Backwards alarm clock&apos;.</li>
 </ul>
 </li>
-<li>Color effects:
+<li>Color effects
 <ul>
-<li>OS X Dark theme at sunset.</li>
+<li>Check &apos;OS X Dark theme at sunset&apos;.</li>
 </ul>
 </li>
 </ul>
@@ -435,7 +441,7 @@ git config --global commit.gpgSign true
 </li>
 <li>HTTPS-Only Mode
 <ul>
-<li>Check &apos;Enable HTTPS-Only Mode in all windows&apos;.</li>
+<li>Choose &apos;Enable HTTPS-Only Mode in all windows&apos;.</li>
 </ul>
 </li>
 </ol>
@@ -498,7 +504,6 @@ temporarily and try again.</li>
 </ul>
 </li>
 <li>Disable number badge.</li>
-<li>Whitelist common pages.</li>
 <li>TODO: Try exporting the config.</li>
 </ul>
 <h4 class="mume-header" id="tampermonkey">Tampermonkey</h4>
@@ -524,23 +529,23 @@ windows.</li>
 <ul>
 <li>Security
 <ul>
-<li>Require Master Password every 1 day.</li>
-<li>Clear clipboard contents after 10 seconds.</li>
+<li>Require Master Password every <code>1 day</code>.</li>
+<li>Clear clipboard contents after <code>10</code> seconds.</li>
 </ul>
 </li>
 <li>Notifications
 <ul>
-<li>Enable &apos;Watchtower alerts&apos;.</li>
+<li>Check &apos;Watchtower alerts&apos;.</li>
 </ul>
 </li>
 <li>Updates
 <ul>
-<li>Disable &apos;Automatically install updates&apos;.</li>
+<li>Uncheck &apos;Automatically install updates&apos;.</li>
 </ul>
 </li>
 <li>Advanced
 <ul>
-<li>Enable &apos;Show numbers and symbols first&apos;.</li>
+<li>Check &apos;Show numbers and symbols first&apos;.</li>
 </ul>
 </li>
 </ul>
@@ -554,20 +559,28 @@ windows.</li>
 <ul>
 <li>General
 <ul>
-<li>New Finder windows show: Documents.</li>
+<li>New Finder windows show: <code>Documents</code>.</li>
 </ul>
 </li>
 <li>Sidebar
 <ul>
-<li>Uncheck Recents.</li>
+<li>Uncheck &apos;Recents&apos;.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>Advanced
 <ul>
-<li>Enable &apos;Show all filename extensions&apos;.</li>
+<li>Check &apos;Show all filename extensions&apos;.</li>
 </ul>
+</li>
+<li>Show hidden files
+<ol>
+<li>Open Terminal.</li>
+<li>Run<pre data-role="codeBlock" data-info="console" class="language-console"><code>defaults write com.apple.finder AppleShowAllFiles YES
+</code></pre></li>
+<li>Relaunch (Force Quit) Finder.</li>
+</ol>
 </li>
 </ul>
 <h2 class="mume-header" id="spotify">Spotify</h2>
@@ -596,31 +609,6 @@ right.)</li>
 </ul>
 </li>
 </ul>
-<h2 class="mume-header" id="iterm2-todo-deprecated-check-whether-the-symlinkedimported-files-handle-all-the-points">iTerm2 (TODO: deprecated? &#x2013; check whether the symlinked/imported files handle all the points.)</h2>
-
-<ul>
-<li>Amend the <code>Quit iTerm2</code> keyboard shortcut to prevent accidental quits:
-<ol>
-<li>Open <code>System Preferences -&gt; Keyboard</code>.</li>
-<li>Go to <code>Shortcuts -&gt; App Shortcuts</code>.</li>
-<li>Press the <code>+</code> button to add a shortcut.
-<ul>
-<li><code>Application</code>: iTerm.app`,</li>
-<li><code>Menu Title</code>: <code>Quit iTerm2</code>,</li>
-<li><code>Keyboard Shortcut</code>: <code>cmd + alt + Q</code></li>
-</ul>
-</li>
-</ol>
-</li>
-<li>Import JSON profile:
-<ol>
-<li>Open <code>Preferences&#x2026;</code> (<code>cmd + ,</code>).</li>
-<li>In <code>Profiles</code> tab press <code>Other Actions&#x2026;</code> at near the bottom and choose<br>
-<code>Import JSON Profiles&#x2026;</code>.</li>
-<li>Navigate to the downloaded JSON profile and choose it.</li>
-</ol>
-</li>
-</ul>
 <h2 class="mume-header" id="system-preferences">System Preferences</h2>
 
 <h3 class="mume-header" id="icloud">iCloud</h3>
@@ -646,8 +634,8 @@ calendars between the computer and phone.</li>
 <h3 class="mume-header" id="general-1">General</h3>
 
 <ul>
-<li>Appearance: Auto.</li>
-<li>Default web browser: Firefox.app.</li>
+<li>Appearance: <code>Auto</code>.</li>
+<li>Default web browser: <code>Firefox.app</code>.</li>
 <li>Check &apos;Ask to keep changes when closing documents&apos;.</li>
 <li>Recent items: None. (This is the menu available via the Apple icon in<br>
 top-left corner.)</li>
@@ -701,12 +689,31 @@ slower results, such as <code>node_modules</code>.</li>
 </ul>
 </li>
 </ul>
-<h3 class="mume-header" id="notifications">Notifications</h3>
-
-<p>Adjust notification settings for individual applications.</p>
 <h3 class="mume-header" id="language-region">Language &amp; Region</h3>
 
 <p>Just make sure these settings won&apos;t cause any confusion.</p>
+<h3 class="mume-header" id="notifications">Notifications</h3>
+
+<p>Adjust notification settings for individual applications.</p>
+<ul>
+<li>
+<p>Disable:</p>
+<ul>
+<li>Books</li>
+<li>Games</li>
+<li>Home</li>
+</ul>
+</li>
+<li>
+<p>Uncheck &apos;Play sound for notifications&apos;:</p>
+<ul>
+<li>1Password</li>
+<li>Flux</li>
+<li>Photos</li>
+<li>Wallet</li>
+</ul>
+</li>
+</ul>
 <h3 class="mume-header" id="touch-id">Touch ID</h3>
 
 <p>Set it up to unlock your Mac with it. Currently, there are only 3 fingerprints<br>
@@ -881,6 +888,7 @@ preferences&apos;.</li>
 <li>&apos;Correct spelling automatically&apos;</li>
 <li>&apos;Capitalise words automatically&apos;</li>
 <li>&apos;Add full stop with double-space&apos;</li>
+<li>&apos;Touch Bar typing suggestions&apos;</li>
 <li>&apos;Use smart quotes and dashes&apos;</li>
 </ul>
 </li>
@@ -888,6 +896,11 @@ preferences&apos;.</li>
 </li>
 <li>Shortcuts
 <ul>
+<li>Launchpad &amp; Dock
+<ul>
+<li>Uncheck &apos;Turn Dock Hiding On/Off&apos;.</li>
+</ul>
+</li>
 <li>Input Sources
 <ul>
 <li>Uncheck both input source navigation options as to avoid accidentally<br>
@@ -1003,42 +1016,6 @@ any side effects) &apos;Automatic graphics switching&apos;.</li>
 </ul>
 </li>
 </ul>
-<h2 class="mume-header" id="finder-1">Finder</h2>
-
-<ul>
-<li>Preferences (<code>cmd + ,</code>)
-<ul>
-<li>General
-<ul>
-<li>New Finder windows show: <code>Documents</code>,</li>
-</ul>
-</li>
-<li>Tags
-<ul>
-<li>Select all the tags (<code>cmd + a</code>) and remove them (the <code>-</code> button below).</li>
-</ul>
-</li>
-<li>Sidebar
-<ul>
-<li>disable <code>Recents</code>.</li>
-</ul>
-</li>
-<li>Advanced
-<ul>
-<li>enable <code>Show all filename extensions</code>.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Show hidden files
-<ol>
-<li>Open Terminal.</li>
-<li>Run<pre data-role="codeBlock" data-info="bash" class="language-bash">defaults <span class="token function">write</span> com.apple.finder AppleShowAllFiles YES
-</pre></li>
-<li>Relaunch (Force Quit) Finder.</li>
-</ol>
-</li>
-</ul>
 <h2 class="mume-header" id="safari-deprecated">Safari (deprecated)</h2>
 
 <ul>
@@ -1119,24 +1096,16 @@ press <code>Customise Toolbar&#x2026;</code></li>
 </ol>
 </li>
 </ul>
-<h2 class="mume-header" id="vs-code">VS Code</h2>
+<h2 class="mume-header" id="iterm2-todo-deprecated-the-symlinkedimported-profile-seems-to-already-apply-these-changes">iTerm2 (TODO: deprecated? &#x2013; the symlinked/imported profile seems to already apply these changes)</h2>
 
 <ul>
-<li><a href="https://stackoverflow.com/a/36882426">Install &apos;code&apos; command in PATH</a>,</li>
-<li>settings.json &#x2013; <code>cmd + ,</code> and copy-paste the contents into JSON version of<br>
-the settings,</li>
-<li><a href="https://code.visualstudio.com/docs/getstarted/keybindings">keybindings.json</a><br>
-(<code>cmd + K cmd + S</code>),</li>
-<li>plug-ins:
-<ul>
-<li>Bracket Pair Colorizer,</li>
-<li>GitLens &#x2013; Git supercharged,</li>
-<li>Markdown Preview Enhanced,</li>
-<li>Prettier &#x2013;&#xA0;Code formatter,</li>
-<li>Quit Control for VSCode,</li>
-<li>TODO Highlight,</li>
-<li>Visual Studio IntelliCode.</li>
-</ul>
+<li>Import JSON profile:
+<ol>
+<li>Open <code>Preferences&#x2026;</code> (<code>cmd + ,</code>).</li>
+<li>In <code>Profiles</code> tab press <code>Other Actions&#x2026;</code> at near the bottom and choose<br>
+<code>Import JSON Profiles&#x2026;</code>.</li>
+<li>Navigate to the downloaded JSON profile and choose it.</li>
+</ol>
 </li>
 </ul>
 <h2 class="mume-header" id="terminal-deprecated">Terminal (deprecated)</h2>
@@ -1156,8 +1125,11 @@ the settings,</li>
       <div class="md-sidebar-toc"><ul>
 <li><a href="#mac-setup">Mac Setup</a>
 <ul>
-<li><a href="#quick-steps">Quick steps</a></li>
+<li><a href="#quick-steps">Quick steps</a>
+<ul>
 <li><a href="#less-important">Less important</a></li>
+</ul>
+</li>
 <li><a href="#git">Git</a></li>
 <li><a href="#firefox">Firefox</a>
 <ul>
@@ -1181,7 +1153,6 @@ the settings,</li>
 <li><a href="#1password-1">1Password</a></li>
 <li><a href="#finder">Finder</a></li>
 <li><a href="#spotify">Spotify</a></li>
-<li><a href="#iterm2-todo-deprecated-check-whether-the-symlinkedimported-files-handle-all-the-points">iTerm2 (TODO: deprecated? &#x2013; check whether the symlinked/imported files handle all the points.)</a></li>
 <li><a href="#system-preferences">System Preferences</a>
 <ul>
 <li><a href="#icloud">iCloud</a></li>
@@ -1191,8 +1162,8 @@ the settings,</li>
 <li><a href="#mission-control">Mission Control</a></li>
 <li><a href="#siri">Siri</a></li>
 <li><a href="#spotlight">Spotlight</a></li>
-<li><a href="#notifications">Notifications</a></li>
 <li><a href="#language-region">Language &amp; Region</a></li>
+<li><a href="#notifications">Notifications</a></li>
 <li><a href="#touch-id">Touch ID</a></li>
 <li><a href="#users-groups">Users &amp; Groups</a></li>
 <li><a href="#security-privacy">Security &amp; Privacy</a></li>
@@ -1208,9 +1179,8 @@ the settings,</li>
 <li><a href="#date-time">Date &amp; Time</a></li>
 </ul>
 </li>
-<li><a href="#finder-1">Finder</a></li>
 <li><a href="#safari-deprecated">Safari (deprecated)</a></li>
-<li><a href="#vs-code">VS Code</a></li>
+<li><a href="#iterm2-todo-deprecated-the-symlinkedimported-profile-seems-to-already-apply-these-changes">iTerm2 (TODO: deprecated? &#x2013; the symlinked/imported profile seems to already apply these changes)</a></li>
 <li><a href="#terminal-deprecated">Terminal (deprecated)</a></li>
 </ul>
 </li>
