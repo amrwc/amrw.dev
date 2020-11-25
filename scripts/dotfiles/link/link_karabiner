@@ -32,4 +32,6 @@ const rootDirPath = findRootDir(ROOT_DIR_NAME, __dirname);
 // Absolute path to the source dotfiles
 const SOURCE_DIR_PATH = path.resolve(`${rootDirPath}/dotfiles/karabiner`);
 
+// TODO: Check whether `DESTINATION_DIR_PATH` exists before linking and fail gracefully, or create the dir `mkdir -p`
+
 link(SOURCE_DIR_PATH, DESTINATION_DIR_PATH);
