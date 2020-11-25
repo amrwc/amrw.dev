@@ -2,7 +2,7 @@
     /**
      * Frequently changed
      */
-    "workbench.colorTheme": "Quiet Light",
+    // "workbench.colorTheme": "Quiet Light",
     // "workbench.colorTheme": "Solarized Light",
     // "workbench.colorTheme": "Kimbie Dark",
     // "workbench.colorTheme": "Solarized Dark",
@@ -132,9 +132,7 @@
      * Extension: GitLens
      * https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
      */
-    // Removes annotations above code that throw off spacial awareness since they create an additional row
-    // https://github.com/eamodio/vscode-gitlens/issues/54
-    "gitlens.codeLens.enabled": false,
+    "gitlens.codeLens.enabled": false, // Disables the triple-dot above headers in Markdown, etc.
     "gitlens.defaultDateFormat": "D MMMM YYYY h:mma",
     "gitlens.menus": {
         "editor": {
@@ -201,6 +199,14 @@
      * https://marketplace.visualstudio.com/items?itemName=ban.spellright
      */
     "spellright.groupDictionaries": false,
+    "spellright.language": [
+        "en_GB"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
 
     /**
      * Extension: LaTeX Workshop
