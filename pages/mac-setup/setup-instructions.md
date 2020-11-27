@@ -84,26 +84,6 @@
    to work flawlessly is `12.10.0` (the disk image
    [can be found on GitHub](https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v12.10.0)).
 
-### Less important
-
-1. Set f.lux preferences.
-
-- Location: use the current city.
-- Daytime: full brightness (Normal (Daylight)).
-- Sunset: 3400K (Halogen).
-- Bedtime: 1600K.
-- In the dropdown from the menu bar:
-  - Options
-    - Check 'Fast transitions'.
-    - Uncheck 'Notifications from f.lux website'.
-    - Uncheck 'Backwards alarm clock'.
-  - Color effects
-    - Check 'OS X Dark theme at sunset'.
-
-1. Turn on English spell-checking in `Spell Right` in VS Code – press the 'dot
-   with halo' icon in the bottom-right corner and choose the language from the
-   list.
-
 ## Git
 
 - [create and add an SSH key to the account](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
@@ -255,6 +235,92 @@
       right.)
   - Startup and Window Behaviour
     - Open Spotify automatically after you log into the computer: No.
+
+## f.lux
+
+- Location: use the current city.
+- Daytime: full brightness (Normal (Daylight)).
+- Sunset: 3400K (Halogen).
+- Bedtime: 1600K.
+- In the dropdown from the menu bar:
+  - Options
+    - Check 'Fast transitions'.
+    - Uncheck 'Notifications from f.lux website'.
+    - Uncheck 'Backwards alarm clock'.
+  - Color effects
+    - Check 'OS X Dark theme at sunset'.
+
+## VS Code
+
+- Turn on English spell-checking in `Spell Right` in VS Code – press the 'dot
+  with halo' icon in the bottom-right corner and choose the language from the
+  list.
+
+## IntelliJ IDEA
+
+- Editor
+  - General
+    - Font
+      - Font: `Fira Code Retina`
+      - Size: `16`
+      - Uncheck 'Enable font ligatures'. It makes `!=` into `≠`, etc.
+- Keymap
+  - Move Caret to Page Bottom: `cmd + ↓, cmd + ↓`
+  - Move Caret to Page Top: `cmd + ↑, cmd + ↑`
+
+### Material UI
+
+- Appearance & Behaviour
+  - Material Theme
+    - Advanced Settings
+      - Tabs
+        - Font size: ``
+
+## Slack
+
+- Notifications
+  - My keywords: `<first_name>, <surname>, @here, @channel`.
+  - Notification schedule
+    - Allow notifications: `Weekdays` `8:00` to `19:00`
+  - Sound & appearance
+    - Check 'Mute all sounds from Slack'.
+    - Uncheck 'Show a badge on Slack's icon to indicate new activity'.
+    - Uncheck 'Bounce Slack's icon when receiving a notification'.
+  - When I'm not active on desktop...
+    - Send notifications to mobile devices:
+      `once I've been inactive for 5 minutes`.
+    - Uncheck 'Send me email notifications for mentions and direct messages'.
+- Sidebar
+  - Always show in the sidebar:
+    - All unreads
+    - Mentions & reactions
+    - Saved items
+- Themes
+  - Check 'Sync with OS settings'.
+  - Choose `Nocturne`.
+- Messages & media
+  - Emoji
+    - Uncheck 'Convert my typed emoticons to emoji, so :D becomes 😄'.
+    - Uncheck 'Show one-click reactions on messages'.
+- Accessibility
+  - Zoom
+    - Choose '125%'.
+  - Press `↑` in the empty message field to: `Edit your last message`.
+- Advanced
+  - Input options
+    - Check 'When typing code with ```, `Enter` should not send the message'.
+    - Check 'Format messages with markup'.
+  - When joining Slack call...
+    - Uncheck 'Set my status to "📞 On a call"'.
+    - Check 'Mute my microphone'.
+  - Other options
+    - Uncheck 'Ask if I want to toggle my away status when I log in after
+      having set myself away'.
+    - Uncheck 'Send me occasional channel suggestions via Slackbot'.
+    - Uncheck 'Send me occasional surveys via Slackbot'.
+    - Check 'Disable hardware acceleration'. Only use this if you make very few
+      calls on Slack, as it can greatly help with the screen-sharing and
+      drawing functionalities.
 
 ## System Preferences
 
