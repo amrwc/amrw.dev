@@ -161,3 +161,11 @@ youtube.com##.opened
 google.com###consent-bump
 google.com##.widget-consent-frame-container
 ```
+
+## Block the Google's cookie modal
+
+Add the following to uBlock Origin's 'My filters' tab:
+
+```console
+google.com##[id*="lb"]
+```
