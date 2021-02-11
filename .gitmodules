@@ -1,6 +1,0 @@
-[submodule "tools/page-rendering/mume"]
-	path = tools/page-rendering/mume
-	url = https://github.com/shd101wyy/mume.git
-[submodule "tools/page-rendering/github-markdown-css"]
-	path = tools/page-rendering/github-markdown-css
-	url = https://github.com/sindresorhus/github-markdown-css.git
