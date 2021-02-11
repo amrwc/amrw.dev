@@ -139,3 +139,11 @@ screen is unplugged).
 3. Tick `Mirror Displays` and untick it again.
 
 It's best to have a notification open to verify the fix.
+
+## Block the Google's cookie modal
+
+Add the following to uBlock Origin's 'My filters' tab:
+
+```console
+google.com##[id*="lb"]
+```
