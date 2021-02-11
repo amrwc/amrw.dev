@@ -2,7 +2,7 @@
     /**
      * Frequently changed
      */
-    // "workbench.colorTheme": "Quiet Light",
+    "workbench.colorTheme": "Quiet Light",
     // "workbench.colorTheme": "Solarized Light",
     // "workbench.colorTheme": "Kimbie Dark",
     // "workbench.colorTheme": "Solarized Dark",
@@ -40,21 +40,6 @@
     "workbench.quickOpen.closeOnFocusLost": false,
     "workbench.settings.editor": "json",
     "workbench.startupEditor": "none",
-
-    /**
-     * Miscellaneous
-     */
-    "mssql.connections": [
-        {
-            "server": "localhost",
-            "database": "",
-            "authenticationType": "SqlLogin",
-            "user": "sa",
-            "password": "",
-            "emptyPasswordInput": false,
-            "savePassword": true
-        }
-    ],
 
     /**
      * Languages settings
@@ -132,6 +117,7 @@
      * Extension: GitLens
      * https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
      */
+    "gitlens.codeLens.enabled": false, // Disables the triple-dot above headers in Markdown, etc.
     "gitlens.defaultDateFormat": "D MMMM YYYY h:mma",
     "gitlens.menus": {
         "editor": {
@@ -198,6 +184,14 @@
      * https://marketplace.visualstudio.com/items?itemName=ban.spellright
      */
     "spellright.groupDictionaries": false,
+    "spellright.language": [
+        "en_GB"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
 
     /**
      * Extension: LaTeX Workshop
@@ -265,14 +259,20 @@
     ],
 
     /**
-     * Visual Studio IntelliCode
+     * Extension: Visual Studio IntelliCode
      * https://marketplace.visualstudio.com/items?itemName=VisualStudioExptTeam.vscodeintellicode
      */
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 
     /**
-     * markdownlint
+     * Extension: markdownlint
      * https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint
      */
-    "markdownlint.run": "onSave"
+    "markdownlint.run": "onSave",
+
+    /**
+     * Extension: Markdown All in One
+     * https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one
+     */
+    "markdown.extension.orderedList.autoRenumber": false
 }

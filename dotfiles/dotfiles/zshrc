@@ -70,6 +70,9 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git colorize pip python brew osx)
 
+# Disable warning about unsecure completions
+ZSH_DISABLE_COMPFIX=true
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -103,6 +106,8 @@ source $ZSH/oh-my-zsh.sh
 
 # thefuck alias
 eval $(thefuck --alias)
+alias f="fuck"
+alias fy="fuck -y"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -122,14 +127,22 @@ export -f gluc > /dev/null 2>&1
 # Helps the GPG agent with commit signing
 export GPG_TTY=$(tty)
 
-# Load nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# NVM (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+# This loads nvm bash_completion
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
 
 #source /Users/am/Library/Preferences/org.dystroy.broot/launcher/bash/br
-#export PATH="/usr/local/opt/maven@3.2/bin:$PATH"
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+
+# Java
+#export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 #export JAVA_HOME="$(/usr/libexec/java_home -v 14)"
 
 # Maven
-export PATH=$PATH:/opt/apache-maven/bin
+#export PATH="/usr/local/opt/maven@3.2/bin:$PATH"
+#export PATH=$PATH:/opt/apache-maven/bin
+
+# Add timestamp to Zsh prompt
+PROMPT='%{$fg[magenta]%}[%D{%Y/%m/%f} %D{%H:%M:%S}] '$PROMPT
