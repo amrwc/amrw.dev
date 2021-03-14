@@ -1,8 +1,59 @@
 {
-    "title": "CAPS LOCK + [hjkl] => arrow keys",
+    "title": "Caps Lock",
     "rules": [
         {
-            "description": "CAPS LOCK + [hjkl] => arrow keys",
+            "description": "Caps Lock + n => return_or_enter",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "name": "caps_lock pressed",
+                            "type": "variable_if",
+                            "value": 1
+                        }
+                    ],
+                    "from": {
+                        "key_code": "n",
+                        "modifiers": {
+                            "optional": ["any"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "return_or_enter"
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "optional": ["any"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "set_variable": {
+                                "name": "caps_lock pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "to_after_key_up": [
+                        {
+                            "set_variable": {
+                                "name": "caps_lock pressed",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "description": "Caps Lock + [hjkl] => arrow keys",
             "manipulators": [
                 {
                     "type": "basic",
@@ -116,7 +167,7 @@
             ]
         },
         {
-            "description": "CAPS LOCK + FN + [hjkl] => scroll vertically or horizontally",
+            "description": "Caps Lock + FN + [hjkl] => scroll vertically or horizontally",
             "manipulators": [
                 {
                     "type": "basic",
