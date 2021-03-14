@@ -2,7 +2,58 @@
     "title": "Caps Lock",
     "rules": [
         {
-            "description": "Caps Lock + n => return_or_enter",
+            "description": "caps_lock + d => delete_or_backspace",
+            "manipulators": [
+                {
+                    "conditions": [
+                        {
+                            "name": "caps_lock pressed",
+                            "type": "variable_if",
+                            "value": 1
+                        }
+                    ],
+                    "from": {
+                        "key_code": "d",
+                        "modifiers": {
+                            "optional": ["any"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "delete_or_backspace"
+                        }
+                    ],
+                    "type": "basic"
+                },
+                {
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": {
+                            "optional": ["any"]
+                        }
+                    },
+                    "to": [
+                        {
+                            "set_variable": {
+                                "name": "caps_lock pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "to_after_key_up": [
+                        {
+                            "set_variable": {
+                                "name": "caps_lock pressed",
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "type": "basic"
+                }
+            ]
+        },
+        {
+            "description": "caps_lock + n => return_or_enter",
             "manipulators": [
                 {
                     "conditions": [
@@ -53,7 +104,7 @@
             ]
         },
         {
-            "description": "Caps Lock + [hjkl] => arrow keys",
+            "description": "caps_lock + (h,j,k,l) => (left,down,up,right)_arrow",
             "manipulators": [
                 {
                     "type": "basic",
@@ -167,7 +218,7 @@
             ]
         },
         {
-            "description": "Caps Lock + FN + [hjkl] => scroll vertically or horizontally",
+            "description": "caps_lock + fn + (h,j,k,l) => (left,down,up,right)_scroll",
             "manipulators": [
                 {
                     "type": "basic",
