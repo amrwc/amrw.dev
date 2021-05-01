@@ -1,7 +1,0 @@
-code --install-extension artdiniz.quitcontrol-vscode
-code --install-extension ban.spellright
-code --install-extension eamodio.gitlens
-code --install-extension esbenp.prettier-vscode
-code --install-extension shd101wyy.markdown-preview-enhanced
-code --install-extension VisualStudioExptTeam.vscodeintellicode
-code --install-extension wayou.vscode-todo-highlight
