@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OTP Generator</title>
-  </head>
-  <body>
-    <!-- https://github.com/jiangts/JS-OTP -->
-    <script src="jsOTP.js"></script>
-    <script>
-      const totp = new jsOTP.totp();
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>OTP Generator</title>
+    </head>
+    <body>
+        <!-- https://github.com/jiangts/JS-OTP -->
+        <script src="jsOTP.js"></script>
+        <script>
+            const totp = new jsOTP.totp();
 
-      const DEBUG = true;
+            const DEBUG = false;
 
-      function generateOTP() {
-        const totpSecretElement = document.getElementById('totp-secret');
-        DEBUG && console.log('totpSecretElement:', totpSecretElement);
-        const totpSecret = totpSecretElement.value;
-        DEBUG && console.log('totpSecret:', totpSecret);
-        const otp = totp.getOtp(totpSecret);
-        DEBUG && console.log('otp:', otp);
-        const otpElement = document.getElementById("otp");
-        DEBUG && console.log('otpElement:', otp);
-        otpElement.textContent = otp;
-      }
-    </script>
-    <div>
-      <input id="totp-secret" type="password" />
-    </div>
-    <div>
-      <span id="otp"></span>
-    </div>
-    <div>
-      <button onclick="generateOTP()">Generate OTP</button>
-      <button>Copy</button>
-    </div>
-  </body>
+            function generateOTP() {
+                const totpSecretElement = document.getElementById('totp-secret');
+                DEBUG && console.log('totpSecretElement:', totpSecretElement);
+                const totpSecret = totpSecretElement.value;
+                DEBUG && console.log('totpSecret:', totpSecret);
+                const otp = totp.getOtp(totpSecret);
+                DEBUG && console.log('otp:', otp);
+                const otpElement = document.getElementById('otp');
+                DEBUG && console.log('otpElement:', otp);
+                otpElement.textContent = otp;
+            }
+        </script>
+        <div>
+            <input id="totp-secret" type="password" />
+        </div>
+        <div>
+            <span id="otp"></span>
+            <button>Copy</button>
+        </div>
+        <div>
+            <button onclick="generateOTP()">Generate OTP</button>
+        </div>
+    </body>
 </html>
