@@ -19,14 +19,19 @@
                 const totpSecret = totpSecretEl.value;
                 DEBUG && console.log('totpSecret:', totpSecret);
 
+                const otpBlockEl = document.getElementById('otp-block');
+                DEBUG && console.log('otpBlockEl:', otpBlockEl);
+                if (!totpSecret) {
+                    otpBlockEl.hidden = true;
+                    return;
+                }
+
                 const otp = totp.getOtp(totpSecret);
                 DEBUG && console.log('otp:', otp);
                 const otpEl = document.getElementById('otp');
                 DEBUG && console.log('otpEl:', otpEl);
                 otpEl.textContent = otp;
 
-                const otpBlockEl = document.getElementById('otp-block');
-                DEBUG && console.log('otpBlockEl:', otpBlockEl);
                 otpBlockEl.hidden = false;
             }
 
