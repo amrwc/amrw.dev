@@ -18,14 +18,25 @@
                 DEBUG && console.log('totpSecretEl:', totpSecretEl);
                 const totpSecret = totpSecretEl.value;
                 DEBUG && console.log('totpSecret:', totpSecret);
+
                 const otp = totp.getOtp(totpSecret);
                 DEBUG && console.log('otp:', otp);
                 const otpEl = document.getElementById('otp');
                 DEBUG && console.log('otpEl:', otpEl);
                 otpEl.textContent = otp;
 
-                const otpBlockEl = document.getElementById("otp-block");
+                const otpBlockEl = document.getElementById('otp-block');
+                DEBUG && console.log('otpBlockEl:', otpBlockEl);
                 otpBlockEl.hidden = false;
+            }
+
+            async function copyOTP() {
+                const otpEl = document.getElementById('otp');
+                DEBUG && console.log('otpEl:', otpEl);
+                const otp = otpEl.textContent;
+                DEBUG && console.log('otp:', otp);
+
+                await navigator.clipboard.writeText(otp);
             }
         </script>
         <div>
@@ -34,7 +45,7 @@
         </div>
         <div id="otp-block" hidden="true">
             <span id="otp"></span>
-            <button>Copy</button>
+            <button onclick="copyOTP()">Copy</button>
         </div>
     </body>
 </html>
