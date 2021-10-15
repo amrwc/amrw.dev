@@ -7,7 +7,6 @@
         <title>OTP Generator</title>
     </head>
     <body>
-        <!-- https://github.com/jiangts/JS-OTP -->
         <script src="jsOTP.js"></script>
         <script>
             const totp = new jsOTP.totp();
@@ -15,26 +14,27 @@
             const DEBUG = false;
 
             function generateOTP() {
-                const totpSecretElement = document.getElementById('totp-secret');
-                DEBUG && console.log('totpSecretElement:', totpSecretElement);
-                const totpSecret = totpSecretElement.value;
+                const totpSecretEl = document.getElementById('totp-secret');
+                DEBUG && console.log('totpSecretEl:', totpSecretEl);
+                const totpSecret = totpSecretEl.value;
                 DEBUG && console.log('totpSecret:', totpSecret);
                 const otp = totp.getOtp(totpSecret);
                 DEBUG && console.log('otp:', otp);
-                const otpElement = document.getElementById('otp');
-                DEBUG && console.log('otpElement:', otp);
-                otpElement.textContent = otp;
+                const otpEl = document.getElementById('otp');
+                DEBUG && console.log('otpEl:', otpEl);
+                otpEl.textContent = otp;
+
+                const otpBlockEl = document.getElementById("otp-block");
+                otpBlockEl.hidden = false;
             }
         </script>
         <div>
             <input id="totp-secret" type="password" />
+            <button onclick="generateOTP()">Generate OTP</button>
         </div>
-        <div>
+        <div id="otp-block" hidden="true">
             <span id="otp"></span>
             <button>Copy</button>
-        </div>
-        <div>
-            <button onclick="generateOTP()">Generate OTP</button>
         </div>
     </body>
 </html>
