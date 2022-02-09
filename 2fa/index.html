@@ -13,6 +13,7 @@
             rel="icon"
             type="image/x-icon"
         />
+        <link rel="stylesheet" href="/static/style.css" />
     </head>
     <body>
         <script src="jsOTP.js"></script>
@@ -52,13 +53,15 @@
                 await navigator.clipboard.writeText(otp);
             }
         </script>
-        <div>
-            <input id="totp-secret" type="password" placeholder="TOTP secret" />
-            <button onclick="generateOTP()">Generate OTP</button>
-        </div>
-        <div id="otp-block" hidden="true">
-            <span id="otp"></span>
-            <button onclick="copyOTP()">Copy</button>
-        </div>
+        <main>
+            <div>
+                <input id="totp-secret" type="password" placeholder="TOTP secret" />
+                <button onclick="generateOTP()">Generate OTP</button>
+            </div>
+            <div id="otp-block" hidden="true">
+                <span id="otp"></span>
+                <button onclick="copyOTP()">Copy</button>
+            </div>
+        </main>
     </body>
 </html>

@@ -15,6 +15,12 @@
                 "printWidth": 79,
                 "proseWrap": "always"
             }
+        },
+        {
+            "files": "*.css",
+            "options": {
+                "singleQuote": false
+            }
         }
     ]
 }

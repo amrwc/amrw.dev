@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    --font-size: 1em;
+    --h1-font-size: 2em;
+    --main-padding: 1em 2em;
+    --main-width: 90vw;
+
+    --text-color: #121212;
+    --bg-color: #fff;
+    --highlight-color: #2749c9;
+}
+
+@media (prefers-color-scheme: dark) {
+    * {
+        --text-color: #dadada;
+        --bg-color: #141414;
+        --highlight-color: #ffc400;
+    }
+}
+
+body {
+    /* System-default fonts */
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+    font-size: var(--font-size);
+    color: var(--text-color);
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--highlight-color);
+}
+
+a:hover {
+    border-bottom: 1px solid;
+}
+
+main {
+    padding: var(--main-padding);
+    width: var(--main-width);
+    max-width: 80em;
+}
+
+h1 {
+    font-size: var(--h1-font-size);
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+@media screen and (width >= 668px) {
+    * {
+        --font-size: 1.25em;
+        --main-width: 80vw;
+    }
+}
+
+@media screen and (width >= 813px) {
+    * {
+        --font-size: 1.5em;
+        --main-padding: 2em 3em;
+    }
+}
+
+@media screen and (width >= 1200px) {
+    * {
+        --main-width: 70vw;
+    }
+}
