@@ -1,9 +1,19 @@
 {
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "printWidth": 119,
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "useTabs": false,
     "overrides": [
         {
-            "files": "*.json",
+            "files": "*.md",
             "options": {
-                "tabWidth": 4
+                "printWidth": 79,
+                "proseWrap": "always"
             }
         }
     ]
